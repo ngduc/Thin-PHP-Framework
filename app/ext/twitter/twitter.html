@@ -1,0 +1,27 @@
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+(function($) {
+	$(document).ready(function() {	
+		TPF.appendHead({
+			css : ['/app/ext/twitter/css/jquery.twitter.css'],
+			js  : ['/app/ext/twitter/js/jquery.twitter.js'],
+			callback : function() {				
+				$(document).ready(function() {
+					$("#twitter").getTwitter({
+						userName: "thinphp",
+						numTweets: 5,
+						loaderText: "Loading tweets...",
+						slideIn: false,
+						showHeading: true,
+						headingText: "Latest Tweets",
+						showProfileLink: true
+					});
+				});
+			}
+		});
+		$('#pageEditor').hide();
+	});
+})(jQuery);
+//--><!]]>
+</script>
+<div id="twitter"></div>

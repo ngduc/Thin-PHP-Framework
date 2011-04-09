@@ -1,0 +1,56 @@
+				<h2>Contact Us</h2>
+				<p>This demonstrates Form and server side Validation.</p>
+<script type="text/javascript">
+function validateContact() {	
+	// make ajax call to validate() function in ContactUs Controller	
+	$.ajax({
+		type: 'post',
+		url: '/contact-us/p/validate',		
+		dataType: 'json', data: $('#cform').serialize(),
+		success: function (rets) {			
+			var countRets = TPF.countJSON(rets);			
+			if (countRets > 0)
+			{
+				TPF.setFormError('#cform', '', ''); // clear errors
+				for (var i = 0; i < countRets; i++) {
+					var err = rets[i];
+					if (err['field'] == 'recaptcha') {
+						$('#recaptchaErr').html(err['msg']);
+						Recaptcha.reload();
+						continue;
+					}
+					TPF.setFormError('#cform', err['field'], err['msg']);
+					if (i == 0) TPF.focusField('#cform', err['field']); // focus 1st error field
+				}
+			}
+			else {
+				TPF.delaySubmit('#cform', 300); // delay submit() to avoid flooding
+				return true;
+			}
+		}
+	});
+	return false;
+}
+</script>
+<form id="cform" name="cform" action="/contact-us" method="post" onsubmit="return validateContact()">
+	<input name="ftoken" type="hidden" value="{$ftoken}">
+
+<div id="contactForm">
+	<span>Name</span>
+	<input name="name" type="text" /><span class="fmsg"></span>
+	<span>Email</span>
+	<input name="email" type="text" /><span class="fmsg"></span>
+	<span>Opt-in Mailing list <input name="optin" class="fcheckbox" type="checkbox"></span>
+	
+	<span>Message</span>
+	<textarea name="msg"></textarea><span class="fmsg"></span>
+
+		<span>reCAPTCHA extension:</span>
+		{get_url url="/recaptcha"}<span class="fmsg" id="recaptchaErr"></span>
+
+	<input id="contactSubmit" name="contactSubmit" type="submit" value="Submit"><span></span>	
+</div>
+</form>
+<script type="text/javascript">
+	TPF.focusField('#cform', 'name');
+</script>

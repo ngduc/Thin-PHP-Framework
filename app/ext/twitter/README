@@ -1,0 +1,30 @@
+Thin PHP Framework (TPF) 2011 http://thinphp.com
+
+Licensed under TPF License at http://bit.ly/TPFLicense
+Redistributions of files must retain the above copyright notice.
+
+@link          http://thinphp.com
+@package       app.ext.twitter
+@license       TPF License http://bit.ly/TPFLicense
+================================================================
+
+Extension:	Twitter
+Description:	Show tweets from a Twitter user
+Author:		Damien du Toit - http://j.mp/5qQk
+Version:	0.1 - 04/01/2011
+License:	Creative Commons Attribution-Non-Commercial 3.0 Unported License - http://j.mp/5YkCL
+
+View classes:
+		None
+Images:
+		css/jquery.twitter_loader.gif
+CSS:
+		css/jquery.twitter.css
+Javascripts:
+		js/jquery/jquery.twitter.js
+
+================================================================
+INSTALL
+
+================================================================
+USAGE:

@@ -1,0 +1,30 @@
+Thin PHP Framework (TPF) 2011 http://thinphp.com
+
+Licensed under TPF License at http://bit.ly/TPFLicense
+Redistributions of files must retain the above copyright notice.
+
+@link          http://thinphp.com
+@package       app.ext.recaptcha
+@license       TPF License http://bit.ly/TPFLicense
+================================================================
+
+Extension:	reCaptcha
+Description:	Google recaptcha to prevent scripts, bots to fill in web forms
+Author:		Thin PHP Framework Team
+Version:	0.1 - 04/01/2011
+License:	Google License - http://www.google.com/recaptcha/terms
+
+View classes:
+		None
+Images:
+		None
+CSS:
+		None
+Javascripts:
+		None
+
+================================================================
+INSTALL
+
+================================================================
+USAGE:

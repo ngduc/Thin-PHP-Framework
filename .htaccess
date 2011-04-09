@@ -1,0 +1,33 @@
+SetEnv APPLICATION_ENV development
+Options +FollowSymLinks
+RewriteEngine on
+ErrorDocument 404 /app/smarty_view/view/404.html
+ErrorDocument 500 /app/smarty_view/view/500.html
+
+### Deny access for Config Files
+<Files ~ "\.(inc|sql)$">
+  order allow,deny
+  deny from all
+</Files>
+<Files app_config.php>
+  order allow,deny
+  deny from all
+</Files>
+
+### if just "/" => to Home Controller
+RewriteRule ^/?$ dispatcher.php?controller=home [L]
+
+###
+# from /anything to /dispatcher.php?controller=/$1
+# except request to a files, or below directories:
+
+RewriteCond $1 !^(tool|web|files)
+RewriteCond %{REQUEST_URI} !((.*)\.(.*))$
+RewriteRule ^(.*)$ dispatcher.php?controller=/$1 [NC,L]
+
+###
+# for relative paths
+# from img/... goto web/img/... OR css/... goto web/css/... OR js/... web/goto js/...
+# or: you can use: RewriteRule ^img/(.*) web/img/$2 [L]
+
+RewriteRule ^(img|css|js)/(.*) web/$1/$2 [L,QSA]

@@ -1,0 +1,30 @@
+Thin PHP Framework (TPF) 2011 http://thinphp.com
+
+Licensed under TPF License at http://bit.ly/TPFLicense
+Redistributions of files must retain the above copyright notice.
+
+@link          http://thinphp.com
+@package       app.ext.editor
+@license       TPF License http://bit.ly/TPFLicense
+================================================================
+
+Extension:	editor
+Description:	jquery WYSIWYG text editor
+Author:		Juan M Martínez
+Version:	0.1 - 04/01/2011
+License:	N/A
+
+View classes:
+		None
+Images:
+		js/*
+CSS:
+		js/*
+Javascripts:
+		js/*
+
+================================================================
+INSTALL
+
+================================================================
+USAGE:

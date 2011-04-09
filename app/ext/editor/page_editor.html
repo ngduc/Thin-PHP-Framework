@@ -1,0 +1,34 @@
+<span onclick="$('#pageEditor').toggle()" style="border: 1px solid; padding: 3px; cursor: pointer;">Edit this page</span>
+<div id="pageEditor">
+<form name="jwForm" action="/page-editor" method="POST">
+	<input type="hidden" name="viewFile" value="{$viewFile}">
+	<textarea id="jwEditor" name="jwEditor" rows="20" cols="80">{$viewContent}</textarea>
+	<br/>
+	<input type="submit" value="   Update   ">
+</form>
+<script type="text/javascript">	
+(function($) {
+	$(document).ready(function() {
+		TPF.appendHead({
+			css : ['/app/ext/editor/js/jquery.wysiwyg.css'],
+			js  : [
+				'/app/ext/editor/js/jquery.wysiwyg.js',
+				'/app/ext/editor/js/controls/wysiwyg.image.js',
+				'/app/ext/editor/js/controls/wysiwyg.link.js',
+				'/app/ext/editor/js/controls/wysiwyg.table.js'],
+			callback : function() {
+				$('#jwEditor').wysiwyg({
+					rmUnwantedBr: true, brIE: true,
+					controls: {
+						html: {visible: true}
+					}
+				});
+				
+			}
+		});
+		$('#pageEditor').hide();
+	});
+})(jQuery);
+</script>
+</div>
+<p/>

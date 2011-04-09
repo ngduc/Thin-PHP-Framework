@@ -1,0 +1,65 @@
+/* --- Common --- */
+
+/* --- Contact Form --- */
+#contactForm span {
+	display: block;
+	margin-top: 10px;
+}
+#contactForm input {
+	width: 300px;
+	height: 20px;
+	margin-right: 10px;
+}
+#contactForm textarea {
+	margin-right: 10px;
+}
+#contactForm .fcheckbox {
+	width: 20px;
+	vertical-align: bottom;
+}
+#contactForm textarea {
+	width: 400px;
+	height: 150px;
+}
+#contactForm #contactSubmit {
+	display: block;
+	width: 80px;
+	height: 25px;	
+	margin-top: 10px;
+	border: solid 1px #ccc;
+}
+#contactForm #contactSubmit:hover {	
+	border: solid 1px #777;
+}
+#contactForm .fmsg {
+	display: inline;
+	font-size: 1.1em;
+	color: darkred;
+	background-color: #ffdddd;	
+}
+
+/* --- Signin Form --- */
+#signinForm span {
+	display: block;
+	margin-top: 10px;
+}
+#signinForm input {
+	width: 150px;
+	height: 20px;
+}
+#signinForm #signinSubmit {	
+	display: block;
+	width: 80px;
+	height: 25px;
+	margin-top: 15px;
+	border: solid 1px #ccc;
+}
+#signinForm #signinSubmit:hover {	
+	border: solid 1px #777;
+}
+#signinForm .fmsg {
+	display: inline;
+	font-size: 1.1em;
+	color: darkred;
+	background-color: #ffdddd;	
+}
