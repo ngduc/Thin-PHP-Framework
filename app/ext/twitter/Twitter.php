@@ -1,5 +1,5 @@
 <?php
-//defined('BASE') or exit('Direct script access is not allowed!');
+defined('BASE') or exit('Direct script access is not allowed!');
 
 class Twitter extends BaseController
 {	

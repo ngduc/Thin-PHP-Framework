@@ -19,22 +19,23 @@ var TPF = {
 		}
 	},
 	appendHead: function(o)
-	{
+	{		
 		var count = 0;
 		var scriptTag, linkTag;
 		var scriptFiles = o.js;
+		var scriptFilesLength = scriptFiles.length;
 		var cssFiles = o.css;
 		var head = document.getElementsByTagName('head')[0];
 
 		for (var k in cssFiles) {
-			linkTag = document.createElement('link');			
+			var linkTag = document.createElement('link');			
 			linkTag.type = 'text/css';
 			linkTag.rel = 'stylesheet';
 			linkTag.href = cssFiles[k];
 			head.appendChild(linkTag);
 		}
 		for (var k in scriptFiles) {
-			scriptTag = document.createElement('script');
+			var scriptTag = document.createElement('script');
 			scriptTag.type = 'text/javascript';
 			if (typeof o.callback == "function") {		
 				if (scriptTag.readyState) {  //IE				
@@ -42,13 +43,15 @@ var TPF = {
 		                if (scriptTag.readyState == "loaded" || scriptTag.readyState == "complete"){
 		                    //scriptTag.onreadystatechange = null;
 		                    count++;
-							if (count == scriptFiles.length) o.callback.call();
+							if (count == scriptFilesLength) o.callback.call();
 		                }
 	            	};
 	            } else { // other browsers
 					scriptTag.onload = function() {
-						count++;
-						if (count == scriptFiles.length) o.callback.call();			
+						count++;						
+						if (count == scriptFilesLength) {
+							o.callback.call();
+						}
 					}
 				}
 			}

@@ -12,7 +12,7 @@
  */
 	defined('BASE') or exit('Direct script access is not allowed!');	
 	
-	define('BASEVIEW', BASE.'/app/smarty_view/view');
+	define('BASEVIEW', BASE.'/app/smarty_view');
 	define('BASEEXT', BASE.'/app/ext');
 	
 	require_once BASE.'/app/constants.php';

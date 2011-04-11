@@ -23,11 +23,11 @@ abstract class BaseController
 	{
 		$this->smarty = new Smarty();
 			
-		// configure Smarty with Relative Paths (from '/dispatcher.php')
-		$this->smarty->setTemplateDir('app/smarty_view/view');
-		$this->smarty->setCompileDir ('app/smarty_view/view_cached');
-		$this->smarty->setCacheDir   ('app/smarty_view/cache');
-		$this->smarty->setConfigDir  ('app/smarty_view/configs');
+		// configure Smarty with Relative Paths (from '/dispatcher.php')		
+		$this->smarty->setTemplateDir('app/smarty_view');
+		$this->smarty->setConfigDir  ('app/conf/smarty_config');
+		$this->smarty->setCacheDir   ('app/appdata/smarty_cache'); // writable
+		$this->smarty->setCompileDir ('app/appdata/smarty_compiled'); // writable
 	}
 	
 	public function handle($params)

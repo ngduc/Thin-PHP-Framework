@@ -1,8 +1,8 @@
 SetEnv APPLICATION_ENV development
 Options +FollowSymLinks
 RewriteEngine on
-ErrorDocument 404 /app/smarty_view/view/404.html
-ErrorDocument 500 /app/smarty_view/view/500.html
+ErrorDocument 404 /app/smarty_view/404.html
+ErrorDocument 500 /app/smarty_view/500.html
 
 ### Deny access for Config Files
 <Files ~ "\.(inc|sql)$">
