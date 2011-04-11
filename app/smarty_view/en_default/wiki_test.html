@@ -1,0 +1,42 @@
+==Wiki Test Page==
+This is a '''Wiki Test Page'''. It shows you how '''Wiki2html Extension''' parses wiki syntax.
+
+
+* Support MediaWiki syntax
+* Support SyntaxHighlighter
+Below is an example to demonstrate SyntaxHighlighter extension:
+<pre class="brush: js">
+/**
+ * SyntaxHighlighter example: Javascript
+ */
+function foo()
+{
+    if (counter <= 10) {
+        return; // it works!
+	}    
+}
+</pre>
+'''SyntaxHighlighter Extension''' also supports CSS, XML, SQL, PHP, etc.
+
+<pre class="brush: css">
+.sampleCSS {
+	color: #00f;
+}
+</pre>
+Below is an example of PHP code highlighting
+
+<pre class="brush: php">
+&lt;?php
+	function foo(&$var) {
+	    $var++;
+	}
+	$a=5;
+	foo($a); // $a is 6 here
+?&gt;
+</pre>
+
+
+===References:===
+
+# [http://www.mediawiki.org/wiki/Help:Formatting MediaWiki syntax]
+# [http://thinphp.com Thin PHP Framework official website]
