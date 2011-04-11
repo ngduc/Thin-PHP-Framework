@@ -1,4 +1,4 @@
-function initBrushes() {
+function shBrushAllInit() {
 	// ============================================================================================================================ //
 	// CSS
 	typeof(require) != 'undefined' ? SyntaxHighlighter = require('shCore').SyntaxHighlighter : null;
