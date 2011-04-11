@@ -1,0 +1,21 @@
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+(function($) {
+	$(document).ready(function() {
+		TPF.appendHead({
+			css : ['/app/ext/syntaxhighlighter/css/shCore.css',
+				   '/app/ext/syntaxhighlighter/css/shThemeDefault.css'],
+			js  : ['/app/ext/syntaxhighlighter/js/shBrushAll.js',
+				   '/app/ext/syntaxhighlighter/js/shCore.js'
+				   ],
+			callback : function() {
+				$(document).ready(function() {
+					initBrushes();
+					SyntaxHighlighter.all();					
+				});
+			}
+		});
+	});
+})(jQuery);
+//--><!]]>
+</script>
