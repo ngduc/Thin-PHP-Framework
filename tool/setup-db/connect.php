@@ -7,7 +7,7 @@
 
 	// ------ DB ------ //
 	function connect_DB()
-	{
+	{		
 		return DBFactory::getDBHandler();
 	}
 

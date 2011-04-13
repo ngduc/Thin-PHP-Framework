@@ -1,0 +1,15 @@
+<h3>{$title}</h3>
+
+{$content}
+
+<br/>&nbsp;<br/>
+<a href="/blog">Go Back</a>
+<form method="post">
+	<input type="hidden" name="postId" value="{$postId}">
+			
+	<input type="text" name="title" size="60" value="{$title}">
+	<p/>
+	<textarea name="content" cols="70" rows="10" style="margin-top:10px">{$content}</textarea>
+	<p/>
+	<input type="submit" value="  Update  ">
+</form>

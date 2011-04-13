@@ -12,9 +12,19 @@ function currentViewDir()
 
 function file_get_contents_with_vars($fpath, $arrKeyValue)
 {
+	foreach ($arrKeyValue as $k => $val) {
+		if (is_numeric($k)) continue;
+		if ($k != '' && $k[0] != '{') {
+			$arr['{$'.$k.'}'] = $val;
+		}
+		else {
+			$arr[$k] = $val;
+		}
+	}	
+	
 	$content = file_get_contents($fpath);	
 	if ($content === false) return '';	
-	foreach ($arrKeyValue as $k => $val) {
+	foreach ($arr as $k => $val) {
 		$content = str_replace($k, $val, $content);
 	}	
 	return $content;

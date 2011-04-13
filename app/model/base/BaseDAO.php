@@ -43,17 +43,23 @@ class BaseDAO implements IBaseDao
 	public function getAll()
 	{
 		if ($this->dbh == null) return;
-		$sql = 'SELECT * FROM '.$this->table;
-		$res = $this->dbh->query($sql);
-		return $res->fetchAll();
+		$sql = 'SELECT * FROM '.$this->table;		
+		$queryRes = $this->dbh->query($sql);
+		if ($queryRes != null) {
+			return $queryRes->fetchAll();
+		}
+		return null;
 	}
 	
 	public function countAll()
 	{
 		if ($this->dbh == null) return;
 		$sql = 'SELECT COUNT(*) FROM '.$this->table;
-		$res = $this->dbh->query($sql);
-		return $res->fetchColumn();
+		$queryRes = $this->dbh->query($sql);
+		if ($queryRes != null) {
+			return $queryRes->fetchColumn();
+		}
+		return 0;
 	}
 
 	public function getById($id)
@@ -61,8 +67,12 @@ class BaseDAO implements IBaseDao
 		if ($this->dbh == null) return;
 		$sql = 'SELECT * FROM '.$this->table.' WHERE '.$this->table.'Id = :id';
 		$stmt = $this->dbh->prepare($sql);
-		$stmt->execute(array(':id'=>$id));
-		return $q->fetchAll();
+		$stmt->execute(array(':id'=>$id));		
+		$res = $stmt->fetchAll();		
+		if ($res != null && count($res) >0) {
+			return $res[0];
+		}
+		return null;
 	}
 			
 	public function removeById($id)
@@ -84,10 +94,11 @@ class BaseDAO implements IBaseDao
 		return;
 	}
 	
-	public function update($obj)
+	public function update($updateClause)
 	{
-		// will be implemented by extending classes
-		return;
+		$sql = 'UPDATE '.$this->table.' SET '.$updateClause;
+		$stmt = $this->dbh->prepare($sql);
+		$stmt->execute();
 	}
 }
 ?>

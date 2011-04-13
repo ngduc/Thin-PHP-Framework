@@ -6,8 +6,8 @@
 		case DB_PDO_MYSQL:
 			$sqlfile = 'prepare_tables_mysql.sql'; break;
 		case DB_PDO_SQLITE:
-			$sqlfile = 'prepare_tables_sqlite.sql'; break;		
-	}
+			$sqlfile = 'prepare_tables_sqlite.sql'; break;
+	}	
 	$dbh->setAttribute(PDO::ATTR_EMULATE_PREPARES,false); // to use $dbh->errorInfo() for prepare()
 
 	if ($arr = @file($sqlfile))		// Do this if file exists
@@ -27,7 +27,7 @@
 		{
 			if (strlen($query) < 10) continue;
 
-			$stmt = $dbh->prepare($query.';');			
+			$stmt = $dbh->prepare($query.';');
 			if (!$stmt) {
 			    $erri = $dbh->errorInfo();
 			}

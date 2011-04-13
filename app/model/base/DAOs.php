@@ -11,6 +11,7 @@
  * @license       TPF License http://bit.ly/TPFLicense
  */
 defined('BASE') or exit('Direct script access is not allowed!');
+
 require_once BASE.'/app/model/UserDAO.php';
 
 /**
@@ -18,8 +19,10 @@ require_once BASE.'/app/model/UserDAO.php';
  */
 abstract class DAOs
 {
-	// Singleton pattern. We only create one instance per DAO.	
-	private static $_userDAO;	
+	// Singleton pattern. We only create one instance per DAO.
+	private static $_DAOs;
+	
+	private static $_userDAO;
 	
 	/**
 	 * @return UserDAO
@@ -32,6 +35,22 @@ abstract class DAOs
 			return self::$_userDAO;
 		}
 		return self::$_userDAO;
+	}
+	
+	public static function getDAO($daoClass)
+	{
+		if ( !isset(self::$_DAOs["$daoClass"]) )
+		{
+			$daoPath = BASE."/app/model/$daoClass.php";			
+			if (file_exists($daoPath)) {				
+				require_once BASE."/app/model/$daoClass.php";
+				self::$_DAOs["$daoClass"] = new $daoClass();				
+				return self::$_DAOs["$daoClass"];
+			} else {
+				return null;
+			}
+		}
+		return self::$_DAOs["$daoClass"];
 	}
 }
 ?>

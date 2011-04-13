@@ -24,7 +24,7 @@ class UserList extends BaseController
 						);			
 			// #TODO: implement UserDao.create($newUser) instead.
 			$dbNow = date( 'Y-m-d H:i:s' );
-			$dao->execute("INSERT INTO user(firstName, lastName, username, email, createdTime)
+			$dao->execute("INSERT INTO user(firstName, lastName, username, email, createTime)
 						VALUES(:firstName, :lastName, :username, :email, '$dbNow')", $newUser->getFields());
 		}
 		

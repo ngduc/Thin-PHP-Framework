@@ -15,6 +15,9 @@
 		//--- Authentication extension
 			'/sign-in' => array('ext/authentication', 'SignIn'),
 			'/sign-out' => array('ext/authentication', 'SignOut'),
+
+		//--- Blog
+			'/blog' => array('ext/blog', 'Blog'),
 			
 		//--- Editor
 			'/page-editor' => array('ext/editor', 'Editor'),
