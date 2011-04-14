@@ -5,14 +5,16 @@ require_once BASE.'/app/model/base/BaseBO.php';
 /**
  * Auto generated Model Class represents table 'post' 
  * @author: Thin PHP Framework
- * @date: 2011-04-12 22:09
+ * @date: 2011-04-14 03:29
  */
 class Post extends BaseBO
 {
 	private $fields;
 	private $postId;
+	private $authorId;
 	private $title;
 	private $description;
+	private $content;
 	private $allowComment;
 	private $updateTime;
 	private $createTime;
@@ -38,8 +40,10 @@ class Post extends BaseBO
 	{
 		$this->fields = $fields;
 		$this->postId = $fields['postId'];
+		$this->authorId = $fields['authorId'];
 		$this->title = $fields['title'];
 		$this->description = $fields['description'];
+		$this->content = $fields['content'];
 		$this->allowComment = $fields['allowComment'];
 		$this->updateTime = $fields['updateTime'];
 		$this->createTime = $fields['createTime'];
@@ -58,6 +62,13 @@ class Post extends BaseBO
 		$this->postId = $postId;
 	}
 
+	public function getAuthorId() {
+		return $this->authorId;
+	}
+	public function setAuthorId($authorId) {
+		$this->authorId = $authorId;
+	}
+
 	public function getTitle() {
 		return $this->title;
 	}
@@ -70,6 +81,13 @@ class Post extends BaseBO
 	}
 	public function setDescription($description) {
 		$this->description = $description;
+	}
+
+	public function getContent() {
+		return $this->content;
+	}
+	public function setContent($content) {
+		$this->content = $content;
 	}
 
 	public function getAllowComment() {
@@ -100,7 +118,7 @@ class Post extends BaseBO
 	 */
 	public function toStr()
 	{
-		return ''.':'.$this->postId.':'.$this->title.':'.$this->description.':'.$this->allowComment.':'.$this->updateTime.':'.$this->createTime;
+		return ''.':'.$this->postId.':'.$this->authorId.':'.$this->title.':'.$this->description.':'.$this->content.':'.$this->allowComment.':'.$this->updateTime.':'.$this->createTime;
 	}
 }
 ?>

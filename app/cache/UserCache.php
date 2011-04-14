@@ -12,7 +12,7 @@ abstract class UserCache
 	public static function init()
 	{
 		self::$cache = new CMemCache(); // set your favourite cache here
-		self::$dao = DAOs::getUserDAO();
+		self::$dao = DAOs::getDAO('UserDAO');
 	}
 	
 	public static function findAll()

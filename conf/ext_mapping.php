@@ -18,6 +18,7 @@
 
 		//--- Blog
 			'/blog' => array('ext/blog', 'Blog'),
+			'/blog-admin' => array('ext/blog', 'Blog', array('admin')),
 			
 		//--- Editor
 			'/page-editor' => array('ext/editor', 'Editor'),

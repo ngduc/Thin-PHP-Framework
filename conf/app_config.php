@@ -34,8 +34,8 @@
 		'env_production' => array(
 			'dbdriver' => DB_PDO_MYSQL,
 			'host'     => 'localhost',
-			'username' => 'root',//'mysqluser',
-			'password' => 'slimer',//'mysqlpassword',
+			'username' => 'mysqluser',
+			'password' => 'mysqlpassword',
 			'dbname'   => 'thinphp'
 		)
 	);

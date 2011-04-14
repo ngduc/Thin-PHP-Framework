@@ -20,7 +20,7 @@
 		}
 	}
 	echo "<textarea cols=120 rows=20>$sql</textarea><p/>";
-		
+
 	$arr = explode (";", $sql);
 	try {
 		foreach ($arr as $query)

@@ -21,7 +21,6 @@ function file_get_contents_with_vars($fpath, $arrKeyValue)
 			$arr[$k] = $val;
 		}
 	}	
-	
 	$content = file_get_contents($fpath);	
 	if ($content === false) return '';	
 	foreach ($arr as $k => $val) {
@@ -61,7 +60,4 @@ function v($smartyView)
 	}
 	return $app_i['default_view'].'/'.$smartyView;
 }
-
-
-
 ?>

@@ -13,7 +13,8 @@ class BlogEdit
 	public static function show($id)
 	{
 		$dao = DAOs::getDAO('PostDAO');
-		$post = $dao->getById($id);
+		$post = $dao->getById($id);		
+		$post['content'] = html_entity_decode($post['content']);
 		
 		$html = file_get_contents_with_vars(BASEEXT.'/blog/BlogEdit_inc.html', $post);
 		return $html;

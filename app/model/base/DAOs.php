@@ -20,27 +20,17 @@ require_once BASE.'/app/model/UserDAO.php';
 abstract class DAOs
 {
 	// Singleton pattern. We only create one instance per DAO.
-	private static $_DAOs;
-	
-	private static $_userDAO;
+	private static $_DAOs;	
 	
 	/**
-	 * @return UserDAO
+	 * Get a DAO handler.
+	 * Example: $dao = getDAO('UserDAO');
+	 * @return DAO handler
 	 */
-	public static function getUserDAO()
-	{
-		if ( !isset(self::$_userDAO) )
-		{
-			self::$_userDAO = new UserDAO();
-			return self::$_userDAO;
-		}
-		return self::$_userDAO;
-	}
-	
 	public static function getDAO($daoClass)
 	{
 		if ( !isset(self::$_DAOs["$daoClass"]) )
-		{
+		{			
 			$daoPath = BASE."/app/model/$daoClass.php";			
 			if (file_exists($daoPath)) {				
 				require_once BASE."/app/model/$daoClass.php";
@@ -52,5 +42,15 @@ abstract class DAOs
 		}
 		return self::$_DAOs["$daoClass"];
 	}
+		
+//	public static function getUserDAO()
+//	{
+//		if ( !isset(self::$_userDAO) )
+//		{
+//			self::$_userDAO = new UserDAO();
+//			return self::$_userDAO;
+//		}
+//		return self::$_userDAO;
+//	}
 }
 ?>

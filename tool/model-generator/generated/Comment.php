@@ -5,13 +5,15 @@ require_once BASE.'/app/model/base/BaseBO.php';
 /**
  * Auto generated Model Class represents table 'comment' 
  * @author: Thin PHP Framework
- * @date: 2011-04-12 22:09
+ * @date: 2011-04-14 03:29
  */
 class Comment extends BaseBO
 {
 	private $fields;
 	private $commentId;
+	private $postId;
 	private $title;
+	private $content;
 	private $authorName;
 	private $authorEmail;
 	private $authorURL;
@@ -41,7 +43,9 @@ class Comment extends BaseBO
 	{
 		$this->fields = $fields;
 		$this->commentId = $fields['commentId'];
+		$this->postId = $fields['postId'];
 		$this->title = $fields['title'];
+		$this->content = $fields['content'];
 		$this->authorName = $fields['authorName'];
 		$this->authorEmail = $fields['authorEmail'];
 		$this->authorURL = $fields['authorURL'];
@@ -64,11 +68,25 @@ class Comment extends BaseBO
 		$this->commentId = $commentId;
 	}
 
+	public function getPostId() {
+		return $this->postId;
+	}
+	public function setPostId($postId) {
+		$this->postId = $postId;
+	}
+
 	public function getTitle() {
 		return $this->title;
 	}
 	public function setTitle($title) {
 		$this->title = $title;
+	}
+
+	public function getContent() {
+		return $this->content;
+	}
+	public function setContent($content) {
+		$this->content = $content;
 	}
 
 	public function getAuthorName() {
@@ -127,7 +145,7 @@ class Comment extends BaseBO
 	 */
 	public function toStr()
 	{
-		return ''.':'.$this->commentId.':'.$this->title.':'.$this->authorName.':'.$this->authorEmail.':'.$this->authorURL.':'.$this->authorIP.':'.$this->point.':'.$this->isApproved.':'.$this->createTime;
+		return ''.':'.$this->commentId.':'.$this->postId.':'.$this->title.':'.$this->content.':'.$this->authorName.':'.$this->authorEmail.':'.$this->authorURL.':'.$this->authorIP.':'.$this->point.':'.$this->isApproved.':'.$this->createTime;
 	}
 }
 ?>

@@ -7,7 +7,7 @@ class UserList extends BaseController
 {
 	public function view()
 	{
-		$dao = DAOs::getUserDAO();
+		$dao = DAOs::getDAO('UserDAO');
 		
 		if (isset($this->params[0]) && trim($this->params[0])=='remove')
 		{

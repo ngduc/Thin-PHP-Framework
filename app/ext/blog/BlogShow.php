@@ -10,7 +10,7 @@ class BlogShow
 		
 		$html = file_get_contents_with_vars(BASEEXT.'/blog/BlogShow_inc.html', array(
 							'{$postTitle}' => $post['title'],
-							'{$postContent}' => $post['content']));
+							'{$postContent}' => html_entity_decode($post['content']) ));
 
 		$html .= '<br/>&nbsp;<br/><a href="javascript:history.go(-1)">Go Back</a>';
 		return $html;

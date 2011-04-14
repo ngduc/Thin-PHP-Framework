@@ -13,25 +13,32 @@ class Blog extends BaseController
 	{
 		parent::processPOST();
 		BlogEdit::update();
-		header('Location: '.$_SERVER['HTTP_REFERER']);		
+		header('Location: '.$_SERVER['HTTP_REFERER']);
 	}
 	
 	private function processAction($dao, $v)
 	{
-		if ( !isset($this->params[0])) $action = 'list'; // default action
-		$action = trim($this->params[0]);
+		if ( !isset($this->params[0])) {
+				$action = 'list'; // default action
+		} else {
+			$action = trim($this->params[0]);
+		}		
 		
-		if ($action == 'show' || $action == 'edit')
+		if ( in_array($action, array('list','show','edit')) )
 		{
-			$id = trim(sanitize_str($this->params[1]));			
-			if ($action == 'show') {		
-				$html = BlogShow::show($id);
+			if ($action == 'list') {
+				$html = BlogList::show();
+			} else {
+				$id = trim(sanitize_str($this->params[1]));
+				if ($action == 'show') {
+					$html = BlogShow::show($id);
+				}
+				else {
+					$html = BlogEdit::show($id);
+				}
 			}
-			else {
-				$html = BlogEdit::show($id);
-			}			
 			$v->assign('inc_content', 'blank.html');
-			$v->assign('content', $html);		
+			$v->assign('content', $html);
 		}
 		else {
 			if ($action == 'remove')
@@ -56,7 +63,7 @@ class Blog extends BaseController
 			}
 			$posts = $dao->getAll();
 			
-			$v->assign('inc_content', BASEEXT.'/blog/BlogList_inc.html');
+			$v->assign('inc_content', BASEEXT.'/blog/Admin_inc.html');
 	        $v->assign('posts', $posts);
 	        $v->assign('totalPosts', $dao->countAll());
 	        $v->assign('content', '');
