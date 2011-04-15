@@ -11,6 +11,13 @@ function isLocalhost()
 	return false;
 }
 
+function isDemoMode()
+{
+	global $app_i;
+	if ($app_i['demo_mode']  == 1) return true;
+	return false;
+}
+
 function formatControllerName($name)
 {
 	$name[0] = strtoupper($name[0]); 		// uppercase the first char

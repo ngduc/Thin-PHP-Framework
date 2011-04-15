@@ -1,6 +1,6 @@
 <?php
 defined('BASE') or exit('Direct script access is not allowed!');
-require_once BASE.'/app/ext/recaptcha/recaptcha-php-1.11/recaptchalib.php';
+require_once BASE.'/app/ext/recaptcha/src/recaptchalib.php';
 
 class ReCaptcha extends BaseController
 {

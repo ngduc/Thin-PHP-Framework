@@ -4,7 +4,7 @@
 @rem *** PHP MUST BE INSTALLED TO USE THIS SCRIPT
 
 @echo off
-echo --- generating MODEL CLASSES from DB...
+echo --- generating MODEL CLASSES from MYSQL DB...
 echo.
 php generate.php
 

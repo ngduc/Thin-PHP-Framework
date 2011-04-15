@@ -12,17 +12,27 @@ class Blog extends BaseController
 	public function processPOST()
 	{
 		parent::processPOST();
-		BlogEdit::update();
-		header('Location: '.$_SERVER['HTTP_REFERER']);
+		if (isset($_POST['form'])) {
+			if ($_POST['form'] == 'edit')
+			{
+				BlogEdit::update();
+			}
+			else if ($_POST['form'] == 'comment')				
+			{				
+				BlogComment::update();
+			}
+			header('Location: '.$_SERVER['HTTP_REFERER']);
+		}
 	}
 	
 	private function processAction($dao, $v)
-	{
+	{		
 		if ( !isset($this->params[0])) {
 				$action = 'list'; // default action
 		} else {
 			$action = trim($this->params[0]);
-		}		
+		}
+		$err = '';
 		
 		if ( in_array($action, array('list','show','edit')) )
 		{
@@ -38,19 +48,22 @@ class Blog extends BaseController
 				}
 			}
 			$v->assign('inc_content', 'blank.html');
-			$v->assign('content', $html);
+			$v->assign('content', $html);			
 		}
 		else {
 			if ($action == 'remove')
-			{
+			{				
 				// ex: requesting: /blog/p/delete/2
 				$id = trim(sanitize_str($this->params[1]));
-				$dao->removeById($id);
+				if (isDemoMode() && $id == 1) $err = '<span id="msgWarn">Demo Mode: removing entry #1 is not allowed!</span>';
+				if ($err == '') {
+					$dao->removeById($id);
+				}
 			}
 			else if ($action == 'add')
 			{
 				$randNum = mt_rand(0, 99999);
-				$dbNow = date( 'Y-m-d H:i:s' );			
+				$dbNow = date( 'Y-m-d H:i:s' );
 				$newPost = new Post(
 								array('title' => 'Blog entry '.$randNum,
 									'description' => 'description '.$randNum,
@@ -63,7 +76,8 @@ class Blog extends BaseController
 			}
 			$posts = $dao->getAll();
 			
-			$v->assign('inc_content', BASEEXT.'/blog/Admin_inc.html');
+			$v->assign('inc_content', BASEEXT.'/blog/view/Admin_inc.html');
+			$v->assign('err', $err);
 	        $v->assign('posts', $posts);
 	        $v->assign('totalPosts', $dao->countAll());
 	        $v->assign('content', '');

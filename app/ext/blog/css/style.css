@@ -1,0 +1,105 @@
+#commentTotal {
+	display: block;
+	color: #d77;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border-bottom: dotted 1px;
+}
+#commentBox {
+	border: solid 1px #ddd;
+	padding: 10px;
+	padding-bottom: 0px;
+	margin: 10px;	
+	width: 600px;
+	min-height: 90px;
+}
+#commentAvatar {
+	float: right;
+	border: solid 1px #ddd;
+	width: 80px;
+	height: 80px;
+	background: #eff;
+}
+#commentTime {
+	font-size: 0.9em;
+	color: #ddd;
+	float: right;
+	margin-right: 10px;
+}
+
+/* --- Edit Form --- */
+#blogeditForm span {
+	display: block;
+	margin-top: 10px;
+}
+#blogeditForm input {
+	width: 200px;
+	height: 20px;
+	margin-right: 10px;
+}
+#blogeditForm textarea {
+	margin-right: 10px;
+}
+#blogeditForm .fcheckbox {
+	width: 20px;
+	vertical-align: bottom;
+}
+#blogeditForm textarea {
+	width: 600px;
+	height: 100px;
+	margin-top: 10px;
+}
+#blogeditForm #blogeditSubmit {
+	display: block;
+	width: 120px;
+	height: 25px;	
+	margin-top: 10px;
+	border: solid 1px #ccc;
+}
+#blogeditForm #blogeditSubmit:hover {	
+	border: solid 1px #777;
+}
+#blogeditForm .fmsg {
+	display: inline;
+	font-size: 1.1em;
+	color: darkred;
+	background-color: #ffdddd;	
+}
+
+/* --- Comment Form --- */
+#commentForm span {
+	display: block;
+	margin-top: 10px;
+}
+#commentForm input {
+	width: 200px;
+	height: 20px;
+	margin-right: 10px;
+}
+#commentForm textarea {
+	margin-right: 10px;
+}
+#commentForm .fcheckbox {
+	width: 20px;
+	vertical-align: bottom;
+}
+#commentForm textarea {
+	width: 600px;
+	height: 100px;
+}
+#commentForm #commentSubmit {
+	display: block;
+	width: 120px;
+	height: 25px;	
+	margin-top: 10px;
+	border: solid 1px #ccc;
+}
+#commentForm #commentSubmit:hover {	
+	border: solid 1px #777;
+}
+#commentForm .fmsg {
+	display: inline;
+	font-size: 1.1em;
+	color: darkred;
+	background-color: #ffdddd;	
+}

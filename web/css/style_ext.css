@@ -1,5 +1,11 @@
 /* --- Common --- */
-
+#msgWarn {
+	background-color: #F0E68C;
+}
+#msgErr {
+	color: darkred;
+	background-color: #ffdddd;
+}
 /* --- Contact Form --- */
 #contactForm span {
 	display: block;

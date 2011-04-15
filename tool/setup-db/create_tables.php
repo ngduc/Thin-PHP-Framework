@@ -33,6 +33,7 @@
 			}
 			else {
 				$stmt->execute();
+				//echo $stmt->debugDumpParams();
 			}
 			$queryName = left_from($query, '(').' - done!'; // ex: query = CREATE TABLE `category` (...	
 			echo "$queryName <span style='color: #f00'>$erri[2]</span> <p/>";

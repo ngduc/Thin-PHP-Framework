@@ -1,0 +1,28 @@
+<h3>Blog - Admin</h3>
+{$err}
+{if !empty($posts)}
+<table>
+	<tr>
+		<th>Id</th>
+		<th>Title</th>
+		<th>Description</th>
+		<th>Create Date</th>
+		<th>Action</th>
+	</tr>
+{foreach item=p from=$posts}
+	<tr class="{cycle values="rowA,rowB"}">
+		<td>{$p.postId}</td>
+		<td><a href="/blog/p/show/{$p.postId}">{$p.title}</a></td>
+		<td>{$p.description}</td>
+		<td>{$p.createTime}</td>
+		<td>
+			{if $p.postId neq 1}
+				<a href="/blog/p/edit/{$p.postId}">Edit</a> | <a href="/blog/p/remove/{$p.postId}">Remove</a>
+			{/if}
+		</td>
+	</tr>
+{/foreach}
+</table>
+{/if}
+<p><a href="/blog/p/add">Add a blog entry</a></p>
+<p>Total {$totalPosts} post(s)</p>

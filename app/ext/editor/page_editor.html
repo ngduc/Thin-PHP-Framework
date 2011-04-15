@@ -6,6 +6,7 @@
 	<br/>
 	<input type="submit" value="   Update   ">
 </form>
+
 <script type="text/javascript">	
 (function($) {
 	$(document).ready(function() {
@@ -16,7 +17,7 @@
 				'/app/ext/editor/js/controls/wysiwyg.image.js',
 				'/app/ext/editor/js/controls/wysiwyg.link.js',
 				'/app/ext/editor/js/controls/wysiwyg.table.js'],
-			callback : function() {
+			jsFilesLoaded : function() {
 				$('#jwEditor').wysiwyg({
 					rmUnwantedBr: true, brIE: true,
 					controls: {

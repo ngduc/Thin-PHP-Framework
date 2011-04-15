@@ -16,7 +16,7 @@ class BlogEdit
 		$post = $dao->getById($id);		
 		$post['content'] = html_entity_decode($post['content']);
 		
-		$html = file_get_contents_with_vars(BASEEXT.'/blog/BlogEdit_inc.html', $post);
+		$html = file_get_contents_with_vars(BASEEXT.'/blog/view/BlogEdit_inc.html', $post);
 		return $html;
 	}
 }

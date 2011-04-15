@@ -24,7 +24,7 @@ class MathCaptcha extends BaseController
 	
 	public function view()
 	{
-		require_once BASE.'/app/ext/mathcaptcha/image.php';
+		require_once BASE.'/app/ext/mathcaptcha/src/image.php';
 	}
 }
 ?>

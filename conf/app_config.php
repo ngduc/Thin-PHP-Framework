@@ -11,14 +11,13 @@
  * @license       TPF License http://bit.ly/TPFLicense
  */
 
-	// The following parameters must be changed to your settings!
-
 	// App Info
-	$app_i = array(		
+	$app_i = array(	
 		'default_view'	=> 'en_default',
 		'flood_limit'	=> 0,
 		'cache'		=> CC_NOCACHE,
-		'md5salt'	=> 'MyR@nd0mStr1ng'
+		'md5salt'	=> 'MyR@nd0mStr1ng',
+		'demo_mode'	=> 1
 	);
 	
 	// Database Info - change here, then setup: run http://yourwebapp/tools/setup-db

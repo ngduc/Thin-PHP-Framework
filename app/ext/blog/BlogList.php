@@ -13,10 +13,13 @@ class BlogList
 		foreach ($posts as $post)
 	    {
 	    	$p = new Post($post);
-			$html .= '<h3>'.$p->getTitle().'</h3>'.$p->getContent().'<p/>';
+			$listHTML .= '<h3>'.$p->getTitle().'</h3>'.html_entity_decode($p->getContent()).'<p/>';
+			$listHTML .= '	<span id="commentTime">'.$p->getCreateTime().'</span><br/>';
+			$listHTML .= '<a style="font-size: 0.9em" href="/blog/p/show/'.$p->getPostId().'">more...</a>';
 	    }
-
-		$html .= '<br/>&nbsp;<br/><a href="/blog-admin">Blog Admin</a>';
+	    
+	    $html = file_get_contents_with_vars(BASEEXT.'/blog/view/BlogList_inc.html', array(
+							'{$listHTML}' => $listHTML ));
 		return $html;
 	}
 }

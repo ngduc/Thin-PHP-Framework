@@ -12,7 +12,7 @@ class WikiTest extends BaseController
 		$s = SyntaxHighlighter::process($s);
 		
         $v = $this->smarty;
-        $v->assign('inc_content', 'blank.html');
+        $v->assign('inc_content', v('wiki_test_footer.html'));
         $v->assign('content', $s);
         $this->display($v, v('index.html'));
 	}
