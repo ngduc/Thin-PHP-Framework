@@ -1,0 +1,21 @@
+<b>Below are all demo blog entries. Feel free to try Add/Edit/Delete entries in</b>
+<a href="/blog-admin" style="border: dotted 1px; padding: 5px;">Blog Admin</a><p/>
+
+{if !empty($posts)}
+	{foreach item=p from=$posts}
+		<h3>{$p.title}</h3>{$p.content}<p/>
+		<span id="commentTime">{$p.createTime}</span><br/>
+		<a style="font-size: 0.9em" href="/blog/p/show/{$p.postId}">more...</a>
+	{/foreach}
+{/if}
+
+<script type="text/javascript">	
+(function($) {
+	$(document).ready(function() {
+		TPF.appendHead({
+			css : ['/app/ext/blog/css/style.css'],
+			js  : [''], jsFilesLoaded : function() { }
+		});
+	});
+})(jQuery);
+</script>

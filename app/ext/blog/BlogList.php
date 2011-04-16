@@ -3,24 +3,23 @@ defined('BASE') or exit('Direct script access is not allowed!');
 require_once BASE.'/app/model/Post.php';
 require_once BASE.'/app/model/base/DAOs.php';
 
-class BlogList
+class BlogList extends BaseController
 {
-	public static function show()
+	public function view()
 	{
 		$dao = DAOs::getDAO('PostDAO');
 		$posts = $dao->getAll();
 
-		foreach ($posts as $post)
-	    {
-	    	$p = new Post($post);
-			$listHTML .= '<h3>'.$p->getTitle().'</h3>'.html_entity_decode($p->getContent()).'<p/>';
-			$listHTML .= '	<span id="commentTime">'.$p->getCreateTime().'</span><br/>';
-			$listHTML .= '<a style="font-size: 0.9em" href="/blog/p/show/'.$p->getPostId().'">more...</a>';
-	    }
-	    
-	    $html = file_get_contents_with_vars(BASEEXT.'/blog/view/BlogList_inc.html', array(
-							'{$listHTML}' => $listHTML ));
-		return $html;
+		for ($i = 0, $cnt = count($posts); $i < $cnt; $i++) {			
+			$content = html_entity_decode($posts[$i]['content']);
+			$content = str_replace("\n", '<br/>', $content);
+			$posts[$i]['content'] = $content;
+		}
+		
+		$v = $this->smarty;
+		$v->setTemplateDir(BASEEXT.'/blog/view');
+		$v->assign('posts', $posts);
+        $this->display($v, 'blog_list_inc.html');
 	}
 }
 ?>

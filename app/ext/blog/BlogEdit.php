@@ -1,23 +1,30 @@
 <?php
 defined('BASE') or exit('Direct script access is not allowed!');
 
-class BlogEdit
+class BlogEdit extends BaseController
 {
-	public static function update($fv)
-	{
+	public function processPOST()
+	{		
+		parent::processPOST();
+
 		copy_fields($_POST, $fv, F_ENCODE, 'postId', 'title', 'content');
 		$dao = DAOs::getDAO('PostDAO');
 		$dao->update("title = '$fv[title]', content = '$fv[content]' WHERE postId = $fv[postId]");
 	}
-	
-	public static function show($id)
+
+	public function view()
 	{
-		$dao = DAOs::getDAO('PostDAO');
-		$post = $dao->getById($id);		
-		$post['content'] = html_entity_decode($post['content']);
+		if ($this->isPosting()) return $this->processPOST();
 		
-		$html = file_get_contents_with_vars(BASEEXT.'/blog/view/BlogEdit_inc.html', $post);
-		return $html;
+		$postId = $this->params[0];
+		$dao = DAOs::getDAO('PostDAO');
+		$post = $dao->getById($postId);
+		$post['content'] = html_entity_decode($post['content']);
+
+		$v = $this->smarty;
+		$v->setTemplateDir(BASEEXT.'/blog/view');
+		$v->assign('post', $post);		
+        $this->display($v, 'blog_edit_inc.html');
 	}
 }
 ?>

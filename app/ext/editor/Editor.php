@@ -30,7 +30,9 @@ class Editor extends BaseController
 				$viewPath = BASEVIEW.'/'.currentViewDir().'/'.$viewToEdit;
 				if (file_exists($viewPath)) {					
 					$viewContent = file_get_contents($viewPath);
-				}				
+					
+					if (isDemoMode()) $viewContent .= "<p/><b>Demo Mode: This page is set to readonly to prevent vandalism.</b>";
+				}
 				$html = file_get_contents_with_vars(BASEEXT.'/editor/page_editor.html', array(
 							'{$viewFile}' => $viewToEdit,
 							'{$viewContent}' => $viewContent));

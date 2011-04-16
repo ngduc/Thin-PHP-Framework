@@ -141,9 +141,9 @@ abstract class BaseController
 		return array('controller', $name, $params);
 	}
 	
-	public static function callExtension($ext, $className, $params)
+	public static function callController($ctrPath, $className, $params)
 	{
-		$fullpath = BASE.'/app/ext/'.$ext.'/'.$className.'.php';		
+		$fullpath = $ctrPath.'/'.$className.'.php';
 		if (file_exists($fullpath))
 		{
 			ob_start();

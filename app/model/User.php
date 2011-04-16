@@ -9,18 +9,18 @@ require_once BASE.'/app/model/base/BaseBO.php';
  */
 class User extends BaseBO
 {
-	private $fields;
-	private $userId;
-	private $email;
-	private $username;
-	private $password;
-	private $oauthProvider;
-	private $oauthUid;
-	private $oauthUsername;
-	private $firstName;
-	private $lastName;
-	private $website;
-	private $createTime;
+	protected $fields;
+	protected $userId;
+	protected $email;
+	protected $username;
+	protected $password;
+	protected $oauthProvider;
+	protected $oauthUid;
+	protected $oauthUsername;
+	protected $firstName;
+	protected $lastName;
+	protected $website;
+	protected $createTime;
 
 
 	/**
@@ -39,7 +39,7 @@ class User extends BaseBO
 	 * Initialize the business object with data read from the DB.
 	 * @param row array containing one read record.
 	 */
-	private function init($fields)
+	protected function init($fields)
 	{
 		$this->fields = $fields;
 		$this->userId = $fields['userId'];

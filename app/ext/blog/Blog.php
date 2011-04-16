@@ -15,20 +15,20 @@ class Blog extends BaseController
 		if (isset($_POST['form'])) {
 			if ($_POST['form'] == 'edit')
 			{
-				BlogEdit::update();
+				BaseController::callController(BASEEXT.'/blog', 'BlogEdit');
 			}
-			else if ($_POST['form'] == 'comment')				
-			{				
-				BlogComment::update();
+			else if ($_POST['form'] == 'comment')
+			{
+				BaseController::callController(BASEEXT.'/blog', 'BlogShow');
 			}
 			header('Location: '.$_SERVER['HTTP_REFERER']);
 		}
 	}
-	
+
 	private function processAction($dao, $v)
 	{		
 		if ( !isset($this->params[0])) {
-				$action = 'list'; // default action
+			$action = 'list'; // default action
 		} else {
 			$action = trim($this->params[0]);
 		}
@@ -37,18 +37,19 @@ class Blog extends BaseController
 		if ( in_array($action, array('list','show','edit')) )
 		{
 			if ($action == 'list') {
-				$html = BlogList::show();
-			} else {
-				$id = trim(sanitize_str($this->params[1]));
+				$html = BaseController::callController(BASEEXT.'/blog', 'BlogList');
+			}
+			else {
+				$postId = trim(sanitize_str($this->params[1]));				
 				if ($action == 'show') {
-					$html = BlogShow::show($id);
+					$html = BaseController::callController(BASEEXT.'/blog', 'BlogShow', array($postId));
 				}
-				else {
-					$html = BlogEdit::show($id);
+				else if ($action == 'edit') {
+					$html = BaseController::callController(BASEEXT.'/blog', 'BlogEdit', array($postId));					
 				}
 			}
 			$v->assign('inc_content', 'blank.html');
-			$v->assign('content', $html);			
+			$v->assign('content', $html);
 		}
 		else {
 			if ($action == 'remove')
@@ -69,14 +70,13 @@ class Blog extends BaseController
 									'description' => 'description '.$randNum,
 									'content' => 'content '.$randNum,
 									'createTime' => $dbNow)
-							);			
-				// #TODO: implement UserDao.create($newUser) instead.			
+							);				
 				$dao->execute("INSERT INTO post(title, description, content, createTime)
 							VALUES(:title, :description, :content, :createTime)", $newPost->getFields());
 			}
 			$posts = $dao->getAll();
 			
-			$v->assign('inc_content', BASEEXT.'/blog/view/Admin_inc.html');
+			$v->assign('inc_content', BASEEXT.'/blog/view/admin_inc.html');
 			$v->assign('err', $err);
 	        $v->assign('posts', $posts);
 	        $v->assign('totalPosts', $dao->countAll());

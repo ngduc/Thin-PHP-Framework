@@ -5,7 +5,7 @@ class SyntaxHighlighter
 {	
 	public static function process($str)
 	{
-		$inc = file_get_contents(BASEEXT.'/syntaxhighlighter/inc_view.html');
+		$inc = file_get_contents(BASEEXT.'/syntaxhighlighter/view_inc.html');
 		
 		$ret = $str.$inc;
 		return $ret;

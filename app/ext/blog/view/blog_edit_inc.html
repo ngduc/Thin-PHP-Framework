@@ -1,0 +1,31 @@
+<h3>{$post.title}</h3>
+
+{$post.content}
+
+<br/>&nbsp;<br/>
+
+<div id="blogeditForm">
+	<form method="post">
+		<input type="hidden" name="postId" value="{$post.postId}">
+		<input type="hidden" name="form" value="edit">
+
+		<span>Title</span>
+		<input type="text" name="title" size="60" value="{$post.title}">
+		<p/>
+		<textarea name="content">{$post.content}</textarea>
+		<br/>
+		<input type="submit" id="blogeditSubmit" value="Update">
+	</form>
+</div>
+<a href="/blog-admin">Go Back</a>
+
+<script type="text/javascript">	
+(function($) {
+	$(document).ready(function() {
+		TPF.appendHead({
+			css : ['/app/ext/blog/css/style.css'],
+			js  : [''], jsFilesLoaded : function() { }
+		});
+	});
+})(jQuery);
+</script>
