@@ -34,7 +34,10 @@ CREATE INDEX [idx_authorId] ON [post] ([authorId]);
 DROP TABLE IF EXISTS [comment];
 CREATE TABLE [comment] (
   [commentId] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-  [postId] INTEGER NOT NULL CONSTRAINT [fk_postId_postId] REFERENCES [post]([postId]),
+  [type] smallint NOT NULL,
+  [itemId] INTEGER NOT NULL,
+  [replyToId] INTEGER,
+  [weight] DOUBLE NOT NULL,
   [title] VARCHAR(200),
   [content] TEXT,
   [authorName] VARCHAR(50),
@@ -46,4 +49,3 @@ CREATE TABLE [comment] (
   [updateTime] DATETIME,
   [createTime] DATETIME NOT NULL
 );
-CREATE INDEX [idx_postId] ON [comment] ([postId]);

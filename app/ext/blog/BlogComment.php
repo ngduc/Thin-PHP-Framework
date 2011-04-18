@@ -4,38 +4,95 @@ require_once BASE.'/app/model/Comment.php';
 
 class BlogComment extends BaseController
 {
-	public function processPOST()
+	public function validate($retType)
 	{
+		parent::validate($retType);
+		copy_fields($_POST, $fv, F_ENCODE, 'name', 'email', 'content');
+
+		if (trim($fv['name']) == '') {
+			$rets[] = array('msg' => 'Please enter your name!', 'field' => 'name');
+		}
+		if (filter_var($fv['email'], FILTER_VALIDATE_EMAIL) === FALSE) {
+    		$rets[] = array('msg' => 'Invalid email!', 'field' => 'email');
+        }
+        if (trim($fv['content']) == '') {
+			$rets[] = array('msg' => 'Please enter content!', 'field' => 'content');
+		}
+		if (isset($rets)) {
+	        if (isset($retType) && $retType == RT_JSON) {
+	        	return header_json($rets);
+	        } else {
+	        	return $rets;
+	        }
+	    }
+	}
+	
+	public function processPOST()
+	{		
 		parent::processPOST();
 
-		copy_fields($_POST, $fv, F_ENCODE, 'postId', 'name', 'email', 'content');
+		copy_fields($_POST, $fv, F_ENCODE, 'itemId', 'replyToId', 'name', 'email', 'content', 'parentCommentWeight');
 		$dao = DAOs::getDAO('CommentDAO');
 
 		// #TODO: validate here...
 		if (trim($fv['content']) != '')
 		{
+			$parentW = $fv['parentCommentWeight'];
+			
 			$dbNow = date( 'Y-m-d H:i:s' );
 			$newComment = new Comment(
-								array('postId' => $fv['postId'],
+								array('itemId' => $fv['itemId'],
+										'replyToId' => $fv['replyToId'],
 										'authorName' => $fv['name'],
 										'authorEmail' => $fv['email'],
 										'content' => $fv['content'],
+										'weight' => '0',
 										'createTime' => $dbNow)
 								);
-			$dao->execute("INSERT INTO comment(postId, authorName, authorEmail, content, createTime)
-						VALUES(:postId, :authorName, :authorEmail, :content, :createTime)", $newComment->getFields());			
+			$dao->execute("INSERT INTO comment(type, itemId, replyToId, weight, authorName, authorEmail, content, createTime)
+						VALUES(1, :itemId, :replyToId, :weight, :authorName, :authorEmail, :content, :createTime)", $newComment->getFields());
+			
+			// update new Comment's Weight
+			$weight = 0;			
+			$newId = $dao->getDbHandler()->lastInsertId();			
+			if ($parentW == '') {
+				$weight = $newId;
+			}
+			else {
+				if (strpos($parentW.'', '.') === false) {
+					$weight = (double)($parentW.'.01');
+				} else {
+					$r = $dao->getLastComment($fv['replyToId']);
+					if ($r == null) {	// no child comment
+						$weight = $parentW.'01';
+					}
+					else {
+						$lw = $r['weight'];		// last comment's weight, ex: 2.09				
+						$floor_lw = floor($lw);	// = 2
+						$sRemainder = fmod($lw, $floor_lw).''; // 2.22 % 2 = 0.09							
+						$sRemainder = str_replace('0.', '1', $sRemainder); // = '109'
+						$weight = $sRemainder + 1;	// = 110
+						$sRemainderNew = substr($weight.'',	1); // '10'
+						$weight = $floor_lw.'.'.$sRemainderNew;	// = 2.10
+					}								
+				}
+			}			
+			$dao->update('weight = ? WHERE commentId = ?', array($weight, $newId));
 		}
 	}
 	
 	public function view()
-	{		
+	{
+		if ($this->isValidating()) return $this->validate(RT_JSON);
 		if ($this->isPosting()) return $this->processPOST();
 		
-		$postId = $this->params[0];
-		$dao = DAOs::getDAO('CommentDAO');
+		$itemId = $this->params[0];
+		$dao = DAOs::getDAO('CommentDAO');		
+		$comments = $dao->getComments(1, $itemId);
 		
-		$comments = $dao->getByPostId($postId);
-		for ($i = 0, $cnt = count($comments); $i < $cnt; $i++) {
+		// prepare Comments for the View
+		for ($i = 0, $cnt = count($comments); $i < $cnt; $i++)
+		{
 			$cmt = $comments[$i];
 			$stEmail = trim($cmt['authorEmail']);
 			if ($stEmail != '') {
@@ -44,6 +101,14 @@ class BlogComment extends BaseController
 			$content = html_entity_decode($cmt['content']);
 			$content = str_replace("\n", '<br/>', $content);
 			$comments[$i]['content'] = $content;
+			
+			$sWeight = $cmt['weight'].''; // calculate indent (for left-margin) from weight
+			if (strpos($sWeight, '.') === false) {
+				$comments[$i]['indent'] = 0;
+			} else {
+				$sWeight = substr($sWeight, strpos($sWeight, '.')+1);				
+				$comments[$i]['indent'] = strlen($sWeight)/2;
+			}
 		}
 
 		$v = $this->smarty;
@@ -51,7 +116,7 @@ class BlogComment extends BaseController
 
 		$v->assign('commentTotal', count($comments));
 		$v->assign('comments', $comments);
-		$v->assign('postId', $postId);
+		$v->assign('itemId', $itemId);
         $this->display($v, 'blog_comment_inc.html');
 	}
 }

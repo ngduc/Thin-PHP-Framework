@@ -15,8 +15,8 @@ CREATE TABLE `user` (
     `createTime` datetime NOT NULL,  
     PRIMARY KEY (`userId`)
 ) ENGINE=InnoDB  COLLATE=utf8_general_ci ;
-CREATE UNIQUE INDEX `username` ON `user` (`username`);
-CREATE UNIQUE INDEX `email` ON `user` (`email`);
+CREATE UNIQUE INDEX `idx_username` ON `user` (`username`);
+CREATE UNIQUE INDEX `idx_email` ON `user` (`email`);
 
 DROP TABLE `post`;
 CREATE TABLE `post` (
@@ -36,19 +36,21 @@ CREATE TABLE `post` (
 DROP TABLE `comment`;
 CREATE TABLE `comment` (
   `commentId` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `postId` int(11) unsigned NOT NULL,
+  `type` smallint NOT NULL,
+  `itemId` int(11) unsigned NOT NULL,
+  `replyToId` int(10) unsigned,
+  `weight` double NOT NULL,
   `title` varchar(200) DEFAULT NULL,
   `content` TEXT NULL,
   `authorName` varchar(50) DEFAULT NULL,
   `authorEmail` varchar(100) DEFAULT NULL,
   `authorURL` varchar(200) DEFAULT NULL,
-  `authorIP` varchar(40) DEFAULT NULL,
+  `authorIP` varchar(40) DEFAULT NULL,  
   `point` int(11) DEFAULT NULL,
   `isApproved` int(11) DEFAULT NULL,
+  `updateTime` datetime DEFAULT NULL,
   `createTime` datetime NOT NULL,
-  PRIMARY KEY (`commentId`),
-  KEY `postId` (`postId`),
-  CONSTRAINT `fk_postId_postId` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`)
+  PRIMARY KEY (`commentId`)  
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 SET FOREIGN_KEY_CHECKS=1;

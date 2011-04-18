@@ -1,35 +1,69 @@
 {if !empty($comments)}
 	<p/><span id="commentTotal">{$commentTotal} User Comment(s):</span>
 
-	{foreach item=c from=$comments}
-		<div id="commentBox">			
+	{foreach item=c from=$comments name=comments}
+		<div id="commentBox" style="margin-left: {($c.indent)*40}px;">
 			<div id="commentAvatar">{$c.gravatarImg}</div>
-			<span id="commentTime">{$c.createTime}</span>
+			<span id="commentFooter">						
+				<span id="comment{$smarty.foreach.comments.iteration}">#{$smarty.foreach.comments.iteration} </span>
+				<span id="commentTime">{$c.createTime}</span>
+				{if $c.indent le 5}				
+				<span id="commentReplyLink"><a href="#commentForm" onclick="onReplyTo({$smarty.foreach.comments.iteration}, {$c.commentId}, {$c.weight})">Reply this</a></span>
+				{/if}
+				<span id="commentReplyLink">| <a href="#commentForm" onclick="onReplyTo(0, 0, 0)">Reply all</a></span>&nbsp;				
+			</span>
 			<h4>{$c.authorName}</h4>
 			{$c.content}			
 		</div>
 	{/foreach}
 {/if}
 
+<script type="text/javascript">
+function validateComment() {
+	$.ajax({
+		type: 'post',
+		url: '/blog-comment/p/validate',
+		dataType: 'json', data: $('#cmtForm').serialize(),
+		success: function (rets) {
+			//TPF.dump(rets[0]);
+			var countRets = TPF.countJSON(rets);
+			TPF.setFormError('#cmtForm', '', ''); // clear errors
+			if (countRets > 0)
+			{
+				TPF.setFormError('#cmtForm', 'content', rets[0]['msg']);
+				TPF.focusField('#cmtForm', rets[0]['field']);
+			} else {
+				TPF.delaySubmit('#cmtForm', 300);	// delay submit() to avoid flooding
+				return true;
+			}
+		}
+	});
+	return false;
+}
+</script>
 <div id="commentForm">
-	<form id="cmtForm" action="/blog" method="post">
-		<input type="hidden" name="postId" value="{$postId}">
+	<form id="cmtForm" action="/blog" method="post" onsubmit="return validateComment()">
+		<input type="hidden" name="itemId" value="{$itemId}">
+		<input type="hidden" name="replyToId" id="replyToId" value="">
+		<input type="hidden" name="parentCommentWeight" id="parentCommentWeight" value="">
 		<input type="hidden" name="form" value="comment">
 
 		<div>
 			<div style="float: left">
 				<span>Name:</span>
-				<input type="text" name="name">
+				<input type="text" name="name" id="commentAuthorName">
 			</div>
 			<div style="float: left">
-				<span>Email:</span>
+				<span>Email: <font size='0.9em'> (will not be published)</font></span>
 				<input type="text" name="email">
+			</div>
+			<div style="float: left">				
+				<span id="commentReplyNote" style="display: none"></span>
 			</div>
 		</div>
 		<div style="clear: both"></div>
 		<span>Your comment:</span>
-		<textarea name="content"></textarea>
-		<span></span>
+		<textarea name="content"></textarea><br/><span class="fmsg"></span>
 		<input id="commentSubmit" name="commentSubmit" type="submit" value=" Post Comment ">
 	</form>
 </div>
@@ -43,4 +77,25 @@
 		});
 	});
 })(jQuery);
+
+function onReplyTo(cmtIndex, cmtId, weight)
+{
+	if (cmtIndex == 0) {		
+		setNormalComment();
+		return;
+	}
+	var iconCancel = "data:image/gif;base64,R0lGODlhDgAOALMAAF9iYbG1s4uNiqCiod7e33Z5d5aYlvP088nKyWpsbOrp6qqsqoGEgfz+/NTT1JSSlCH5BAAAAAAALAAAAAAOAA4AAwRusEnpQnBnapTKe0WBaM2SGEO6DEUwOcnjGLSBsIQkFEOjCILcQGBoHDo8n5DBPCgAgERiIQmEQopjtJDzMUKMDKMjpBKYvQanuCgwegPGSBIXMICCB4M6OSzyKQ8CCxkkFTQBXRpOBAQOjwRZGREAOw==";
+	$('#commentReplyNote').show();
+	$('#commentReplyNote').html('<a href="#commentForm" onclick="setNormalComment()"><img src="'+iconCancel+'"></a> Replying to <a href="#comment'+cmtIndex+'">#' + cmtIndex+'</a>');
+	$('#replyToId').val(cmtId);
+	$('#parentCommentWeight').val(weight);
+	$('#commentAuthorName').focus();
+}
+function setNormalComment()
+{
+	$('#commentReplyNote').hide();
+	$('#replyToId').val('');
+	$('#parentCommentWeight').val('');
+	$('#commentAuthorName').focus();
+}
 </script>

@@ -39,6 +39,11 @@ class BaseDAO implements IBaseDao
 		return $this->lastSQL;
 	}
 	
+	public function getDbHandler()
+	{
+		return $this->dbh;
+	}
+	
 	public function execute($sql, $paramArr)
 	{		
 		if ($this->dbh == null) return;
@@ -103,11 +108,11 @@ class BaseDAO implements IBaseDao
 		return;
 	}
 	
-	public function update($updateClause)
+	public function update($updateClause, $arr)
 	{
 		$sql = 'UPDATE '.$this->table.' SET '.$updateClause;
 		$stmt = $this->dbh->prepare($sql);
-		$stmt->execute();
+		$stmt->execute($arr);
 	}
 }
 ?>

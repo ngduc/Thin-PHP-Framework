@@ -5,9 +5,9 @@ function validateContact() {
 	// make ajax call to validate() function in ContactUs Controller	
 	$.ajax({
 		type: 'post',
-		url: '/contact-us/p/validate',		
+		url: '/contact-us/p/validate',
 		dataType: 'json', data: $('#cform').serialize(),
-		success: function (rets) {			
+		success: function (rets) {
 			var countRets = TPF.countJSON(rets);			
 			if (countRets > 0)
 			{

@@ -5,13 +5,16 @@ require_once BASE.'/app/model/base/BaseBO.php';
 /**
  * Auto generated Model Class represents table 'comment' 
  * @author: Thin PHP Framework
- * @date: 2011-04-14 03:29
+ * @date: 2011-04-17 12:52
  */
 class Comment extends BaseBO
 {
 	private $fields;
 	private $commentId;
-	private $postId;
+	private $type;
+	private $itemId;
+	private $replyToId;
+	private $weight;
 	private $title;
 	private $content;
 	private $authorName;
@@ -20,6 +23,7 @@ class Comment extends BaseBO
 	private $authorIP;
 	private $point;
 	private $isApproved;
+	private $updateTime;
 	private $createTime;
 
 
@@ -43,7 +47,10 @@ class Comment extends BaseBO
 	{
 		$this->fields = $fields;
 		$this->commentId = $fields['commentId'];
-		$this->postId = $fields['postId'];
+		$this->type = $fields['type'];
+		$this->itemId = $fields['itemId'];
+		$this->replyToId = $fields['replyToId'];
+		$this->weight = $fields['weight'];
 		$this->title = $fields['title'];
 		$this->content = $fields['content'];
 		$this->authorName = $fields['authorName'];
@@ -52,6 +59,7 @@ class Comment extends BaseBO
 		$this->authorIP = $fields['authorIP'];
 		$this->point = $fields['point'];
 		$this->isApproved = $fields['isApproved'];
+		$this->updateTime = $fields['updateTime'];
 		$this->createTime = $fields['createTime'];
 	
 	}
@@ -68,11 +76,32 @@ class Comment extends BaseBO
 		$this->commentId = $commentId;
 	}
 
-	public function getPostId() {
-		return $this->postId;
+	public function getType() {
+		return $this->type;
 	}
-	public function setPostId($postId) {
-		$this->postId = $postId;
+	public function setType($type) {
+		$this->type = $type;
+	}
+
+	public function getItemId() {
+		return $this->itemId;
+	}
+	public function setItemId($itemId) {
+		$this->itemId = $itemId;
+	}
+
+	public function getReplyToId() {
+		return $this->replyToId;
+	}
+	public function setReplyToId($replyToId) {
+		$this->replyToId = $replyToId;
+	}
+
+	public function getWeight() {
+		return $this->weight;
+	}
+	public function setWeight($weight) {
+		$this->weight = $weight;
 	}
 
 	public function getTitle() {
@@ -131,6 +160,13 @@ class Comment extends BaseBO
 		$this->isApproved = $isApproved;
 	}
 
+	public function getUpdateTime() {
+		return $this->updateTime;
+	}
+	public function setUpdateTime($updateTime) {
+		$this->updateTime = $updateTime;
+	}
+
 	public function getCreateTime() {
 		return $this->createTime;
 	}
@@ -145,7 +181,7 @@ class Comment extends BaseBO
 	 */
 	public function toStr()
 	{
-		return ''.':'.$this->commentId.':'.$this->postId.':'.$this->title.':'.$this->content.':'.$this->authorName.':'.$this->authorEmail.':'.$this->authorURL.':'.$this->authorIP.':'.$this->point.':'.$this->isApproved.':'.$this->createTime;
+		return ''.':'.$this->commentId.':'.$this->type.':'.$this->itemId.':'.$this->replyToId.':'.$this->weight.':'.$this->title.':'.$this->content.':'.$this->authorName.':'.$this->authorEmail.':'.$this->authorURL.':'.$this->authorIP.':'.$this->point.':'.$this->isApproved.':'.$this->updateTime.':'.$this->createTime;
 	}
 }
 ?>

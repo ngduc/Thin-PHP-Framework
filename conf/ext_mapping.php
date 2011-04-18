@@ -19,6 +19,7 @@
 		//--- Blog
 			'/blog' => array('ext/blog', 'Blog'),
 			'/blog-admin' => array('ext/blog', 'Blog', array('admin')),
+			'/blog-comment' => array('ext/blog', 'BlogComment'),
 			
 		//--- Editor
 			'/page-editor' => array('ext/editor', 'Editor'),

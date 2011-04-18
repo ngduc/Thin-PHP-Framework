@@ -84,13 +84,13 @@ var TPF = {
 	setFormError: function(formId, fieldName, errMsg)
 	{
 		if (fieldName === undefined) return;
-		if (fieldName.length == 0) {		
-			$(formId+' :input').next('span').html(''); // clear all err
-			$(formId+' :input').next('span').hide();		
+		if (fieldName.length == 0) {
+			$(formId+' :input ~ span.fmsg').html(''); // clear all err
+			$(formId+' :input ~ span.fmsg').hide();
 			return;
-		}
-		$(formId+' :input[name='+fieldName+']').next('span').html(errMsg);	
-		$(formId+' :input[name='+fieldName+']').next('span').fadeIn('slow');
+		}		
+		$(formId+' :input[name='+fieldName+'] ~ span.fmsg').html(errMsg);
+		$(formId+' :input[name='+fieldName+'] ~ span.fmsg').fadeIn('slow');
 	},
 	focusField: function(formId, f) {
 		setTimeout("TPF.focusFieldHelper('"+formId+"', '"+f+"')", 200);	

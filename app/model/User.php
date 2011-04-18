@@ -5,22 +5,22 @@ require_once BASE.'/app/model/base/BaseBO.php';
 /**
  * Auto generated Model Class represents table 'user' 
  * @author: Thin PHP Framework
- * @date: 2011-04-14 03:29
+ * @date: 2011-04-17 12:52
  */
 class User extends BaseBO
 {
-	protected $fields;
-	protected $userId;
-	protected $email;
-	protected $username;
-	protected $password;
-	protected $oauthProvider;
-	protected $oauthUid;
-	protected $oauthUsername;
-	protected $firstName;
-	protected $lastName;
-	protected $website;
-	protected $createTime;
+	private $fields;
+	private $userId;
+	private $email;
+	private $username;
+	private $password;
+	private $oauthProvider;
+	private $oauthUid;
+	private $oauthUsername;
+	private $firstName;
+	private $lastName;
+	private $website;
+	private $createTime;
 
 
 	/**
@@ -39,7 +39,7 @@ class User extends BaseBO
 	 * Initialize the business object with data read from the DB.
 	 * @param row array containing one read record.
 	 */
-	protected function init($fields)
+	private function init($fields)
 	{
 		$this->fields = $fields;
 		$this->userId = $fields['userId'];

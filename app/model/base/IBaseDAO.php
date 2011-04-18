@@ -26,8 +26,7 @@ interface IBaseDao
 	
 	public function create($obj);
 	
-	public function update($obj);
-
+	public function update($obj, $arr);
 
 //	public function query($criteria);
 //	public function getByExample($obj);

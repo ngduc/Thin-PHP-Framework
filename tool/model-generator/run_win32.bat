@@ -11,8 +11,9 @@ php generate.php
 echo.
 echo.
 
-rem echo.
-rem xcopy /Y .\generated \..\..\app\model\
+rem -- // copy generated class
+rem -- // echo.
+rem -- // xcopy /Y .\generated \..\..\app\model\
 
 echo.
 echo.
