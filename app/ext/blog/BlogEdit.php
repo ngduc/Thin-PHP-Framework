@@ -24,7 +24,7 @@ class BlogEdit extends BaseController
 		$v = $this->smarty;
 		$v->setTemplateDir(BASEEXT.'/blog/view');
 		$v->assign('post', $post);		
-        $this->display($v, 'blog_edit_inc.html');
+        $this->display($v, 'blog_edit.html');
 	}
 }
 ?>

@@ -28,6 +28,12 @@ function file_get_contents_with_vars($fpath, $arrKeyValue)
 	}	
 	return $content;
 }
+
+function seoTitle($title)
+{
+	// replace non alphanumeric chars with dashes
+	return trim(preg_replace('/[^a-z0-9-]+/', '-', strtolower($title)), '-');
+}
 	
 function t($textKey)
 {
@@ -60,4 +66,5 @@ function v($smartyView)
 	}
 	return $app_i['default_view'].'/'.$smartyView;
 }
+
 ?>

@@ -117,7 +117,7 @@ class BlogComment extends BaseController
 		$v->assign('commentTotal', count($comments));
 		$v->assign('comments', $comments);
 		$v->assign('itemId', $itemId);
-        $this->display($v, 'blog_comment_inc.html');
+        $this->display($v, 'blog_comment.html');
 	}
 }
 ?>

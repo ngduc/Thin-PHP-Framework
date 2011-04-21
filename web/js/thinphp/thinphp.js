@@ -68,7 +68,7 @@ var TPF = {
 	},
 	showLoading: function(formId)
 	{
-		$(formId+' input[type=submit]').next('span').html('<img src="/js/thinphp/loading.gif" />'); // loading animation
+		$(formId+' input[type=submit]').next('span').html('<img src="/web/js/thinphp/loading.gif" />'); // loading animation
 	},
 	delaySubmit: function(formId, time)
 	{

@@ -18,7 +18,7 @@ class BlogShow extends BaseController
 		$v->assign('post', $post);
 		$v->assign('postContent', $postContent);
 		$v->assign('postComments', $postComments);
-        $this->display($v, 'blog_show_inc.html');
+        $this->display($v, 'blog_show.html');
 	}
 }
 ?>

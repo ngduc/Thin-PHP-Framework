@@ -38,7 +38,7 @@ class SignIn extends BaseController
 			$v = $this->smarty;
 			$v->assign('title', 'Contact Us');
 			$v->assign('hide_signin', '1'); // MUST hide signin, otherwise it will cause infinite loop!!!
-			$v->assign('inc_content', v('signin/signin_done.html'));
+			$v->assign('inc_content', BASEEXT.'/authentication/view/signin_msg.html');
 			$v->assign('message', $msg);
 			$this->display($v, v('index.html'));
 		}
@@ -58,8 +58,9 @@ class SignIn extends BaseController
 		else {
 			// show Signin Form			
 			$v = $this->smarty;
-			$this->display($v, v('signin/signin_form.html'));
-		}
+			$v->setTemplateDir(BASEEXT.'/authentication/view');
+			$this->display($v, 'signin_form.html');
+		}		
 	}
 }
 ?>

@@ -61,16 +61,16 @@ function getContent($opts, $sParam)
 		// example: /sign-in => array('ext/authentication', 'SignIn')	
 		list($loc, $className) = getURIMapping($url);
 		$fullpath = BASE.'/app/'.$loc.'/'.$className.'.php';
-
+		
 		if (file_exists($fullpath))
-		{
+		{			
 			ob_start();
 	 		// load extension
 			require_once $fullpath;
 			$ctr = new $className();
-			$ctr->handle(array($sParam));
+			$ctr->handle(array($sParam));			
 
-			$content = ob_get_contents();
+			$content = ob_get_contents();			
 			ob_end_clean();
 			return $content;
 		}

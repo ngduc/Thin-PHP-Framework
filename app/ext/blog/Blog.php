@@ -75,8 +75,8 @@ class Blog extends BaseController
 							VALUES(:title, :description, :content, :createTime)", $newPost->getFields());
 			}
 			$posts = $dao->getAll();
-			
-			$v->assign('inc_content', BASEEXT.'/blog/view/admin_inc.html');
+
+			$v->assign('inc_content', BASEEXT.'/blog/view/admin.html');
 			$v->assign('err', $err);
 	        $v->assign('posts', $posts);
 	        $v->assign('totalPosts', $dao->countAll());

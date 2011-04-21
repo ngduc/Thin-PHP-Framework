@@ -5,7 +5,7 @@
 	{foreach item=p from=$posts}
 		<h3>{$p.title}</h3>{$p.content}<p/>
 		<span id="commentTime">{$p.createTime}</span><br/>
-		<a style="font-size: 0.9em" href="/blog/p/show/{$p.postId}">more...</a>
+		<a style="font-size: 0.9em" href="/blog/p/show/{$p.postId}/{$p.seoTitle}">more...</a>
 	{/foreach}
 {/if}
 
