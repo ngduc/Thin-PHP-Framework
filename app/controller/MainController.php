@@ -29,7 +29,7 @@ class MainController extends BaseController
 		list($this->_cPath, $this->_cName, $this->_cParams) = BaseController::parseRoute($route);		
 	}	
 	
-	public function handle()
+	public function handle($params)
 	{
 		$fullpath = '/app/'.$this->_cPath.'/'.$this->_cName.'.php';
 		$this->log->debug('handle() route: '.$fullpath);

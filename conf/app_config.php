@@ -16,6 +16,7 @@
 		'default_view'	=> 'en_default',
 		'flood_limit'	=> 0,
 		'cache'		=> CC_NOCACHE,
+		'timezone'	=> 'America/Los_Angeles',
 		'md5salt'	=> 'MyR@nd0mStr1ng',
 		'demo_mode'	=> 1
 	);

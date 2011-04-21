@@ -17,5 +17,5 @@
 	$route = $_GET['controller'];
 	
 	$c = new MainController( $route );
-	$c->handle();
+	$c->handle(null);
 ?>

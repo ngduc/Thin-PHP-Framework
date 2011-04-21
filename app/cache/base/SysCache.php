@@ -1,4 +1,4 @@
-<?
+<?php
 /** 
  * Thin PHP Framework (TPF) 2011 http://thinphp.com
  *

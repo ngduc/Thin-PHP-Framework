@@ -15,11 +15,11 @@ class Blog extends BaseController
 		if (isset($_POST['form'])) {
 			if ($_POST['form'] == 'edit')
 			{
-				BaseController::callController(BASEEXT.'/blog', 'BlogEdit');
+				BaseController::callController(BASEEXT.'/blog', 'BlogEdit', array());
 			}
 			else if ($_POST['form'] == 'comment')
 			{
-				BaseController::callController(BASEEXT.'/blog', 'BlogShow');
+				BaseController::callController(BASEEXT.'/blog', 'BlogShow', array());
 			}
 			header('Location: '.$_SERVER['HTTP_REFERER']);
 		}
@@ -37,7 +37,7 @@ class Blog extends BaseController
 		if ( in_array($action, array('list','show','edit')) )
 		{
 			if ($action == 'list') {
-				$html = BaseController::callController(BASEEXT.'/blog', 'BlogList');
+				$html = BaseController::callController(BASEEXT.'/blog', 'BlogList', array());
 			}
 			else {
 				$postId = trim(sanitize_str($this->params[1]));				
