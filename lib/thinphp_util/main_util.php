@@ -135,5 +135,3 @@ function header_json($sjason)
 	header('Cache-Control: no-cache, must-revalidate');
 	echo json_encode($sjason);
 }
-
-?>

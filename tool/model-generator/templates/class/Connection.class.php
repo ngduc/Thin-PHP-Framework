@@ -26,4 +26,3 @@ class Connection{
 		return mysql_query($sql, $this->connection);
 	}
 }
-?>

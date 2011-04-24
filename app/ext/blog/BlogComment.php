@@ -32,7 +32,7 @@ class BlogComment extends BaseController
 		parent::processPOST();
 
 		copy_fields($_POST, $fv, F_ENCODE, 'itemId', 'replyToId', 'name', 'email', 'content', 'parentCommentWeight');
-		$dao = DAOs::getDAO('CommentDAO');
+		$dao = DAO::getDAO('CommentDAO');
 
 		// #TODO: validate here...
 		if (trim($fv['content']) != '')
@@ -87,7 +87,7 @@ class BlogComment extends BaseController
 		if ($this->isPosting()) return $this->processPOST();
 		
 		$itemId = $this->params[0];
-		$dao = DAOs::getDAO('CommentDAO');		
+		$dao = DAO::getDAO('CommentDAO');
 		$comments = $dao->getComments(1, $itemId);
 		
 		// prepare Comments for the View
@@ -120,4 +120,3 @@ class BlogComment extends BaseController
         $this->display($v, 'blog_comment.html');
 	}
 }
-?>

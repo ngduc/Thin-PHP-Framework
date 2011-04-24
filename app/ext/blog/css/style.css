@@ -13,10 +13,10 @@
 	width: 600px;
 	min-height: 90px;
 }
-#commentFooter {
+#commentInfo {
 	font-size: 0.9em;
-	color: #ddd;
-	float: right;	
+	color: #cccccc;
+	float: right;
 }
 #commentAvatar {
 	float: right;
@@ -34,7 +34,7 @@
 	font-size: 0.9em;	
 }
 #commentReplyLink a {
-	color: #cca;
+	color: #6666ff;
 }
 #commentReplyNote {	
 	border: dashed 1px;

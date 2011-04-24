@@ -17,4 +17,4 @@ class Redirect extends BaseController
 		header("Location: $toURL");
 	}
 }
-?>
+

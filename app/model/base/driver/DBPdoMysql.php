@@ -35,4 +35,3 @@ class DBPdoMysql
 		return $this->_dbh;
 	}
 }
-?>

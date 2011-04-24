@@ -31,5 +31,3 @@ interface IBaseDao
 //	public function query($criteria);
 //	public function getByExample($obj);
 }
-
-?>

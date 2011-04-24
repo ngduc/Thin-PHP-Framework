@@ -24,4 +24,3 @@
 		// Mapping example with Parameters:
 		'/terms' => array('controller', 'Display', array('terms.html', 'Terms and Conditions'))
 	);	
-?>

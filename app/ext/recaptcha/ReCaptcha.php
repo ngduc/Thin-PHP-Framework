@@ -24,4 +24,3 @@ class ReCaptcha extends BaseController
 		echo $customScript . recaptcha_get_html($publickey);
 	}
 }
-?>

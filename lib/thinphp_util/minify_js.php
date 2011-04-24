@@ -35,4 +35,3 @@ include BASE.'/web/js/thinphp/thinphp.js';
 
 ob_end_flush();
 ob_end_flush();
-?>

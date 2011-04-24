@@ -22,4 +22,3 @@
 		echo "$queryName - $cnt done! <span style='color: #f00'>$err[2]</span> <p/>";
 	}
 	$dbh = null;
-?>

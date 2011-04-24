@@ -49,4 +49,3 @@ abstract class DBFactory
 		return null;
 	}
 }
-?>

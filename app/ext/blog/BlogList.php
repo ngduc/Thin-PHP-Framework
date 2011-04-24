@@ -1,13 +1,13 @@
 <?php
 defined('BASE') or exit('Direct script access is not allowed!');
 require_once BASE.'/app/model/Post.php';
-require_once BASE.'/app/model/base/DAOs.php';
+require_once BASE . '/app/model/base/DAO.php';
 
 class BlogList extends BaseController
 {
 	public function view()
 	{
-		$dao = DAOs::getDAO('PostDAO');
+		$dao = DAO::getDAO('PostDAO');
 		$posts = $dao->getAll();
 
 		for ($i = 0, $cnt = count($posts); $i < $cnt; $i++) {
@@ -23,4 +23,3 @@ class BlogList extends BaseController
         $this->display($v, 'blog_list.html');
 	}
 }
-?>

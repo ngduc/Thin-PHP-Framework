@@ -7,7 +7,7 @@ class BlogShow extends BaseController
 	public function view()
 	{
 		$postId = $this->params[0];
-		$dao = DAOs::getDAO('PostDAO');
+		$dao = DAO::getDAO('PostDAO');
 		
 		$post = $dao->getById($postId);
 		$postContent = html_entity_decode($post['content']);
@@ -21,4 +21,3 @@ class BlogShow extends BaseController
         $this->display($v, 'blog_show.html');
 	}
 }
-?>

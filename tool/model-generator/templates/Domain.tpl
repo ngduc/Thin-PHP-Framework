@@ -48,4 +48,3 @@ ${init_variables}
 		${tostr_variables}
 	}
 }
-?>

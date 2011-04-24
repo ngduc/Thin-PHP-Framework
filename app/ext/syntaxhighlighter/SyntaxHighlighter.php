@@ -11,4 +11,3 @@ class SyntaxHighlighter
 		return $ret;
 	}
 }
-?>

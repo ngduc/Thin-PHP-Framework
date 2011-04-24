@@ -32,4 +32,3 @@ class ConnectionFactory
 		mysql_close($connection);
 	}
 }
-?>

@@ -46,4 +46,3 @@ class Wiki2html
 		return $html;
 	}
 }
-?>

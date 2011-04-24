@@ -18,4 +18,4 @@
 		if ($p === false) return $st; // not found $fromst
 		return substr($st, 0, $p);
     }
-?>
+

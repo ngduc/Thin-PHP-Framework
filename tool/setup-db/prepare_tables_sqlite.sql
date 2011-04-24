@@ -25,8 +25,11 @@ CREATE TABLE [post] (
   [title] VARCHAR(200) NOT NULL,   
   [description] VARCHAR(500),
   [content] TEXT,
-  [allowComment] INTEGER, 
-  [updateTime] DATETIME, 
+  [views] INTEGER,
+  [points] INTEGER,
+  [flagLocked] INTEGER,
+  [flagHideComments] INTEGER,
+  [updateTime] DATETIME,
   [createTime] DATETIME NOT NULL
 );
 CREATE INDEX [idx_authorId] ON [post] ([authorId]);
@@ -44,8 +47,8 @@ CREATE TABLE [comment] (
   [authorEmail] VARCHAR(100),
   [authorURL] VARCHAR(200),
   [authorIP] VARCHAR(40),
-  [point] INTEGER,
-  [isApproved] INTEGER,
+  [points] INTEGER,
+  [flagApproved] INTEGER,
   [updateTime] DATETIME,
   [createTime] DATETIME NOT NULL
 );

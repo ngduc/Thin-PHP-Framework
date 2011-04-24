@@ -293,4 +293,3 @@ class SystemBasedOAuthSignatureMethod_RSA_SHA1 extends OAuthSignatureMethod_RSA_
 		return $this->systemconfig['public_key'];
 	}
 } 
-?>

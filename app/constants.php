@@ -25,4 +25,4 @@
 	// for Controller's validate() function
 	define('RT_NONE', 0);
 	define('RT_JSON', 1);
-?>
+

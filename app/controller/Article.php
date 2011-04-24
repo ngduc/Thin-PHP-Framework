@@ -13,4 +13,3 @@ class Article extends BaseController
 		$this->display($v, v('index.html'));
 	}
 }
-?>

@@ -20,5 +20,3 @@ interface ICache
 	
 	public function del($id);
 }
-	
-?>

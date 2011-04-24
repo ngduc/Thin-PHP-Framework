@@ -16,4 +16,3 @@ interface IController
 {
 	public function view();
 }
-?>

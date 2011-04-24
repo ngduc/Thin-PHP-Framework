@@ -181,4 +181,3 @@ class OAuthFacebook extends OAuthHelper {
 		return implode(',',$return);
 	}
 }
-?>

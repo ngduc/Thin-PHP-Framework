@@ -12,4 +12,3 @@ class Jackets extends BaseController
 		$this->display($v, v('index.html'));
 	}
 }
-?>

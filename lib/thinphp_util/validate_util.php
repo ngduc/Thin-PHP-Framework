@@ -6,4 +6,3 @@ function validate_username($s)
 	if (preg_match("/^[0-9a-zA-Z_]{3,}$/", $s) === 0) return false;
 	return true;
 }
-?>

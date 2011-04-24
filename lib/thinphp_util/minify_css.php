@@ -57,4 +57,3 @@ absPathCSS('/web/css/style_ext.css');
 	
 ob_end_flush();
 ob_end_flush();
-?>

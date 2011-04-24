@@ -97,4 +97,3 @@ class SqlQuery{
 		return $str;
 	}
 }
-?>

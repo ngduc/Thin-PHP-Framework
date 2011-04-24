@@ -5,7 +5,7 @@ require_once BASE.'/app/model/base/BaseBO.php';
 /**
  * Auto generated Model Class represents table 'post' 
  * @author: Thin PHP Framework
- * @date: 2011-04-17 12:52
+ * @date: 2011-04-23 17:16
  */
 class Post extends BaseBO
 {
@@ -15,7 +15,10 @@ class Post extends BaseBO
 	private $title;
 	private $description;
 	private $content;
-	private $allowComment;
+	private $views;
+	private $points;
+	private $flagLocked;
+	private $flagHideComments;
 	private $updateTime;
 	private $createTime;
 
@@ -44,7 +47,10 @@ class Post extends BaseBO
 		$this->title = $fields['title'];
 		$this->description = $fields['description'];
 		$this->content = $fields['content'];
-		$this->allowComment = $fields['allowComment'];
+		$this->views = $fields['views'];
+		$this->points = $fields['points'];
+		$this->flagLocked = $fields['flagLocked'];
+		$this->flagHideComments = $fields['flagHideComments'];
 		$this->updateTime = $fields['updateTime'];
 		$this->createTime = $fields['createTime'];
 	
@@ -90,11 +96,32 @@ class Post extends BaseBO
 		$this->content = $content;
 	}
 
-	public function getAllowComment() {
-		return $this->allowComment;
+	public function getViews() {
+		return $this->views;
 	}
-	public function setAllowComment($allowComment) {
-		$this->allowComment = $allowComment;
+	public function setViews($views) {
+		$this->views = $views;
+	}
+
+	public function getPoints() {
+		return $this->points;
+	}
+	public function setPoints($points) {
+		$this->points = $points;
+	}
+
+	public function getFlagLocked() {
+		return $this->flagLocked;
+	}
+	public function setFlagLocked($flagLocked) {
+		$this->flagLocked = $flagLocked;
+	}
+
+	public function getFlagHideComments() {
+		return $this->flagHideComments;
+	}
+	public function setFlagHideComments($flagHideComments) {
+		$this->flagHideComments = $flagHideComments;
 	}
 
 	public function getUpdateTime() {
@@ -118,7 +145,6 @@ class Post extends BaseBO
 	 */
 	public function toStr()
 	{
-		return ''.':'.$this->postId.':'.$this->authorId.':'.$this->title.':'.$this->description.':'.$this->content.':'.$this->allowComment.':'.$this->updateTime.':'.$this->createTime;
+		return ''.':'.$this->postId.':'.$this->authorId.':'.$this->title.':'.$this->description.':'.$this->content.':'.$this->views.':'.$this->points.':'.$this->flagLocked.':'.$this->flagHideComments.':'.$this->updateTime.':'.$this->createTime;
 	}
 }
-?>

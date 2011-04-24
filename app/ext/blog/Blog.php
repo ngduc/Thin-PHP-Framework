@@ -5,7 +5,7 @@ require_once "BlogShow.php";
 require_once "BlogEdit.php";
 
 require_once BASE.'/app/model/Post.php';
-require_once BASE.'/app/model/base/DAOs.php';
+require_once BASE . '/app/model/base/DAO.php';
 
 class Blog extends BaseController
 {
@@ -89,7 +89,7 @@ class Blog extends BaseController
 	{
 		if ($this->isPosting()) return $this->processPOST();
 
-		$dao = DAOs::getDAO('PostDAO');
+		$dao = DAO::getDAO('PostDAO');
 
 		$v = $this->smarty;
         $v->assign('title', t('home_page_title'));
@@ -99,4 +99,3 @@ class Blog extends BaseController
         $this->display($v, v('index.html'));
 	}
 }
-?>

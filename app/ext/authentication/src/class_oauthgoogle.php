@@ -61,4 +61,3 @@ class OAuthGoogle extends OAuthHelper {
 		return implode(' ',$return);
 	}
 }
-?>

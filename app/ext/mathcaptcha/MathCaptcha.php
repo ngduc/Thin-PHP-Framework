@@ -27,4 +27,3 @@ class MathCaptcha extends BaseController
 		require_once BASE.'/app/ext/mathcaptcha/src/image.php';
 	}
 }
-?>

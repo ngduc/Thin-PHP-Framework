@@ -12,4 +12,3 @@ class TShirts extends BaseController
 		$this->display($v, v('index.html'));
 	}
 }
-?>

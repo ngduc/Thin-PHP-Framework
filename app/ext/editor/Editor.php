@@ -43,4 +43,3 @@ class Editor extends BaseController
 		}
 	}
 }
-?>

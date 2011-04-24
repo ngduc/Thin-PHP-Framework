@@ -12,4 +12,3 @@ function generateFormToken()
 	global $app_i;
 	return md5(uniqid(rand()).$app_i['md5salt']); 
 }
-?>

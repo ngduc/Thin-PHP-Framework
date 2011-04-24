@@ -1,13 +1,13 @@
 <?php
 defined('BASE') or exit('No direct script access allowed!');
 require_once BASE.'/app/model/User.php';
-require_once BASE.'/app/model/base/DAOs.php';
+require_once BASE . '/app/model/base/DAO.php';
 
 class UserList extends BaseController
 {
 	public function view()
 	{
-		$dao = DAOs::getDAO('UserDAO');
+		$dao = DAO::getDAO('UserDAO');
 		
 		if (isset($this->params[0]) && trim($this->params[0])=='remove')
 		{
@@ -40,4 +40,4 @@ class UserList extends BaseController
         $this->display($v, v('index.html'));
 	}
 }
-?>
+

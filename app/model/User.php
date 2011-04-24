@@ -5,7 +5,7 @@ require_once BASE.'/app/model/base/BaseBO.php';
 /**
  * Auto generated Model Class represents table 'user' 
  * @author: Thin PHP Framework
- * @date: 2011-04-17 12:52
+ * @date: 2011-04-23 17:16
  */
 class User extends BaseBO
 {
@@ -148,4 +148,3 @@ class User extends BaseBO
 		return ''.':'.$this->userId.':'.$this->email.':'.$this->username.':'.$this->password.':'.$this->oauthProvider.':'.$this->oauthUid.':'.$this->oauthUsername.':'.$this->firstName.':'.$this->lastName.':'.$this->website.':'.$this->createTime;
 	}
 }
-?>

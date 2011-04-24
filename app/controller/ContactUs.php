@@ -70,4 +70,4 @@ class ContactUs extends BaseController
 		$this->display($v, v('index.html'));
 	}
 }
-?>
+

@@ -51,4 +51,3 @@ class CApcCache extends BaseCache
 		return (self::$_initialized ? apc_delete($id) : false);
 	}
 }
-?>

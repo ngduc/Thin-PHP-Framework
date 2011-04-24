@@ -4,7 +4,7 @@
 	{foreach item=c from=$comments name=comments}
 		<div id="commentBox" style="margin-left: {($c.indent)*40}px;">
 			<div id="commentAvatar">{$c.gravatarImg}</div>
-			<span id="commentFooter">						
+			<span id="commentInfo">
 				<span id="comment{$smarty.foreach.comments.iteration}">#{$smarty.foreach.comments.iteration} </span>
 				<span id="commentTime">{$c.createTime}</span>
 				{if $c.indent le 5}				

@@ -11,11 +11,10 @@
  * @license       TPF License http://bit.ly/TPFLicense
  */
 
-	define('BASE', dirname(__FILE__));
-	require_once BASE.'/app/includes.php';
-	
-	$route = $_GET['controller'];
-	
-	$c = new MainController( $route );
-	$c->handle(null);
-?>
+define('BASE', dirname(__FILE__));
+require_once BASE.'/app/includes.php';
+
+$route = $_GET['controller'];
+
+$c = new MainController( $route );
+$c->handle(null);

@@ -132,4 +132,3 @@ function getVarNameWithS($tableName){
 }
 
 generate();
-?>

@@ -63,4 +63,3 @@ class SignIn extends BaseController
 		}		
 	}
 }
-?>

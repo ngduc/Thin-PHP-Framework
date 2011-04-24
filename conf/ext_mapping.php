@@ -34,4 +34,3 @@
 			'/twitter' => array('ext/twitter', 'Twitter')
 		//--- other extensions...
 	);
-?>

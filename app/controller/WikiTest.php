@@ -17,4 +17,4 @@ class WikiTest extends BaseController
         $this->display($v, v('index.html'));
 	}
 }
-?>
+

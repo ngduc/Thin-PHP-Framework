@@ -9,4 +9,3 @@ class Twitter extends BaseController
 		echo $html;
 	}
 }
-?>

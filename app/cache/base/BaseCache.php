@@ -60,4 +60,3 @@ abstract class BaseCache implements ICache
 		return delEntry($id);
 	}
 }
-?>

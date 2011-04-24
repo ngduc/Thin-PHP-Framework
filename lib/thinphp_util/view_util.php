@@ -66,5 +66,3 @@ function v($smartyView)
 	}
 	return $app_i['default_view'].'/'.$smartyView;
 }
-
-?>

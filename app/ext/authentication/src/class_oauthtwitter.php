@@ -27,4 +27,3 @@ class OAuthTwitter extends OAuthHelper {
 		$this->default_parse_mode = 'xml';
 	}
 }
-?>

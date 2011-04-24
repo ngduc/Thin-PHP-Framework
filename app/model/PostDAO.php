@@ -9,4 +9,4 @@ class PostDAO extends BaseDAO
 		parent::__construct('post');				
 	}	
 }
-?>
+

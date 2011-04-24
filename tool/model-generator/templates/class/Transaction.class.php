@@ -59,4 +59,3 @@ class Transaction{
 		return;
 	}
 }
-?>

@@ -9,4 +9,4 @@ class UserDAO extends BaseDAO
 		parent::__construct('user');				
 	}	
 }
-?>
+

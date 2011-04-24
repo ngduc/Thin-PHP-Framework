@@ -16,4 +16,4 @@ class Display extends BaseController
 		$this->display($v, v('index.html'));
 	}
 }
-?>
+

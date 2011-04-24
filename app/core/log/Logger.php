@@ -35,4 +35,3 @@ class Logger
 		return $newlog;
 	}
 }
-?>

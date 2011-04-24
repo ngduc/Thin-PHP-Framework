@@ -14,5 +14,3 @@ function sanitize_url($s)
 {
 	return filter_var($s, FILTER_SANITIZE_URL);
 }
-
-?>

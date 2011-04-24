@@ -11,4 +11,3 @@ class SignOut extends BaseController
 		header('Location: '.$_SERVER['HTTP_REFERER']);
 	}
 }
-?>

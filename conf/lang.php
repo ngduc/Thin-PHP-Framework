@@ -18,4 +18,3 @@
 			'product_page_title' => '当社の製品'
 			)
 		);		
-?>

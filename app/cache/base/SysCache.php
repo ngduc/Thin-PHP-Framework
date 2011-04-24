@@ -43,4 +43,3 @@ abstract class SysCache
 		}
 	}
 }
-?>

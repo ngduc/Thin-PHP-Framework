@@ -5,7 +5,7 @@ require_once BASE.'/app/model/base/BaseBO.php';
 /**
  * Auto generated Model Class represents table 'comment' 
  * @author: Thin PHP Framework
- * @date: 2011-04-17 12:52
+ * @date: 2011-04-23 17:16
  */
 class Comment extends BaseBO
 {
@@ -21,8 +21,8 @@ class Comment extends BaseBO
 	private $authorEmail;
 	private $authorURL;
 	private $authorIP;
-	private $point;
-	private $isApproved;
+	private $points;
+	private $flagApproved;
 	private $updateTime;
 	private $createTime;
 
@@ -57,8 +57,8 @@ class Comment extends BaseBO
 		$this->authorEmail = $fields['authorEmail'];
 		$this->authorURL = $fields['authorURL'];
 		$this->authorIP = $fields['authorIP'];
-		$this->point = $fields['point'];
-		$this->isApproved = $fields['isApproved'];
+		$this->points = $fields['points'];
+		$this->flagApproved = $fields['flagApproved'];
 		$this->updateTime = $fields['updateTime'];
 		$this->createTime = $fields['createTime'];
 	
@@ -146,18 +146,18 @@ class Comment extends BaseBO
 		$this->authorIP = $authorIP;
 	}
 
-	public function getPoint() {
-		return $this->point;
+	public function getPoints() {
+		return $this->points;
 	}
-	public function setPoint($point) {
-		$this->point = $point;
+	public function setPoints($points) {
+		$this->points = $points;
 	}
 
-	public function getIsApproved() {
-		return $this->isApproved;
+	public function getFlagApproved() {
+		return $this->flagApproved;
 	}
-	public function setIsApproved($isApproved) {
-		$this->isApproved = $isApproved;
+	public function setFlagApproved($flagApproved) {
+		$this->flagApproved = $flagApproved;
 	}
 
 	public function getUpdateTime() {
@@ -181,7 +181,6 @@ class Comment extends BaseBO
 	 */
 	public function toStr()
 	{
-		return ''.':'.$this->commentId.':'.$this->type.':'.$this->itemId.':'.$this->replyToId.':'.$this->weight.':'.$this->title.':'.$this->content.':'.$this->authorName.':'.$this->authorEmail.':'.$this->authorURL.':'.$this->authorIP.':'.$this->point.':'.$this->isApproved.':'.$this->updateTime.':'.$this->createTime;
+		return ''.':'.$this->commentId.':'.$this->type.':'.$this->itemId.':'.$this->replyToId.':'.$this->weight.':'.$this->title.':'.$this->content.':'.$this->authorName.':'.$this->authorEmail.':'.$this->authorURL.':'.$this->authorIP.':'.$this->points.':'.$this->flagApproved.':'.$this->updateTime.':'.$this->createTime;
 	}
 }
-?>

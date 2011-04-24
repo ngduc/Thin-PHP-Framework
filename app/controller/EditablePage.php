@@ -11,4 +11,3 @@ class EditablePage extends BaseController
 		$this->display($v, v('index.html'));
 	}
 }
-?>

@@ -50,4 +50,3 @@ class CMemCache extends BaseCache
 		return (self::$_cache ? self::$_cache->set($id, 0) : false); // delete an entry right away (set timeout = 0)
 	}
 }
-?>

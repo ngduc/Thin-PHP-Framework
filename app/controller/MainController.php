@@ -16,26 +16,26 @@ class MainController extends BaseController
 {
 	private $_cPath;
 	private $_cName;
-	private $_cParams;	
+	private $_cParams;
 	private $log;
 
 	public function __construct($route)
 	{
 		parent::__construct();
-		$this->log = Logger::getLogger(__CLASS__);		
+		$this->log = Logger::getLogger(__CLASS__);
 		$this->log->info('Main Controller Log');
-		
-		// get ControllerName and its Parameters from URI		
-		list($this->_cPath, $this->_cName, $this->_cParams) = BaseController::parseRoute($route);		
-	}	
-	
+
+		// get ControllerName and its Parameters from URI
+		list($this->_cPath, $this->_cName, $this->_cParams) = BaseController::parseRoute($route);
+	}
+
 	public function handle($params)
 	{
 		$fullpath = '/app/'.$this->_cPath.'/'.$this->_cName.'.php';
 		$this->log->debug('handle() route: '.$fullpath);
-		
+
 		$fullpath = BASE.$fullpath;
-		
+
 		if (file_exists($fullpath))
 		{
      		// load controller
@@ -51,4 +51,3 @@ class MainController extends BaseController
 
 	public function view() { } // MainController does not need view()
 }
-?>

@@ -6,14 +6,15 @@
 @echo off
 echo --- generating MODEL CLASSES from MYSQL DB...
 echo.
+echo --- NOTE: 'env' (app_config.php) must be set to use DB_PDO_MYSQL in order to run this tool!
+echo.
 php generate.php
 
 echo.
 echo.
 
-rem -- // copy generated class
-rem -- // echo.
-rem -- // xcopy /Y .\generated \..\..\app\model\
+rem -- echo --- copying generated class to /app/model/
+rem -- xcopy /Y .\generated \..\..\app\model\
 
 echo.
 echo.

@@ -46,4 +46,3 @@
 	$dbh = null;
 
 	echo "<br/>&nbsp;<br/><a href='create_data.php'>Create Data</a><p/>";	
-?> 

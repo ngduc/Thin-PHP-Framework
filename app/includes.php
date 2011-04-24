@@ -33,4 +33,3 @@
 	require_once BASE.'/app/controller/MainController.php';
 	
 	date_default_timezone_set($app_i['timezone']);
-?>

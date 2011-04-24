@@ -10,8 +10,8 @@ CREATE TABLE `user` (
     `oauth_uid` varchar(50) NULL,
     `oauth_username` varchar(50) NULL,
     `firstName` varchar(30) NULL, 
-    `lastName` varchar(30) NULL, 
-    `website` varchar(200) NULL, 
+    `lastName` varchar(30) NULL,
+    `website` varchar(200) NULL,
     `createTime` datetime NOT NULL,  
     PRIMARY KEY (`userId`)
 ) ENGINE=InnoDB  COLLATE=utf8_general_ci ;
@@ -25,7 +25,10 @@ CREATE TABLE `post` (
   `title` varchar(200) NOT NULL,
   `description` varchar(500) DEFAULT NULL,
   `content` TEXT NULL,
-  `allowComment` int(11) DEFAULT NULL,
+  `views` int(11) DEFAULT NULL,
+  `points` int(11) DEFAULT NULL,
+  `flagLocked` int(11) DEFAULT NULL,
+  `flagHideComments` int(11) DEFAULT NULL,
   `updateTime` datetime DEFAULT NULL,
   `createTime` datetime NOT NULL,
   PRIMARY KEY (`postId`),
@@ -45,12 +48,12 @@ CREATE TABLE `comment` (
   `authorName` varchar(50) DEFAULT NULL,
   `authorEmail` varchar(100) DEFAULT NULL,
   `authorURL` varchar(200) DEFAULT NULL,
-  `authorIP` varchar(40) DEFAULT NULL,  
-  `point` int(11) DEFAULT NULL,
-  `isApproved` int(11) DEFAULT NULL,
+  `authorIP` varchar(40) DEFAULT NULL,
+  `points` int(11) DEFAULT NULL,
+  `flagApproved` int(11) DEFAULT NULL,
   `updateTime` datetime DEFAULT NULL,
   `createTime` datetime NOT NULL,
-  PRIMARY KEY (`commentId`)  
+  PRIMARY KEY (`commentId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 SET FOREIGN_KEY_CHECKS=1;

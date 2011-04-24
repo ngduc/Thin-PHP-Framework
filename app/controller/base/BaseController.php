@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * Thin PHP Framework (TPF) 2011 http://thinphp.com
  *
  * Licensed under TPF License at http://bit.ly/TPFLicense
@@ -22,7 +22,7 @@ abstract class BaseController
 	function __construct()
 	{
 		$this->smarty = new Smarty();
-			
+
 		// configure Smarty with Relative Paths (from '/dispatcher.php')		
 		$this->smarty->setTemplateDir('app/smarty_view');
 		$this->smarty->setConfigDir  ('app/conf/smarty_config');
@@ -102,7 +102,7 @@ abstract class BaseController
 	 * @return an array: controller Path, Name, Params
 	 */
 	public static function parseRoute($route)
-	{			
+	{
 		if (strpos($route, '/dispatcher.php') !== false) {
 			return array('controller', 'Home', '');
 		}
@@ -144,6 +144,7 @@ abstract class BaseController
 	public static function callController($ctrPath, $className, $params)
 	{
 		$fullpath = $ctrPath.'/'.$className.'.php';
+
 		if (file_exists($fullpath))
 		{
 			ob_start();
@@ -151,7 +152,7 @@ abstract class BaseController
 			require_once $fullpath;
 			$ctr = new $className();
 			$ctr->handle($params);
-			
+
 			$ret = ob_get_contents();
 			ob_end_clean();
 			return $ret;
@@ -159,4 +160,3 @@ abstract class BaseController
 		return 'Ext not found!';
 	}
 }
-?>

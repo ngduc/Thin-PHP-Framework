@@ -11,4 +11,3 @@ class AboutUs extends BaseController
 		$this->display($v, v('index.html'));
 	}
 }
-?>

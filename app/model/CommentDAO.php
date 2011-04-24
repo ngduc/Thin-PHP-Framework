@@ -32,4 +32,4 @@ class CommentDAO extends BaseDAO
 		return null;
 	}
 }
-?>
+

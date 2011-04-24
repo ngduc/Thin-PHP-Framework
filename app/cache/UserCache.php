@@ -2,7 +2,7 @@
 defined('BASE') or exit('No direct script access allowed!');
 require_once BASE.'/app/cache/base/CApcCache.php';
 require_once BASE.'/app/cache/base/CMemCache.php';
-require_once BASE.'/app/model/base/DAOs.php';
+require_once BASE . '/app/model/base/DAO.php';
 
 abstract class UserCache
 {	
@@ -12,7 +12,7 @@ abstract class UserCache
 	public static function init()
 	{
 		self::$cache = new CMemCache(); // set your favourite cache here
-		self::$dao = DAOs::getDAO('UserDAO');
+		self::$dao = DAO::getDAO('UserDAO');
 	}
 	
 	public static function findAll()
@@ -33,4 +33,3 @@ abstract class UserCache
 		}
 	}
 }
-?>

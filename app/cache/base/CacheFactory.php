@@ -45,4 +45,3 @@ abstract class CacheFactory
 		return null;
 	}
 }
-?>
