@@ -31,31 +31,71 @@ function formatControllerName($name)
 	return $name;
 }
 
-function getNameAndParams($route)
+function extractParams($parsedPath, $fullRoute)
 {
-	// example: http://thinphp.local:8010/article/p/1/My-Article-One => article, [1, My-Article-One]
-	$arr = explode('/p/', $route);
-
-	$name = explode_get('/', $arr[0], -1); // last string of the Left Part.
-	
-	$paramArr = null;
-	if (isset($arr[1])) $paramArr = explode('/', $arr[1]);
-	return array($name, $paramArr);
+    $sParamsInRoute = str_replace($parsedPath, '', $fullRoute);
+    $sParamsInRoute = trim(remove_first_last('/', $sParamsInRoute));
+    if ($sParamsInRoute != '')
+    {
+        $arrParams = explode('/', $sParamsInRoute);
+        return $arrParams;
+    }
+    else return null;
 }
 
-function getURIMapping($route)
+function parseURI($route)
 {
-	// example: /sign-in => array('ext/authentication', 'SignIn')
+	// example: /products/cat1/detail/123/computer-case => matched: /products/cat1/detail
 	global $arr_mapping, $ext_mapping;
-	$route_noparams = explode_get('/p/', $route, 0);
-	$route_noparams2 = remove_last('/', $route_noparams);
+    $rt = remove_first('/', $route);
+    $rt = remove_last('/', $rt);
+    
+	$arr = explode ('/', $rt);
+    for ($i = count($arr)-1; $i >= 0; $i--) {
+        $path = '';
+        for ($j = 0; $j < $i; $j++) {
+            $path .= '/'.$arr[$j];
+        }
+        $testCtlName = formatControllerName($arr[$j]);
+        $testCtlPath = $path;
+        $testCtlFullPath = BASECTL.$testCtlPath.'/'.$testCtlName.'.php';
+        //echo $testCtlFullPath.'<p/>';
 
-	if (isset($arr_mapping[ $route_noparams ])) return $arr_mapping[ $route_noparams ];
-	if (isset($arr_mapping[ $route_noparams2 ])) return $arr_mapping[ $route_noparams2 ];
-	
-	if (isset($ext_mapping[ $route_noparams ])) return $ext_mapping[ $route_noparams ];
-	if (isset($ext_mapping[ $route_noparams2 ])) return $ext_mapping[ $route_noparams2 ];
-	return null;
+        $path .= '/'.$arr[$j];
+        
+        if (file_exists($testCtlFullPath)) {
+            //echo 'Controller.php exists!'
+            return array('controller'.$testCtlPath, $testCtlName, extractParams($path, $route));
+        }
+        else {
+            if (isset($arr_mapping[ $path ])) {
+                //echo 'Controller Mapping matched!';
+                $retArr = $arr_mapping[ $path ];
+                if (isset($retArr[2])) {
+                    return $retArr;
+                } else {
+                    return array($retArr[0], $retArr[1], extractParams($path, $route));
+                }
+            }
+            if (isset($ext_mapping[ $path ])) {
+                //echo 'Extension Mapping Matched!';
+                $retArr = $ext_mapping[ $path ];
+                if (isset($retArr[2])) {
+                    return $retArr;
+                } else {                    
+                    return array($retArr[0], $retArr[1], extractParams($path, $route));
+                }
+            }
+        }
+    }
+    return null;
+}
+
+function remove_first($ch, $s)
+{
+    // remove the first character (if any). Example: '/dir/' => 'dir/'
+    if ($s[0] == $ch) return substr($s, 1, strlen($s));
+	return $s;
 }
 
 function remove_last($ch, $s)
@@ -64,6 +104,13 @@ function remove_last($ch, $s)
 	$len = strlen($s);
 	if ($s[$len-1] == $ch) return substr($s, 0, $len-1);
 	return $s;
+}
+
+function remove_first_last($ch, $s)
+{
+    $ret = remove_first($ch, $s);
+    $ret = remove_last($ch, $ret);
+    return $ret;
 }
 
 function explode_get($delim, $st, $idx)

@@ -109,36 +109,17 @@ abstract class BaseController
 		$params = null;
 				
 		// first, check if URI matched with Custom URI Mappings in 'conf/uri_mapping.php'
-		$mpArr = getURIMapping($route);		
+		$mpArr = parseURI($route);
 		if ($mpArr != null)
 		{
-			if (isset($mpArr[2])) {
-				return array($mpArr[0], $mpArr[1], $mpArr[2]); // path, name, params
-			}
-			else {
-				$arr = getNameAndParams($route);
-				if (strpos($route, '/p/') !== false) $params = $arr[1];				
-				return array($mpArr[0], $mpArr[1], $params); // path, name, params
-			}
+            if (isset($mpArr[2]) != null) {
+                return array($mpArr[0], $mpArr[1], $mpArr[2]); // path, name, params
+            }
+            else {
+                return array($mpArr[0], $mpArr[1]); // path, name
+            }
 		}
-		
-		$len = strlen($route);		
-		if ($len > 0) {
-			if (strpos($route, '/p/') !== false) {		// URI contains parameters (separated by '/p')
-				$arr = getNameAndParams($route);
-				$name = $arr[0];
-				$params = $arr[1];	
-			}
-			else {
-				$name = explode_get('/', $route, -1);
-				if ($name == '') $name = explode_get('/', $route, -2);
-				if ($name == '') $name = 'home';
-			}
-			if ($name == '') die('ERROR: Invalid URL!');
-						
-			$name = formatControllerName($name);
-		}		
-		return array('controller', $name, $params);
+        die('ERROR: Invalid URL!');
 	}
 	
 	public static function callController($ctrPath, $className, $params)

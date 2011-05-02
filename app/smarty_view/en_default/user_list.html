@@ -12,10 +12,10 @@
 		<td>{$user.firstName} {$user.lastName}</td>
 		<td>{$user.username}</td>
 		<td>{$user.email}</td>
-		<td><a href="/user-list/p/remove/{$user.userId}">Remove</a></td>
+		<td><a href="/user-list/remove/{$user.userId}">Remove</a></td>
 	</tr>
 {/foreach}
 </table>
 {/if}
-<p><a href="/user-list/p/add">Add a Test User</a></p>
+<p><a href="/user-list/add">Add a Test User</a></p>
 <p>Total {$totalUsers} user(s)</p>

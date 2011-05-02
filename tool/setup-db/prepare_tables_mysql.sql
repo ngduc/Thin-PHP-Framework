@@ -12,16 +12,17 @@ CREATE TABLE `user` (
     `firstName` varchar(30) NULL, 
     `lastName` varchar(30) NULL,
     `website` varchar(200) NULL,
-    `createTime` datetime NOT NULL,  
+    `createTime` datetime NOT NULL,
     PRIMARY KEY (`userId`)
 ) ENGINE=InnoDB  COLLATE=utf8_general_ci ;
-CREATE UNIQUE INDEX `idx_username` ON `user` (`username`);
-CREATE UNIQUE INDEX `idx_email` ON `user` (`email`);
+CREATE UNIQUE INDEX `idx_user_username` ON `user` (`username`);
+CREATE UNIQUE INDEX `idx_user_email` ON `user` (`email`);
 
 DROP TABLE `post`;
 CREATE TABLE `post` (
   `postId` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `authorId` int(11) unsigned,
+  `categoryId` int(11) unsigned,
   `title` varchar(200) NOT NULL,
   `description` varchar(500) DEFAULT NULL,
   `content` TEXT NULL,
@@ -35,6 +36,7 @@ CREATE TABLE `post` (
   KEY `authorId` (`authorId`),
   CONSTRAINT `fk_authorId_userId` FOREIGN KEY (`authorId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE UNIQUE INDEX `idx_post_authorId` ON `post` (`authorId`);
 
 DROP TABLE `comment`;
 CREATE TABLE `comment` (

@@ -25,6 +25,7 @@ function simpleText($html){
 	//formatting
 	// bold
 	$html = preg_replace('/\'\'\'([^\n\']+)\'\'\'/','<strong>${1}</strong>',$html);
+    $html = preg_replace('/&#039;&#039;&#039;([^\n\']+)&#039;&#039;&#039;/','<strong>${1}</strong>',$html);
 	// emphasized
 	$html = preg_replace('/\'\'([^\'\n]+)\'\'?/','<em>${1}</em>',$html);
 	//interwiki links
@@ -120,7 +121,8 @@ function giveSource($page){
 function helper_externlinks($matches){
 	$target = $matches[1];
 	$text = empty($matches[2])?$matches[1]:$matches[2];
-	return '<a href="'.$target.'" target="_blank">'.$text.'</a>';
+	//return '<a href="'.$target.'" target="_blank">'.$text.'</a>';
+    return '<a href="'.$target.'" >'.$text.'</a>';
 }
 function helper_interwikilinks($matches){
 	$target = $matches[1];

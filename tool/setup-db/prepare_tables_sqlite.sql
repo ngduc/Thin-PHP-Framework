@@ -15,14 +15,15 @@ CREATE TABLE [user](
 	[website] VARCHAR(200),
 	[createTime] DATETIME NOT NULL
 );
-CREATE UNIQUE INDEX [idx_email] ON [user] ( [email] );
-CREATE UNIQUE INDEX [idx_username] ON [user] ( [username] );
+CREATE UNIQUE INDEX [idx_user_email] ON [user] ( [email] );
+CREATE UNIQUE INDEX [idx_user_username] ON [user] ( [username] );
 
 DROP TABLE IF EXISTS [post];
 CREATE TABLE [post] (
   [postId] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
   [authorId] INTEGER CONSTRAINT [fk_authorId_userId] REFERENCES [user]([userId]), 
-  [title] VARCHAR(200) NOT NULL,   
+  [categoryId] INTEGER,
+  [title] VARCHAR(200) NOT NULL,
   [description] VARCHAR(500),
   [content] TEXT,
   [views] INTEGER,
@@ -32,7 +33,7 @@ CREATE TABLE [post] (
   [updateTime] DATETIME,
   [createTime] DATETIME NOT NULL
 );
-CREATE INDEX [idx_authorId] ON [post] ([authorId]);
+CREATE INDEX [idx_post_authorId] ON [post] ([authorId]);
 
 DROP TABLE IF EXISTS [comment];
 CREATE TABLE [comment] (

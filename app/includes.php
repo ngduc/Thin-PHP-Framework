@@ -11,7 +11,8 @@
  * @license       TPF License http://bit.ly/TPFLicense
  */
 	defined('BASE') or exit('Direct script access is not allowed!');	
-	
+
+	define('BASECTL', BASE.'/app/controller');
 	define('BASEVIEW', BASE.'/app/smarty_view');
 	define('BASEEXT', BASE.'/app/ext');
 	

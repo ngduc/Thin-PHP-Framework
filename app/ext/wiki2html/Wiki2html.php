@@ -4,11 +4,13 @@ include BASEEXT.'/wiki2html/src/parseRaw.inc.php';
 
 class Wiki2html
 {
-	function get_pres($str){ 
+	public static function get_pre_tags($str){
 	    $pretags = preg_match_all("/(<pre.*>)(.*)(<\/pre>)/isxmU", $str, $patterns);
 	    $res = array(); 
 	    for ($i = 0, $cnt = count($patterns[1]); $i < $cnt; $i++) {
-	    	array_push($res, array('pretag' => $patterns[1][$i], 'content' => $patterns[2][$i]));
+            $content = $patterns[2][$i];
+            $content2 = htmlentities($content, ENT_QUOTES);
+	    	array_push($res, array('pretag' => $patterns[1][$i], 'content' => $content, 'content2' => $content2));
 		}
 	    //array_push($res, array('pretag' => $patterns[1][1], 'content' => $patterns[2][1]));
 	    return $res;
@@ -20,7 +22,7 @@ class Wiki2html
 		
 		//$arr = Wiki2html::get_pres('<pre class="brush: js">p111</pre>...<pre class="brush: css">p222</pre>');
 		//var_dump($arr);
-		$arr = Wiki2html::get_pres($html);
+		$arr = Wiki2html::get_pre_tags($html);
 		for ($i = 0, $cnt = count($arr); $i < $cnt; $i++) {
 			$html = str_replace(
 						$arr[$i]['pretag'].$arr[$i]['content'].'</pre>',
@@ -40,7 +42,7 @@ class Wiki2html
 		//var_dump($patterns);
 		for ($i = 0, $cnt = count($patterns[1]); $i < $cnt; $i++) {
 	    	$html = str_replace('!pre'.$i.'!',
-	    				"\n".$arr[$i]['pretag'].$arr[$i]['content'].'</pre>', $html);
+	    				"\n".$arr[$i]['pretag'].$arr[$i]['content2'].'</pre>', $html);
 		}
 						
 		return $html;

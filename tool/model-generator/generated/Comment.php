@@ -5,7 +5,7 @@ require_once BASE.'/app/model/base/BaseBO.php';
 /**
  * Auto generated Model Class represents table 'comment' 
  * @author: Thin PHP Framework
- * @date: 2011-04-23 17:16
+ * @date: 2011-05-01 21:59
  */
 class Comment extends BaseBO
 {

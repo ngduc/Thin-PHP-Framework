@@ -22,7 +22,7 @@
 function validateComment() {
 	$.ajax({
 		type: 'post',
-		url: '/blog-comment/p/validate',
+		url: '/blog-comment/validate',
 		dataType: 'json', data: $('#cmtForm').serialize(),
 		success: function (rets) {
 			//TPF.dump(rets[0]);

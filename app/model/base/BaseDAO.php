@@ -31,7 +31,7 @@ class BaseDAO implements IBaseDao
 	public function __construct($table)
 	{
 		$this->table = $table;
-		$this->dbh = DBFactory::getDBHandler();				
+		$this->dbh = DBFactory::getDBHandler();
 	}
 	
 	public function getLastSQL()

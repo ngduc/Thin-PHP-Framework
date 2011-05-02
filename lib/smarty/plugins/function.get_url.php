@@ -59,7 +59,7 @@ function getContent($opts, $sParam)
 	else {
 		// load Internal URL (relative URL)
 		// example: /sign-in => array('ext/authentication', 'SignIn')	
-		list($loc, $className) = getURIMapping($url);
+		list($loc, $className) = parseURI($url);
 		$fullpath = BASE.'/app/'.$loc.'/'.$className.'.php';
 		
 		if (file_exists($fullpath))

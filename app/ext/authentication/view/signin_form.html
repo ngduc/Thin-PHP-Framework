@@ -1,9 +1,9 @@
 <script type="text/javascript">
 function validateSignin() {	
-	// make ajax call to validate() function in Signin Controller	
+	// make ajax call to validate() function in Signin Controller
 	$.ajax({
 		type: 'post',
-		url: '/sign-in/p/validate',
+		url: '/sign-in/validate',
 		dataType: 'json', data: $('#signinForm').serialize(),
 		success: function (rets) {
 			var countRets = TPF.countJSON(rets);

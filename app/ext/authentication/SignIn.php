@@ -45,7 +45,7 @@ class SignIn extends BaseController
 	}
 
 	public function view()
-	{		
+	{
 		if ($this->isValidating()) return $this->validate(RT_JSON);
 		if ($this->isPosting()) return $this->processPOST();
 

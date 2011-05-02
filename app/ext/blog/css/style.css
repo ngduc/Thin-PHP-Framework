@@ -53,16 +53,13 @@
 	height: 20px;
 	margin-right: 10px;
 }
-#blogeditForm textarea {
-	margin-right: 10px;
-}
 #blogeditForm .fcheckbox {
 	width: 20px;
 	vertical-align: bottom;
 }
 #blogeditForm textarea {
 	width: 600px;
-	height: 100px;
+	height: 500px;
 	margin-top: 10px;
 }
 #blogeditForm #blogeditSubmit {

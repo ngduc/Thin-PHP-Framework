@@ -5,13 +5,14 @@ require_once BASE.'/app/model/base/BaseBO.php';
 /**
  * Auto generated Model Class represents table 'post' 
  * @author: Thin PHP Framework
- * @date: 2011-04-23 17:16
+ * @date: 2011-05-01 21:59
  */
 class Post extends BaseBO
 {
 	private $fields;
 	private $postId;
 	private $authorId;
+	private $categoryId;
 	private $title;
 	private $description;
 	private $content;
@@ -44,6 +45,7 @@ class Post extends BaseBO
 		$this->fields = $fields;
 		$this->postId = $fields['postId'];
 		$this->authorId = $fields['authorId'];
+		$this->categoryId = $fields['categoryId'];
 		$this->title = $fields['title'];
 		$this->description = $fields['description'];
 		$this->content = $fields['content'];
@@ -73,6 +75,13 @@ class Post extends BaseBO
 	}
 	public function setAuthorId($authorId) {
 		$this->authorId = $authorId;
+	}
+
+	public function getCategoryId() {
+		return $this->categoryId;
+	}
+	public function setCategoryId($categoryId) {
+		$this->categoryId = $categoryId;
 	}
 
 	public function getTitle() {
@@ -145,6 +154,6 @@ class Post extends BaseBO
 	 */
 	public function toStr()
 	{
-		return ''.':'.$this->postId.':'.$this->authorId.':'.$this->title.':'.$this->description.':'.$this->content.':'.$this->views.':'.$this->points.':'.$this->flagLocked.':'.$this->flagHideComments.':'.$this->updateTime.':'.$this->createTime;
+		return ''.':'.$this->postId.':'.$this->authorId.':'.$this->categoryId.':'.$this->title.':'.$this->description.':'.$this->content.':'.$this->views.':'.$this->points.':'.$this->flagLocked.':'.$this->flagHideComments.':'.$this->updateTime.':'.$this->createTime;
 	}
 }

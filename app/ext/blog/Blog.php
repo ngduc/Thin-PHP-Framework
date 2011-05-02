@@ -26,7 +26,7 @@ class Blog extends BaseController
 	}
 
 	private function processAction($dao, $v)
-	{		
+	{
 		if ( !isset($this->params[0])) {
 			$action = 'list'; // default action
 		} else {
@@ -54,7 +54,7 @@ class Blog extends BaseController
 		else {
 			if ($action == 'remove')
 			{				
-				// ex: requesting: /blog/p/delete/2
+				// ex: requesting: /blog/delete/2
 				$id = trim(sanitize_str($this->params[1]));
 				if (isDemoMode() && $id == 1) $err = '<span id="msgWarn">Demo Mode: removing entry #1 is not allowed!</span>';
 				if ($err == '') {
