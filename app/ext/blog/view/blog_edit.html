@@ -1,6 +1,6 @@
 <h3>{$post.title}</h3>
 
-{$post.content}
+{$postContent}
 
 <br/>&nbsp;<br/>
 
@@ -10,7 +10,7 @@
 		<input type="hidden" name="form" value="edit">
 
 		<span>Title</span>
-		<input type="text" name="title" size="60" value="{$post.title}">
+		<input type="text" name="title" style="width: 400px" value="{$post.title}">
 		<p/>
 		<textarea name="content">{$post.content}</textarea>
 		<br/>

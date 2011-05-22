@@ -13,7 +13,7 @@
 	defined('BASE') or exit('Direct script access is not allowed!');	
 
 	define('BASECTL', BASE.'/app/controller');
-	define('BASEVIEW', BASE.'/app/smarty_view');
+	define('BASEVIEW', BASE.'/app/view');
 	define('BASEEXT', BASE.'/app/ext');
 	
 	require_once BASE.'/app/constants.php';
@@ -31,6 +31,6 @@
 	require_once BASE.'/app/core/log/Logger.php';
 	
 	require_once BASE.'/app/controller/base/BaseController.php';
-	require_once BASE.'/app/controller/MainController.php';
+	require_once BASE.'/app/controller/base/MainController.php';
 	
 	date_default_timezone_set($app_i['timezone']);

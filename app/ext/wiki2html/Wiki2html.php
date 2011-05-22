@@ -41,8 +41,11 @@ class Wiki2html
 		$tmp = preg_match_all("/!pre(\d)!/s", $html, $patterns);
 		//var_dump($patterns);
 		for ($i = 0, $cnt = count($patterns[1]); $i < $cnt; $i++) {
-	    	$html = str_replace('!pre'.$i.'!',
-	    				"\n".$arr[$i]['pretag'].$arr[$i]['content2'].'</pre>', $html);
+	    	$precontent = html_entity_decode($arr[$i]['content2']);
+            $precontent = str_replace('<', '&lt;', $precontent); // to prevent output <?php
+            $precontent = str_replace('>', '&gt;', $precontent);
+            $html = str_replace('!pre'.$i.'!',
+							"\n".$arr[$i]['pretag'].$precontent.'</pre>', $html);
 		}
 						
 		return $html;

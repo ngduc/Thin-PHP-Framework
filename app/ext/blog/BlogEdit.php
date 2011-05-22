@@ -1,5 +1,6 @@
 <?php
 defined('BASE') or exit('Direct script access is not allowed!');
+require_once BASEEXT.'/wiki2html/Wiki2html.php';
 
 class BlogEdit extends BaseController
 {
@@ -19,11 +20,15 @@ class BlogEdit extends BaseController
 		$postId = $this->params[0];
 		$dao = DAO::getDAO('PostDAO');
 		$post = $dao->getById($postId);
-		$post['content'] = html_entity_decode($post['content']);
+		
+		$postContent = $post['content'];
+		$postContent = html_entity_decode($postContent);
+        $postContent = Wiki2html::process($postContent);
 
 		$v = $this->smarty;
 		$v->setTemplateDir(BASEEXT.'/blog/view');
-		$v->assign('post', $post);		
+		$v->assign('post', $post);
+		$v->assign('postContent', $postContent);
         $this->display($v, 'blog_edit.html');
 	}
 }

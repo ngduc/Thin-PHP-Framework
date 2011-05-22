@@ -44,8 +44,8 @@ class Blog extends BaseController
 				if ($action == 'show') {
 					$html = BaseController::callController(BASEEXT.'/blog', 'BlogShow', array($postId));
 				}
-				else if ($action == 'edit') {
-					$html = BaseController::callController(BASEEXT.'/blog', 'BlogEdit', array($postId));					
+				else if ($action == 'edit') {					
+					$html = BaseController::callController(BASEEXT.'/blog', 'BlogEdit', array($postId));
 				}
 			}
 			$v->assign('inc_content', 'blank.html');

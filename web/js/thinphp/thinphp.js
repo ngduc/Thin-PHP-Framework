@@ -73,7 +73,7 @@ var TPF = {
 	delaySubmit: function(formId, time)
 	{
 		this.setReadonlyForm(formId, false); // set form readonly to prevent resubmit
-		this.showLoading(formId);		
+		this.showLoading(formId);
 		setTimeout("TPF.delaySubmitHelper('"+formId+"')", time);
 	},
 	delaySubmitHelper: function(formId)

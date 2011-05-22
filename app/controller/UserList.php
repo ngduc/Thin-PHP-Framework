@@ -21,15 +21,19 @@ class UserList extends BaseController
 			$newUser = new User(
 							array('firstName' => 'First', 'lastName' => 'LastName',
 							'username' => "test$randNum", 'email' => "test$randNum@example.com")
-						);			
+						);
 			// #TODO: implement UserDao.create($newUser) instead.
+			if ($dao->countAll() > 100) { // Demo mode: clean up if too many users
+                    $dao->execute("DELETE FROM user");
+                    $dao->execute("vacuum");
+            }
 			$dbNow = date( 'Y-m-d H:i:s' );
 			$dao->execute("INSERT INTO user(firstName, lastName, username, email, createTime)
 						VALUES(:firstName, :lastName, :username, :email, '$dbNow')", $newUser->getFields());
 		}
 		
 		$users = $dao->getAll();
-				
+
         $v = $this->smarty;
         $v->assign('title', 'User List');
 

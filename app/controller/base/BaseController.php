@@ -24,12 +24,12 @@ abstract class BaseController
 		$this->smarty = new Smarty();
 
 		// configure Smarty with Relative Paths (from '/dispatcher.php')		
-		$this->smarty->setTemplateDir('app/smarty_view');
+		$this->smarty->setTemplateDir('app/view');
 		$this->smarty->setConfigDir  ('app/conf/smarty_config');
 		$this->smarty->setCacheDir   ('app/appdata/smarty_cache'); // writable
 		$this->smarty->setCompileDir ('app/appdata/smarty_compiled'); // writable
 	}
-	
+
 	public function handle($params)
 	{
 		// check flooding using SysCache before handle Controller.
@@ -64,14 +64,14 @@ abstract class BaseController
 		$v->assign('lang', $lang[$viewDir]);
 
 		if ( !isLocalhost() && file_exists(BASEVIEW.'/'.$viewDir.'/tracking_code.html')) {
-			$v->assign('inc_tracking_code', $viewDir.'/tracking_code.html');
+			$v->assign('inc_tracking_code', 'file:/'.BASEVIEW.'/'.$viewDir.'/tracking_code.html'); // abs path so Extensions find it too.
 		} else {
-			$v->assign('inc_tracking_code', BASEVIEW.'/blank.html');
+			$v->assign('inc_tracking_code', 'file:/'.BASEVIEW.'/blank.html');
 		}
 	}
 	
 	public function display($v, $viewfile)
-	{		
+	{
 		$this->processSmartyView($v);
 
 		// customize your view here...
