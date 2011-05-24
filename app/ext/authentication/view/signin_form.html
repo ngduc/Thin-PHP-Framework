@@ -1,6 +1,6 @@
 <script type="text/javascript">
 function validateSignin() {	
-	// make ajax call to validate() function in Signin Controller
+	// make ajax call to validate() function in Signin Controller	
 	$.ajax({
 		type: 'post',
 		url: '/sign-in/validate',
@@ -22,6 +22,7 @@ function validateSignin() {
 }
 </script>
 <form id="signinForm" action="/sign-in" method="post" onsubmit="return validateSignin()">
+	<input type="hidden" name="form" value="signinForm">
 	<a href="http://demo.thinphp.com/app/ext/authentication/src/oauth_google.php?refresh" class="signin_google"><img border="0" src="/web/img/oauth/google_32.png" /></a>
 	<a href="http://demo.thinphp.com/app/ext/authentication/src/oauth_facebook.php?refresh" class="signin_facebook"><img border="0" src="/web/img/oauth/facebook_32.png" /></a>
 	<a href="http://demo.thinphp.com/app/ext/authentication/src/oauth_twitter.php?refresh" class="signin_twitter"><img border="0" src="/web/img/oauth/twitter_32.png" /></a>

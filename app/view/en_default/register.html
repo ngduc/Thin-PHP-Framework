@@ -1,0 +1,47 @@
+				<h2>Register</h2>
+				<p><b>This demonstrates how Controller & Form work.</b><br/>Feel free to input anything and submit the form for testing.</p>
+<script type="text/javascript">
+function validateRegister() {	
+	// make ajax call to validate() function in ContactUs Controller	
+	$.ajax({
+		type: 'post',
+		url: '/register/validate',
+		dataType: 'json', data: $('#rform').serialize(),
+		success: function (rets) {
+			var countRets = TPF.countJSON(rets);
+			if (countRets > 0)
+			{
+				TPF.setFormError('#rform', '', ''); // clear errors
+				for (var i = 0; i < countRets; i++) {
+					var err = rets[i];					
+					TPF.setFormError('#rform', err['field'], err['msg']);
+					if (i == 0) TPF.focusField('#rform', err['field']); // focus 1st error field
+				}
+			}
+			else {
+				TPF.delaySubmit('#rform', 300); // delay submit() to avoid flooding
+				return true;
+			}
+		}
+	});
+	return false;
+}
+</script>
+<form id="rform" name="rform" action="/register" method="post" onsubmit="return validateRegister()">
+
+<div class="dataForm">
+	<span>Username</span>
+	<input name="username" type="text" style="width: 150px" /><span class="fmsg"></span>
+	<span>Email</span>	
+	<input name="email" type="text" /><span class="fmsg"></span>
+	<span>Password</span>	
+	<input name="password" type="password" style="width: 150px" /><span class="fmsg"></span>
+	<span>Confirm Password</span>
+	<input name="cpassword" type="password" style="width: 150px" /><span class="fmsg"></span>
+	
+	<input id="registerSubmit" name="registerSubmit" type="submit" value="Submit"><span></span>
+</div>
+</form>
+<script type="text/javascript">
+	TPF.focusField('#rform', 'username');
+</script>

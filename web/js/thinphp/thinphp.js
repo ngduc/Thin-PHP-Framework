@@ -88,8 +88,8 @@ var TPF = {
 			$(formId+' :input ~ span.fmsg').html(''); // clear all err
 			$(formId+' :input ~ span.fmsg').hide();
 			return;
-		}		
-		$(formId+' :input[name='+fieldName+'] ~ span.fmsg').html(errMsg);
+		}
+		$(formId+' :input[name='+fieldName+'] ~ span.fmsg').html('&nbsp;'+errMsg+'&nbsp;');
 		$(formId+' :input[name='+fieldName+'] ~ span.fmsg').fadeIn('slow');
 	},
 	focusField: function(formId, f) {

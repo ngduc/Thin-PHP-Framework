@@ -11,8 +11,10 @@
  * @license       TPF License http://bit.ly/TPFLicense
  */
 
+	// The following parameters must be changed to your settings!
+
 	// App Info
-	$app_i = array(	
+	$app_i = array(
 		'default_view'	=> 'en_default',
 		'flood_limit'	=> 0,
 		'cache'		=> CC_NOCACHE,
@@ -57,4 +59,4 @@
 		'log_pattern'	=> '{time} {name} [{type_padleft}] - {msg}',
 		'log_time_format'	=> 'Y-m-d H:i:s.ms'
 	);
-?>
+

@@ -24,7 +24,7 @@ class SignIn extends BaseController
 	public function processPOST()
 	{
 		parent::processPOST();
-
+			
 		copy_fields($_POST, $fv, F_ENCODE, 'username', 'password');
 		// #TODO: check Username & Password from DB
 		if ($fv['password'] == 'demo') {	// successfully signed in!					
@@ -45,9 +45,9 @@ class SignIn extends BaseController
 	}
 
 	public function view()
-	{
+	{		
 		if ($this->isValidating()) return $this->validate(RT_JSON);
-		if ($this->isPosting()) return $this->processPOST();
+		if ($this->isPosting() && $_POST['form']=='signinForm') return $this->processPOST();
 
 		$ret = session_start();
 
@@ -56,7 +56,7 @@ class SignIn extends BaseController
 			echo('<p/><a href="/sign-out">Sign out</a>');
 		}
 		else {
-			// show Signin Form			
+			// show Signin Form
 			$v = $this->smarty;
 			$v->setTemplateDir(BASEEXT.'/authentication/view');
 			$this->display($v, 'signin_form.html');

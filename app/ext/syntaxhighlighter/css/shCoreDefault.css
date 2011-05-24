@@ -58,6 +58,7 @@
   position: relative !important;
   overflow: auto !important;
   font-size: 1em !important;
+  padding-bottom: 1px !important; /* fix vertical scrollbar always appear in Chrome */
 }
 .syntaxhighlighter.source {
   overflow: hidden !important;

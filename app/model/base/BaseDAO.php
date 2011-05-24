@@ -50,8 +50,9 @@ class BaseDAO implements IBaseDao
 		$stmt = $this->dbh->prepare($sql);		
 		if ($stmt != null) {
 			$stmt->execute($paramArr);
-			//$stmt->debugDumpParams();
+			//$stmt->debugDumpParams();			
 		}
+		return $stmt->errorInfo();
 	}
 	
 	public function getAll()

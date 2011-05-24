@@ -1,47 +1,48 @@
 /* --- Common --- */
-#msgWarn {
+.msgWarn {
 	background-color: #F0E68C;
 }
-#msgErr {
+.msgErr {	
 	color: darkred;
-	background-color: #ffdddd;
+	background-color: #ffdddd;	
 }
-/* --- Contact Form --- */
-#contactForm span {
+
+/* --- General Data Form --- */
+.dataForm span {
 	display: block;
 	margin-top: 10px;
 }
-#contactForm input {
+.dataForm input {
 	width: 300px;
 	height: 20px;
 	margin-right: 10px;
 }
-#contactForm textarea {
+.dataForm textarea {
 	margin-right: 10px;
 }
-#contactForm .fcheckbox {
+.dataForm .fcheckbox {
 	width: 20px;
 	vertical-align: bottom;
 }
-#contactForm textarea {
+.dataForm textarea {
 	width: 400px;
 	height: 150px;
 }
-#contactForm #contactSubmit {
+.dataForm input[type="submit"] {
 	display: block;
 	width: 80px;
 	height: 25px;	
 	margin-top: 10px;
 	border: solid 1px #ccc;
 }
-#contactForm #contactSubmit:hover {	
+.dataForm input[type="submit"]:hover {	
 	border: solid 1px #777;
 }
-#contactForm .fmsg {
-	display: inline;
-	font-size: 1.1em;
+.dataForm .fmsg {
+	display: inline;	
 	color: darkred;
-	background-color: #ffdddd;	
+	background-color: #ffc;	
+	font-size: 0.9em;	
 }
 
 /* --- Signin Form --- */
@@ -65,7 +66,7 @@
 }
 #signinForm .fmsg {
 	display: inline;
-	font-size: 1.1em;
+	font-size: 0.9em;
 	color: darkred;
-	background-color: #ffdddd;	
+	background-color: #ffc;	
 }
