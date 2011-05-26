@@ -22,7 +22,7 @@ class BaseDAO implements IBaseDao
 {
 	protected $dbh;
 	protected $table;
-	protected $lastSQL;
+	protected $lastSql;
 	
 	/**
 	 * Constructor to create a DAO for a specific table
@@ -34,9 +34,9 @@ class BaseDAO implements IBaseDao
 		$this->dbh = DBFactory::getDBHandler();
 	}
 	
-	public function getLastSQL()
+	public function getLastSql()
 	{
-		return $this->lastSQL;
+		return $this->lastSql;
 	}
 	
 	public function getDbHandler()
@@ -84,6 +84,19 @@ class BaseDAO implements IBaseDao
 		$stmt = $this->dbh->prepare($sql);
 		$stmt->execute(array(':id'=>$id));		
 		$res = $stmt->fetchAll();		
+		if ($res != null && count($res) >0) {
+			return $res[0];
+		}
+		return null;
+	}
+
+    public function getByField($fieldName, $val)
+	{
+		if ($this->dbh == null) return;
+		$sql = 'SELECT * FROM '.$this->table.' WHERE '.$fieldName.' = :val';
+		$stmt = $this->dbh->prepare($sql);
+		$stmt->execute(array(':val'=>$val));
+		$res = $stmt->fetchAll();
 		if ($res != null && count($res) >0) {
 			return $res[0];
 		}

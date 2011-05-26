@@ -54,7 +54,7 @@ function generateDomainObjects($ret){
 			$fieldName = getVarNameWithS($tab[$j][0]);
 			$fields .= "\tprivate $".$fieldName.";\n";
 			
-			$initFields .= "\t\t\$this->".$fieldName." = \$fields['".$fieldName."'];\n";
+			$initFields .= "\t\tif (isset(\$fields['".$fieldName."'])) \$this->".$fieldName." = \$fields['".$fieldName."'];\n";
 			
 			$camelFieldName = $fieldName;
 			$camelFieldName[0] = strtoupper($fieldName[0]);

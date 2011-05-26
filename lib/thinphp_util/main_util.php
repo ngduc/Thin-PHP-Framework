@@ -1,5 +1,15 @@
 <?php
 
+function ifsetor(&$variable, $defVal = null)	// if isset() set value, else set default value.
+{
+    if (isset($variable)) {
+        $tmp = $variable;
+    } else {
+        $tmp = $defVal;
+    }
+    return $tmp;
+}
+
 function isLocalhost()
 {
 	if (in_array($_SERVER['SERVER_ADDR'], array('127.0.0.1','::1'))) return true;

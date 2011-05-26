@@ -25,9 +25,9 @@ function genUid($len, $charset='a-z0-9')
     $pack = pack('H*', $hex);
     $uid = base64_encode($pack);	// max 22 chars
 
-	$uid = ereg_replace("[^$charset]", "", $uid);    // mixed case
-    //$uid = ereg_replace("[^A-Za-z0-9]", "", $uid);    // mixed case
-    //$uid = ereg_replace("[^A-Z0-9]", "", strtoupper($uid));    // uppercase only
+    $uid = preg_replace("/[^$charset]/", "", $uid);    // mixed case
+    //$uid = preg_replace("[^A-Za-z0-9]", "", $uid);    // mixed case
+    //$uid = preg_replace("[^A-Z0-9]", "", strtoupper($uid));    // uppercase only
     
     if ($len < 3) $len = 3;
     if ($len > 128) $len = 128;			// prevent silliness, can remove
