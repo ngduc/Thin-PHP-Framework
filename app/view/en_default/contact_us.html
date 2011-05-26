@@ -1,19 +1,19 @@
 				<h2>Contact Us</h2>
 				<p><b>This demonstrates Form Submission and Server side Validation.</b><br/>Feel free to input anything and submit the form for testing.</p>
 <script type="text/javascript">
-function validateContact() {	
-	// make ajax call to validate() function in ContactUs Controller	
+function validateContact(form) {	
+	// make ajax call to validate() function in the Controller	
 	var isOK = false;
+	var formId = '#' + form.id;
 	$.ajax({
 		async	: false,
 		type	: 'post',
 		url		: '/contact-us/validate',
-		dataType: 'json', data: $('#cform').serialize(),
+		dataType: 'json', data: $(formId).serialize(),
 		success: function (rets) {
 			var countRets = TPF.countJSON(rets);
-			if (countRets > 0)
-			{
-				TPF.setFormError('#cform', '', ''); // clear errors
+			if (countRets > 0) {
+				TPF.setFormError(formId, '', ''); // clear errors
 				for (var i = 0; i < countRets; i++) {
 					var err = rets[i];
 					if (err['field'] == 'recaptcha') {
@@ -21,8 +21,8 @@ function validateContact() {
 						Recaptcha.reload();
 						continue;
 					}
-					TPF.setFormError('#cform', err['field'], err['msg']);
-					if (i == 0) TPF.focusField('#cform', err['field']); // focus 1st error field
+					TPF.setFormError(formId, err['field'], err['msg']);
+					if (i == 0) TPF.focusField(formId, err['field']); // focus the first error field
 				}
 			}
 			else {
@@ -33,7 +33,7 @@ function validateContact() {
 	return isOK;
 }
 </script>
-<form id="cform" name="cform" action="/contact-us" method="post" onsubmit="return validateContact()">
+<form id="cform" name="cform" action="/contact-us" method="post" onsubmit="return validateContact(this)">
 	<input name="ftoken" type="hidden" value="{$ftoken}">
 
 <div class="dataForm">
