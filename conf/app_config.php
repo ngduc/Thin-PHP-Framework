@@ -15,11 +15,11 @@
 
 	// App Info
 	$app_i = array(
-		'default_view'	=> 'en_default',
-		'flood_limit'	=> 0,
-		'cache'		=> CC_NOCACHE,
-		'timezone'	=> 'America/Los_Angeles',
-		'md5salt'	=> 'MyR@nd0mStr1ng',
+		'default_view'	=> 'en_default',			// default view directory
+		'flood_limit'	=> 0,						// e.g. 0.5 second - require 'cache' to work
+		'cache'		=> CC_NOCACHE,					// cache method (more: constants.php)
+		'timezone'	=> 'America/Los_Angeles',		// more: http://j.mp/kicmqy
+		'md5salt'	=> 'MyR@nd0mStr1ng',			// any random string (used for salt)
 		'demo_mode'	=> 1
 	);
 	

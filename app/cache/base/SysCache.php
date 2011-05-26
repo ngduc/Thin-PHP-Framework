@@ -14,8 +14,10 @@ defined('BASE') or exit('No direct script access allowed!');
 require_once 'CacheFactory.php';
 
 abstract class SysCache
-{	
+{
 	public static $c; // cache
+	
+	public static $floodingChecked = false;
 	
 	public static function init()
 	{		
@@ -39,7 +41,7 @@ abstract class SysCache
 		// adjust Last Request Time to prevent 'flooding' error
 		// (for example: requests for Form Validation & Form Submit happen too fast!)
 		if (SysCache::init()) {
-			SysCache::$c->set($_SERVER['REMOTE_ADDR'].'reqtime', microtime(true)-2.0, 15);
+			SysCache::$c->set('reqtime'.$_SERVER['REMOTE_ADDR'], microtime(true)-2.0, 15);
 		}
 	}
 }

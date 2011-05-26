@@ -3,9 +3,11 @@
 <script type="text/javascript">
 function validateContact() {	
 	// make ajax call to validate() function in ContactUs Controller	
+	var isOK = false;
 	$.ajax({
-		type: 'post',
-		url: '/contact-us/validate',
+		async	: false,
+		type	: 'post',
+		url		: '/contact-us/validate',
 		dataType: 'json', data: $('#cform').serialize(),
 		success: function (rets) {
 			var countRets = TPF.countJSON(rets);
@@ -24,12 +26,11 @@ function validateContact() {
 				}
 			}
 			else {
-				TPF.delaySubmit('#cform', 300); // delay submit() to avoid flooding
-				return true;
+				isOK = true;
 			}
 		}
 	});
-	return false;
+	return isOK;
 }
 </script>
 <form id="cform" name="cform" action="/contact-us" method="post" onsubmit="return validateContact()">

@@ -15,7 +15,7 @@ class Register extends BaseController
 			$rets[] = array('msg' => 'Please enter your username!', 'field' => 'username');
 		}
 		if (filter_var($fv['email'], FILTER_VALIDATE_EMAIL) === FALSE) {
-    		$rets[] = array('msg' => 'Invalid email!', 'field' => 'email');
+    		$rets[] = array('msg' => 'Invalid email address!', 'field' => 'email');
         }
         if ($fv['password'] == '') {
 			$rets[] = array('msg' => 'Please enter your password!', 'field' => 'password');

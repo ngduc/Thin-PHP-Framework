@@ -32,11 +32,12 @@ abstract class BaseController
 
 	public function handle($params)
 	{
-		// check flooding using SysCache before handle Controller.
-		if (SysCache::getFloodLimit() > 0) {
+		// check flooding using SysCache before handle Controller
+		if (SysCache::$floodingChecked == false && SysCache::getFloodLimit() > 0) {
 			$ip = $_SERVER['REMOTE_ADDR'];
-			if (is_flooding( SysCache::$c->get($ip.'reqtime') )) die('flooding!');
-			SysCache::$c->set($ip.'reqtime', microtime(true), 15);
+			if (is_flooding( SysCache::$c->get('reqtime'.$ip) )) die('flooding!');
+			SysCache::$c->set('reqtime'.$ip, microtime(true), 15);
+			SysCache::$floodingChecked = true; // check only once per visitor
 		}
 		
 		// call Controller
@@ -66,7 +67,7 @@ abstract class BaseController
 		if ( !isLocalhost() && file_exists(BASEVIEW.'/'.$viewDir.'/tracking_code.html')) {
 			$v->assign('inc_tracking_code', 'file:/'.BASEVIEW.'/'.$viewDir.'/tracking_code.html'); // abs path so Extensions find it too.
 		} else {
-			$v->assign('inc_tracking_code', 'file:/'.BASEVIEW.'/blank.html');
+			$v->assign('inc_tracking_code', 'file:'.BASEVIEW.'/blank.html');
 		}
 	}
 	
@@ -116,7 +117,7 @@ abstract class BaseController
                 return array($mpArr[0], $mpArr[1], $mpArr[2]); // path, name, params
             }
             else {
-                return array($mpArr[0], $mpArr[1]); // path, name
+                return array($mpArr[0], $mpArr[1], null); // path, name
             }
 		}
         die('ERROR: Invalid URL!');
