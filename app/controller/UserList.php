@@ -12,7 +12,7 @@ class UserList extends BaseController
 		if (isset($this->params[0]) && trim($this->params[0])=='remove')
 		{
 			// ex: requesting: /user-list/delete/2
-			$id = trim(sanitize_str($this->params[1]));
+			$id = trim(sanitizeString($this->params[1]));
 			$dao->removeById($id);
 		}
 		else if (isset($this->params[0]) && trim($this->params[0])=='add')

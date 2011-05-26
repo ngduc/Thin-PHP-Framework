@@ -6,15 +6,15 @@ class SignIn extends BaseController
 	public function validate($retType)
 	{		
 		parent::validate($retType);
-		copy_fields($_POST, $fv, F_ENCODE, 'username');
+		copyItems($_POST, $fv, 'username');
 
-		if (validate_username($fv['username']) == false) {
+		if (validateUsername($fv['username']) == false) {
 			$rets[] = array('msg' => '<br/>Invalid username!', 'field' => 'username');
 		}
 
 		if (isset($rets)) {
 	        if (isset($retType) && $retType == RT_JSON) {
-	        	return header_json($rets);
+	        	return outputJson($rets);
 	        } else {
 	        	return $rets;
 	        }
@@ -25,7 +25,7 @@ class SignIn extends BaseController
 	{
 		parent::processPOST();
 			
-		copy_fields($_POST, $fv, F_ENCODE, 'username', 'password');
+		copyItems($_POST, $fv, 'username', 'password');
 		// #TODO: check Username & Password from DB
 		if ($fv['password'] == 'demo') {	// successfully signed in!					
 			$ret = session_start();

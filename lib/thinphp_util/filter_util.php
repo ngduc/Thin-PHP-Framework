@@ -1,16 +1,16 @@
 <?php
 
-function sanitize_str($s)
+function sanitizeString($s)
 {
 	return filter_var($s, FILTER_SANITIZE_STRING);
 }
 
-function sanitize_email($s)
+function sanitizeEmail($s)
 {
 	return filter_var($s, FILTER_SANITIZE_EMAIL);
 }
 
-function sanitize_url($s)
+function sanitizeUrl($s)
 {
 	return filter_var($s, FILTER_SANITIZE_URL);
 }

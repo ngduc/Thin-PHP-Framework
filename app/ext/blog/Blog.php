@@ -40,7 +40,7 @@ class Blog extends BaseController
 				$html = BaseController::callController(BASEEXT.'/blog', 'BlogList', array());
 			}
 			else {
-				$postId = trim(sanitize_str($this->params[1]));				
+				$postId = trim(sanitizeString($this->params[1]));				
 				if ($action == 'show') {
 					$html = BaseController::callController(BASEEXT.'/blog', 'BlogShow', array($postId));
 				}
@@ -55,7 +55,7 @@ class Blog extends BaseController
 			if ($action == 'remove')
 			{				
 				// ex: requesting: /blog/delete/2
-				$id = trim(sanitize_str($this->params[1]));
+				$id = trim(sanitizeString($this->params[1]));
 				if (isDemoMode() && $id == 1) $err = '<span id="msgWarn">Demo Mode: removing entry #1 is not allowed!</span>';
 				if ($err == '') {
 					$dao->removeById($id);

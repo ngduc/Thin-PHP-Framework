@@ -7,7 +7,7 @@ class Editor extends BaseController
 	{
 		parent::processPOST();
 
-		copy_fields($_POST, $fv, F_ENCODE, 'viewFile', 'jwEditor');
+		copyItems($_POST, $fv, 'viewFile', 'jwEditor');
 		
 		$viewPath = BASEVIEW.'/'.currentViewDir().'/'.$fv['viewFile'];
 		$newContent = html_entity_decode($fv['jwEditor'], ENT_QUOTES);

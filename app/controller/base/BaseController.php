@@ -35,7 +35,7 @@ abstract class BaseController
 		// check flooding using SysCache before handle Controller
 		if (SysCache::$floodingChecked == false && SysCache::getFloodLimit() > 0) {
 			$ip = $_SERVER['REMOTE_ADDR'];
-			if (is_flooding( SysCache::$c->get('reqtime'.$ip) )) die('flooding!');
+			if (isFlooding( SysCache::$c->get('reqtime'.$ip) )) die('flooding!');
 			SysCache::$c->set('reqtime'.$ip, microtime(true), 15);
 			SysCache::$floodingChecked = true; // check only once per visitor
 		}
@@ -110,7 +110,7 @@ abstract class BaseController
 		$params = null;
 				
 		// first, check if URI matched with Custom URI Mappings in 'conf/uri_mapping.php'
-		$mpArr = parseURI($route);
+		$mpArr = parseUri($route);
 		if ($mpArr != null)
 		{
             if (isset($mpArr[2]) != null) {

@@ -1,10 +1,5 @@
 <?php
 
-// Flags for copy_fields()
-define('F_ENCODE',	1);
-define('F_DECODE',	2);
-define('F_AS_IS',	3);
-
 function isLocalhost()
 {
 	if (in_array($_SERVER['SERVER_ADDR'], array('127.0.0.1','::1'))) return true;
@@ -34,7 +29,7 @@ function formatControllerName($name)
 function extractParams($parsedPath, $fullRoute)
 {
     $sParamsInRoute = str_replace($parsedPath, '', $fullRoute);
-    $sParamsInRoute = trim(remove_first_last('/', $sParamsInRoute));
+    $sParamsInRoute = trim(removeFirstLast('/', $sParamsInRoute));
     if ($sParamsInRoute != '')
     {
         $arrParams = explode('/', $sParamsInRoute);
@@ -43,12 +38,12 @@ function extractParams($parsedPath, $fullRoute)
     else return null;
 }
 
-function parseURI($route)
+function parseUri($route)
 {
 	// example: /products/cat1/detail/123/computer-case => matched: /products/cat1/detail
 	global $arr_mapping, $ext_mapping;
-    $rt = remove_first('/', $route);
-    $rt = remove_last('/', $rt);
+    $rt = removeFirst('/', $route);
+    $rt = removeLast('/', $rt);
     
 	$arr = explode ('/', $rt);
     for ($i = count($arr)-1; $i >= 0; $i--) {
@@ -91,7 +86,7 @@ function parseURI($route)
     return null;
 }
 
-function remove_first($ch, $s)
+function removeFirst($ch, $s)
 {
     // remove the first character (if any). Example: '/dir/' => 'dir/'
     if (strlen($s) == 0) return $s;
@@ -99,7 +94,7 @@ function remove_first($ch, $s)
 	return $s;
 }
 
-function remove_last($ch, $s)
+function removeLast($ch, $s)
 {
 	// remove the last character (if any). Example: '/dir/' => '/dir'
 	$len = strlen($s);
@@ -108,14 +103,14 @@ function remove_last($ch, $s)
 	return $s;
 }
 
-function remove_first_last($ch, $s)
+function removeFirstLast($ch, $s)
 {
-    $ret = remove_first($ch, $s);
-    $ret = remove_last($ch, $ret);
+    $ret = removeFirst($ch, $s);
+    $ret = removeLast($ch, $ret);
     return $ret;
 }
 
-function explode_get($delim, $st, $idx)
+function explodeGet($delim, $st, $idx)
 {
 	if (strpos($st, $delim) === false) return $st;
 
@@ -129,56 +124,66 @@ function explode_get($delim, $st, $idx)
 	return null;
 }
 
-function copy_fields( $sourceArr, &$arr, $flag )
+/**
+ * Copy (and transform) array items from $sourceArr to $arr
+ * Example: copyItems($_POST, $v, '*'); // copy all fields from submitted Form.
+ */
+function copyItems( $sourceArr, &$arr )
 {
 	$params = func_get_args(); // get function args
 
 	$totalParams = count($params);
 	if ($totalParams < 3) return;
 
-	for ($i = 3; $i < $totalParams; $i++) {
-		$k1 = $params[$i];
-		$k2 = $params[$i];
+	if (trim($params[2]) == '*')	// copy all array items		
+	{
+		foreach ($sourceArr as $key => $value) {
+			$arr[$key] = $value;
+		}
+	}
+	else {
+		for ($i = 2; $i < $totalParams; $i++) {
+			$k1 = $params[$i];
+			$k2 = $params[$i];
 
-		if (strpos($k1, '|') !== false) {	// when $arr & sourceArr don't have the same columnName (ex: 'businessName=name')
-			$tmp = explode('|', $k1);
-			$k1 = $tmp[0];
-			$k2 = $tmp[1];
-		}
-
-		if ($k2 == 'checkbox') {
-			$arr[$k1] = ($sourceArr[$k1] == 'on' ? 1 : 0); // convert HTML Checkbox value to 0/1 (to store to DB)
-		}
-		else if (strpos($k2, 'df_') !== false)
-		{
-			$dateformat = str_replace('df_', '', $k2);
-			if ($dateformat == 'mysql') $dateformat = 'Y-m-d';
-			$arr[$k1] = date($dateformat, strtotime($sourceArr[$k1]));
-		}
-		else if (strpos($k2, 'html_decode') !== false)
-		{
-			$arr[$k1] = html_entity_decode( $sourceArr[$k1] );
-		}
-		else if (strpos($k2, 's_') !== false)
-		{
-			switch ($k2) {
-				case 's_str':
-					$arr[$k1] = sanitize_str($sourceArr[$k1]);
-					break;
-				case 's_email':
-					$arr[$k1] = sanitize_email($sourceArr[$k1]);
-					break;					
+			if (strpos($k1, '|') !== false) {	// when $arr & sourceArr don't have the same columnName (ex: 'businessName=name')
+				$tmp = explode('|', $k1);
+				$k1 = $tmp[0];
+				$k2 = $tmp[1];
 			}
-		}
-		else {
-			if (isset($sourceArr[$k2]) && $flag == F_ENCODE) $arr[$k1] = htmlentities($sourceArr[$k2], ENT_QUOTES); // usually for Copying POST fields
-			if (isset($sourceArr[$k2]) && $flag == F_DECODE) $arr[$k1] = html_entity_decode($sourceArr[$k2]);
-			if (isset($sourceArr[$k2]) && $flag == F_AS_IS) $arr[$k1] = $sourceArr[$k2]; // usually for Copying DB fields
+
+			if ($k2 == 'checkbox') {
+				$arr[$k1] = ($sourceArr[$k1] == 'on' ? 1 : 0); // convert HTML Checkbox value to 0/1 (to store to DB)
+			}
+			else if (strpos($k2, 'df_') !== false)
+			{
+				$dateformat = str_replace('df_', '', $k2);
+				if ($dateformat == 'mysql') $dateformat = 'Y-m-d';
+				$arr[$k1] = date($dateformat, strtotime($sourceArr[$k1]));
+			}
+			else if (strpos($k2, 'html_decode') !== false)
+			{
+				$arr[$k1] = html_entity_decode( $sourceArr[$k1] );
+			}
+			else if (strpos($k2, 's_') !== false)
+			{
+				switch ($k2) {
+					case 's_s':
+						$arr[$k1] = sanitizeString($sourceArr[$k1]);
+						break;
+					case 's_email':
+						$arr[$k1] = sanitizeEmail($sourceArr[$k1]);
+						break;					
+				}
+			}
+			else {
+				$arr[$k1] = $sourceArr[$k2];
+			}
 		}
 	}
 }
 
-function header_json($sjason)
+function outputJson($sjason)
 {
 	header("Content-type: application/json");
 	header('Cache-Control: no-cache, must-revalidate');

@@ -7,7 +7,7 @@ class BlogComment extends BaseController
 	public function validate($retType)
 	{
 		parent::validate($retType);
-		copy_fields($_POST, $fv, F_ENCODE, 'name', 'email', 'content');
+		copyItems($_POST, $fv, 'name', 'email', 'content');
 
 		if (trim($fv['name']) == '') {
 			$rets[] = array('msg' => 'Please enter your name!', 'field' => 'name');
@@ -20,7 +20,7 @@ class BlogComment extends BaseController
 		}
 		if (isset($rets)) {
 	        if (isset($retType) && $retType == RT_JSON) {
-	        	return header_json($rets);
+	        	return outputJson($rets);
 	        } else {
 	        	return $rets;
 	        }
@@ -31,7 +31,7 @@ class BlogComment extends BaseController
 	{		
 		parent::processPOST();
 
-		copy_fields($_POST, $fv, F_ENCODE, 'itemId', 'replyToId', 'name', 'email', 'content', 'parentCommentWeight');
+		copyItems($_POST, $fv, 'itemId', 'replyToId', 'name', 'email', 'content', 'parentCommentWeight');
 		$dao = DAO::getDAO('CommentDAO');
 
 		// #TODO: validate here...

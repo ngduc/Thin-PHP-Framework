@@ -8,7 +8,7 @@ class BlogEdit extends BaseController
 	{		
 		parent::processPOST();
 
-		copy_fields($_POST, $fv, F_ENCODE, 'postId', 'title', 'content');
+		copyItems($_POST, $fv, 'postId', 'title', 'content');
 		$dao = DAO::getDAO('PostDAO');
 		$dao->update("title = '$fv[title]', content = '$fv[content]' WHERE postId = $fv[postId]");
 	}
