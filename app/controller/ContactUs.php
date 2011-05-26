@@ -32,9 +32,9 @@ class ContactUs extends BaseController
 	    }
 	}
 	
-	public function processPOST()
+	public function processPost()
 	{
-		parent::processPOST();
+		parent::processPost();
 		
 		// #TODO: User submitted data. Save it to DB, email, etc.		
 		copyItems($_POST, $fv, 'ftoken', 'name', 'email', 'optin|checkbox', 'msg');
@@ -57,7 +57,7 @@ class ContactUs extends BaseController
 	public function view()
 	{
 		if ($this->isValidating()) return $this->validate(RT_JSON);
-		if ($this->isPosting()) return $this->processPOST();
+		if ($this->isPosting()) return $this->processPost();
 		
 		// show Contact Us Form
 		session_start();

@@ -21,9 +21,9 @@ class SignIn extends BaseController
 	    }
 	}
 
-	public function processPOST()
+	public function processPost()
 	{
-		parent::processPOST();
+		parent::processPost();
 			
 		copyItems($_POST, $fv, 'username', 'password');
 		// #TODO: check Username & Password from DB
@@ -47,7 +47,7 @@ class SignIn extends BaseController
 	public function view()
 	{		
 		if ($this->isValidating()) return $this->validate(RT_JSON);
-		if ($this->isPosting() && $_POST['form']=='signinForm') return $this->processPOST();
+		if ($this->isPosting() && $_POST['form']=='signinForm') return $this->processPost();
 
 		$ret = session_start();
 

@@ -3,9 +3,9 @@ defined('BASE') or exit('Direct script access is not allowed!');
 
 class Editor extends BaseController
 {
-	public function processPOST()
+	public function processPost()
 	{
-		parent::processPOST();
+		parent::processPost();
 
 		copyItems($_POST, $fv, 'viewFile', 'jwEditor');
 		
@@ -21,7 +21,7 @@ class Editor extends BaseController
 
 	public function view()
 	{
-		if ($this->isPosting()) return $this->processPOST();
+		if ($this->isPosting()) return $this->processPost();
 		
 		session_start();		
 		if (isset($_SESSION['user']) && strlen($_SESSION['user']) > 0) {									

@@ -86,7 +86,7 @@ abstract class BaseController
 		SysCache::adjustLastRequestTime();
 	}
 	
-	public function processPOST()
+	public function processPost()
 	{
 		// validate again before processing
 		$rets = $this->validate(RT_NONE);

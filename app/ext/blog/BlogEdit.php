@@ -4,9 +4,9 @@ require_once BASEEXT.'/wiki2html/Wiki2html.php';
 
 class BlogEdit extends BaseController
 {
-	public function processPOST()
+	public function processPost()
 	{		
-		parent::processPOST();
+		parent::processPost();
 
 		copyItems($_POST, $fv, 'postId', 'title', 'content');
 		$dao = DAO::getDAO('PostDAO');
@@ -15,7 +15,7 @@ class BlogEdit extends BaseController
 
 	public function view()
 	{
-		if ($this->isPosting()) return $this->processPOST();
+		if ($this->isPosting()) return $this->processPost();
 		
 		$postId = $this->params[0];
 		$dao = DAO::getDAO('PostDAO');

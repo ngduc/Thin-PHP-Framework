@@ -9,9 +9,9 @@ require_once BASE . '/app/model/base/DAO.php';
 
 class Blog extends BaseController
 {
-	public function processPOST()
+	public function processPost()
 	{
-		parent::processPOST();
+		parent::processPost();
 		if (isset($_POST['form'])) {
 			if ($_POST['form'] == 'edit')
 			{
@@ -87,7 +87,7 @@ class Blog extends BaseController
 	
 	public function view()
 	{
-		if ($this->isPosting()) return $this->processPOST();
+		if ($this->isPosting()) return $this->processPost();
 
 		$dao = DAO::getDAO('PostDAO');
 

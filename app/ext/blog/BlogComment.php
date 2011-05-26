@@ -27,9 +27,9 @@ class BlogComment extends BaseController
 	    }
 	}
 	
-	public function processPOST()
+	public function processPost()
 	{		
-		parent::processPOST();
+		parent::processPost();
 
 		copyItems($_POST, $fv, 'itemId', 'replyToId', 'name', 'email', 'content', 'parentCommentWeight');
 		$dao = DAO::getDAO('CommentDAO');
@@ -84,7 +84,7 @@ class BlogComment extends BaseController
 	public function view()
 	{
 		if ($this->isValidating()) return $this->validate(RT_JSON);
-		if ($this->isPosting()) return $this->processPOST();
+		if ($this->isPosting()) return $this->processPost();
 		
 		$itemId = $this->params[0];
 		$dao = DAO::getDAO('CommentDAO');
