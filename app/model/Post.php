@@ -5,7 +5,7 @@ require_once BASE.'/app/model/base/BaseBO.php';
 /**
  * Auto generated Model Class represents table 'post' 
  * @author: Thin PHP Framework
- * @date: 2011-05-01 21:59
+ * @date: 2011-05-27 12:47
  */
 class Post extends BaseBO
 {
@@ -43,18 +43,18 @@ class Post extends BaseBO
 	private function init($fields)
 	{
 		$this->fields = $fields;
-		$this->postId = $fields['postId'];
-		$this->authorId = $fields['authorId'];
-		$this->categoryId = $fields['categoryId'];
-		$this->title = $fields['title'];
-		$this->description = $fields['description'];
-		$this->content = $fields['content'];
-		$this->views = $fields['views'];
-		$this->points = $fields['points'];
-		$this->flagLocked = $fields['flagLocked'];
-		$this->flagHideComments = $fields['flagHideComments'];
-		$this->updateTime = $fields['updateTime'];
-		$this->createTime = $fields['createTime'];
+		if (isset($fields['postId'])) $this->postId = $fields['postId'];
+		if (isset($fields['authorId'])) $this->authorId = $fields['authorId'];
+		if (isset($fields['categoryId'])) $this->categoryId = $fields['categoryId'];
+		if (isset($fields['title'])) $this->title = $fields['title'];
+		if (isset($fields['description'])) $this->description = $fields['description'];
+		if (isset($fields['content'])) $this->content = $fields['content'];
+		if (isset($fields['views'])) $this->views = $fields['views'];
+		if (isset($fields['points'])) $this->points = $fields['points'];
+		if (isset($fields['flagLocked'])) $this->flagLocked = $fields['flagLocked'];
+		if (isset($fields['flagHideComments'])) $this->flagHideComments = $fields['flagHideComments'];
+		if (isset($fields['updateTime'])) $this->updateTime = $fields['updateTime'];
+		if (isset($fields['createTime'])) $this->createTime = $fields['createTime'];
 	
 	}
 

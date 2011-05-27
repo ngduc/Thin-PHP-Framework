@@ -5,7 +5,7 @@ require_once BASE.'/app/model/base/BaseBO.php';
 /**
  * Auto generated Model Class represents table 'comment' 
  * @author: Thin PHP Framework
- * @date: 2011-05-01 21:59
+ * @date: 2011-05-27 12:47
  */
 class Comment extends BaseBO
 {
@@ -46,21 +46,21 @@ class Comment extends BaseBO
 	private function init($fields)
 	{
 		$this->fields = $fields;
-		$this->commentId = $fields['commentId'];
-		$this->type = $fields['type'];
-		$this->itemId = $fields['itemId'];
-		$this->replyToId = $fields['replyToId'];
-		$this->weight = $fields['weight'];
-		$this->title = $fields['title'];
-		$this->content = $fields['content'];
-		$this->authorName = $fields['authorName'];
-		$this->authorEmail = $fields['authorEmail'];
-		$this->authorURL = $fields['authorURL'];
-		$this->authorIP = $fields['authorIP'];
-		$this->points = $fields['points'];
-		$this->flagApproved = $fields['flagApproved'];
-		$this->updateTime = $fields['updateTime'];
-		$this->createTime = $fields['createTime'];
+		if (isset($fields['commentId'])) $this->commentId = $fields['commentId'];
+		if (isset($fields['type'])) $this->type = $fields['type'];
+		if (isset($fields['itemId'])) $this->itemId = $fields['itemId'];
+		if (isset($fields['replyToId'])) $this->replyToId = $fields['replyToId'];
+		if (isset($fields['weight'])) $this->weight = $fields['weight'];
+		if (isset($fields['title'])) $this->title = $fields['title'];
+		if (isset($fields['content'])) $this->content = $fields['content'];
+		if (isset($fields['authorName'])) $this->authorName = $fields['authorName'];
+		if (isset($fields['authorEmail'])) $this->authorEmail = $fields['authorEmail'];
+		if (isset($fields['authorURL'])) $this->authorURL = $fields['authorURL'];
+		if (isset($fields['authorIP'])) $this->authorIP = $fields['authorIP'];
+		if (isset($fields['points'])) $this->points = $fields['points'];
+		if (isset($fields['flagApproved'])) $this->flagApproved = $fields['flagApproved'];
+		if (isset($fields['updateTime'])) $this->updateTime = $fields['updateTime'];
+		if (isset($fields['createTime'])) $this->createTime = $fields['createTime'];
 	
 	}
 

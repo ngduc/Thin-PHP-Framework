@@ -5,8 +5,8 @@
  * @author: http://phpdao.com
  * @date: 27.11.2007
  */
-require_once "/../../../../conf/app_config.php";
- 
+require_once dirname(__FILE__)."/../../../../conf/app_config.php";
+
 class ConnectionFactory
 {
 	static public function getConnection()

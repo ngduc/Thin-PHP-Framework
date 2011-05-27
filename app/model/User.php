@@ -5,7 +5,7 @@ require_once BASE.'/app/model/base/BaseBO.php';
 /**
  * Auto generated Model Class represents table 'user' 
  * @author: Thin PHP Framework
- * @date: 2011-05-01 21:59
+ * @date: 2011-05-27 12:47
  */
 class User extends BaseBO
 {
@@ -42,17 +42,17 @@ class User extends BaseBO
 	private function init($fields)
 	{
 		$this->fields = $fields;
-		$this->userId = $fields['userId'];
-		$this->email = $fields['email'];
-		$this->username = $fields['username'];
-		$this->password = $fields['password'];
-		$this->oauthProvider = $fields['oauthProvider'];
-		$this->oauthUid = $fields['oauthUid'];
-		$this->oauthUsername = $fields['oauthUsername'];
-		$this->firstName = $fields['firstName'];
-		$this->lastName = $fields['lastName'];
-		$this->website = $fields['website'];
-		$this->createTime = $fields['createTime'];
+		if (isset($fields['userId'])) $this->userId = $fields['userId'];
+		if (isset($fields['email'])) $this->email = $fields['email'];
+		if (isset($fields['username'])) $this->username = $fields['username'];
+		if (isset($fields['password'])) $this->password = $fields['password'];
+		if (isset($fields['oauthProvider'])) $this->oauthProvider = $fields['oauthProvider'];
+		if (isset($fields['oauthUid'])) $this->oauthUid = $fields['oauthUid'];
+		if (isset($fields['oauthUsername'])) $this->oauthUsername = $fields['oauthUsername'];
+		if (isset($fields['firstName'])) $this->firstName = $fields['firstName'];
+		if (isset($fields['lastName'])) $this->lastName = $fields['lastName'];
+		if (isset($fields['website'])) $this->website = $fields['website'];
+		if (isset($fields['createTime'])) $this->createTime = $fields['createTime'];
 	
 	}
 

@@ -22,7 +22,7 @@
 			'/blog-comment' => array('ext/blog', 'BlogComment'),
 				
 		//--- TPF Documentation
-			'/docs' => array('ext/thinphpdocs', 'TPFDocs'),
+			'/docs' => array('ext/thinphpdoc', 'TPFDoc'),
 			
 		//--- Editor
 			'/page-editor' => array('ext/editor', 'Editor'),
