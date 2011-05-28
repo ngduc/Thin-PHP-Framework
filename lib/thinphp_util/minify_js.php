@@ -11,7 +11,9 @@
  * @license       TPF License http://bit.ly/TPFLicense
  */
 define('BASE', dirname(__FILE__).'/../..');
- 
+
+$listFilename = $_GET['list'];
+
 ob_start("ob_gzhandler"); // second: gzip
 ob_start("minify"); // first: minify
 function minify($buffer) {
@@ -22,16 +24,19 @@ function minify($buffer) {
 	return $buffer;
 }
 
-header ("content-type: text/css; charset: UTF-8");
+header ("content-type: text/javascript; charset: UTF-8");
 header ("cache-control: must-revalidate");
-$offset = 60 * 60 * 24 * 7; // 7 days
+$offset = 3600 * 24 * 7; // 7 days
 $expire = "Expires: " . gmdate ("D, d M Y H:i:s", time() + $offset) . " GMT"; 
 header ($expire);
 
-/* your css files */
-include BASE.'/web/js/jquery/colorbox/jquery.colorbox-min.js';
-include BASE.'/web/js/jquery/jquery.cookie.min.js';
-include BASE.'/web/js/thinphp/thinphp.js';
-
+// read listfile & include each file in there.
+if ($arr = @file($listFilename)) {
+	foreach ($arr as $line) {
+		if (strlen($line) > 3) {			
+			include BASE.trim($line);			
+		}
+	}
+}
 ob_end_flush();
 ob_end_flush();

@@ -12,6 +12,8 @@
  */
 define('BASE', dirname(__FILE__).'/../..');
 
+$listFilename = $_GET['list'];
+
 ob_start("ob_gzhandler"); // second: gzip
 ob_start("minify"); // first: minify
 function minify($buffer) {
@@ -21,9 +23,9 @@ function minify($buffer) {
 	$buffer = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $buffer);
 	return $buffer;
 }
-// read CSS, replace relative paths (like url(relpath...)) with absolute paths - see: #minifycss_absPathCSS
+// read CSS, replace relative paths (like url(relpath...)) with absolute paths - ref: #minifycss_absPathCSS
 function absPathCSS($cssFile, $prefixPath) {	
-	$prefixPath = substr ($cssFile, 0, strrpos($cssFile, '/')+1);	
+	$prefixPath = substr ($cssFile, 0, strrpos($cssFile, '/')+1);
 
 	$css = file_get_contents(BASE . $cssFile);	
 	
@@ -45,15 +47,17 @@ function absPathCSS($cssFile, $prefixPath) {
 
 header ("content-type: text/css; charset: UTF-8");
 header ("cache-control: must-revalidate");
-$offset = 60 * 60 * 24 * 7; // 7 days
+$offset = 3600 * 24 * 7; // 7 days
 $expire = "Expires: " . gmdate ("D, d M Y H:i:s", time() + $offset) . " GMT"; 
 header ($expire);
 
-// your CSS files
-absPathCSS('/web/js/jquery/colorbox/colorbox.css');
-absPathCSS('/web/js/jquery/fancybox/jquery.fancybox-1.3.4.css');
-absPathCSS('/web/css/style.css');
-absPathCSS('/web/css/style_ext.css');
-	
+// read listfile & include each file in there.
+if ($arr = @file($listFilename)) {
+	foreach ($arr as $line) {
+		if (strlen($line) > 3) {			
+			include absPathCSS( trim($line) );
+		}
+	}
+}	
 ob_end_flush();
 ob_end_flush();

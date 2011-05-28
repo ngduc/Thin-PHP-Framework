@@ -38,7 +38,7 @@ class MainController extends BaseController
 
 		if (file_exists($fullpath))
 		{
-     		// load controller
+     		// load parsed Controller
 			require_once $fullpath;
 			$ctr = new $this->_cName();
 			$ctr->handle($this->_cParams);

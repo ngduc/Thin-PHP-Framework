@@ -10,7 +10,11 @@
 	include 'connect.php';
 	$dbh = connect_DB() or die('Cannot connect to DB!');
 	
-	echo "Host: $dbenv[host] - DB: $dbenv[dbname] <p/>** For MySQL, Make sure you create DB first. <br/>** Verify: prepare_tables_*.sql files. <p/>";
+	$dbdriver = '';
+	if ($dbenv[dbdriver] == 1) $dbdriver = 'SQLITE';
+	if ($dbenv[dbdriver] == 2) $dbdriver = 'MYSQL';
+		
+	echo "Driver: $dbdriver - Host: $dbenv[host] - DB: $dbenv[dbname] <p/>** For MySQL, Make sure you create DB first. <br/>** Verify: prepare_tables_*.sql files. <p/>";
 ?>
 	Recreate and Setup Database:<p/>
 	<ul>
