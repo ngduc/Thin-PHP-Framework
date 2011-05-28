@@ -29,7 +29,28 @@ abstract class BaseController
 		$this->smarty->setCacheDir   ('app/appdata/smarty_cache'); // writable
 		$this->smarty->setCompileDir ('app/appdata/smarty_compiled'); // writable
 	}
+	
+	// ================================ PRIVATE //
 
+	/**
+	 * Insert $lang to use in a View & include tracking code.
+	 */
+	private function processSmartyView($v)
+	{
+		global $app_i, $lang;
+		$viewDir = currentViewDir();
+
+		$v->assign('lang', $lang[$viewDir]);
+
+		if ( !isLocalhost() && file_exists(BASEVIEW.'/'.$viewDir.'/tracking_code.html')) {
+			$v->assign('inc_tracking_code', 'file:/'.BASEVIEW.'/'.$viewDir.'/tracking_code.html'); // abs path so Extensions find it too.
+		} else {
+			$v->assign('inc_tracking_code', 'file:'.BASEVIEW.'/blank.html');
+		}
+	}
+	
+	// ================================ PUBLIC //
+	
 	public function handle($params)
 	{
 		// check flooding using SysCache before handle Controller
@@ -57,20 +78,6 @@ abstract class BaseController
 		return false;
 	}
 	
-	public function processSmartyView($v)
-	{
-		global $app_i, $lang;
-		$viewDir = currentViewDir();
-
-		$v->assign('lang', $lang[$viewDir]);
-
-		if ( !isLocalhost() && file_exists(BASEVIEW.'/'.$viewDir.'/tracking_code.html')) {
-			$v->assign('inc_tracking_code', 'file:/'.BASEVIEW.'/'.$viewDir.'/tracking_code.html'); // abs path so Extensions find it too.
-		} else {
-			$v->assign('inc_tracking_code', 'file:'.BASEVIEW.'/blank.html');
-		}
-	}
-	
 	public function display($v, $viewfile)
 	{
 		$this->processSmartyView($v);
@@ -78,8 +85,8 @@ abstract class BaseController
 		// customize your view here...
 		$v->display($viewfile);
 	}
-	
-	// ================== TO BE IMPLEMENTED IN EXTENDING CLASS ================== //
+
+	// ================================ TO BE IMPLEMENTED IN EXTENDING CLASS //
 	
 	public function validate($retType)
 	{
@@ -93,10 +100,13 @@ abstract class BaseController
 		if (isset($rets) && $rets != null) die('Error: invalid data! ');
 	}
 	
-	// Must be implemented!
+	/**
+	 * Main entry function of a Controller
+	 * Must be implemented!
+	 */
 	abstract public function view();
 
-	// ================== STATIC FUNCS ================== //
+	// ================================ STATIC FUNCTIONS //
 	
 	/**
 	 * Process URI to know which controller to load
@@ -123,6 +133,10 @@ abstract class BaseController
         die('ERROR: Invalid URL!');
 	}
 	
+	/**
+	 * Call a Controller, Extension, etc. in your code
+	 * @return Controler's output (from its handle() function)
+	 */
 	public static function callController($ctrPath, $className, $params)
 	{
 		$fullpath = $ctrPath.'/'.$className.'.php';
