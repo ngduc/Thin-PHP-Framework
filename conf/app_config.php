@@ -16,6 +16,7 @@
 	// App Info
 	$app_i = array(
 		'default_view'	=> 'en_default',			// default view directory
+		'default_controller' => '',					// fallback (catch-all) controller if URI parsing failed
 		'flood_limit'	=> 0,						// e.g. 0.5 second - require 'cache' to work
 		'cache'		=> CC_NOCACHE,					// cache method (more: constants.php)
 		'timezone'	=> 'America/Los_Angeles',		// more: http://j.mp/kicmqy
@@ -23,7 +24,7 @@
 		'demo_mode'	=> 1
 	);
 	
-	// Database Info - change here, then setup: run http://yourwebapp/tools/setup-db
+	// Database Info - change here, then setup: run http://yourwebapp/tools/setup-db/index.php
 	$db_i = array(
 		'env' => 'env_test',
 		'env_test' => array(
@@ -42,7 +43,7 @@
 		)
 	);
 	
-	// Memcache Info
+	// Memcache Info (set if using CC_MEMCACHE in $app_i['cache'])
 	$memcache_i = array(
 		'server'	=> 'localhost',
 		'port'		=> '11211'
@@ -59,4 +60,3 @@
 		'log_pattern'	=> '{time} {name} [{type_padleft}] - {msg}',
 		'log_time_format'	=> 'Y-m-d H:i:s.ms'
 	);
-

@@ -130,7 +130,7 @@ abstract class BaseController
                 return array($mpArr[0], $mpArr[1], null); // path, name
             }
 		}
-        die('ERROR: Invalid URL!');
+        return array(null, null, null);
 	}
 	
 	/**

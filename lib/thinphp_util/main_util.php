@@ -82,7 +82,7 @@ function parseUri($route)
                     return array($retArr[0], $retArr[1], extractParams($path, $route));
                 }
             }
-            if (isset($ext_mapping[ $path ])) {
+            else if (isset($ext_mapping[ $path ])) {
                 //echo 'Extension Mapping Matched!';
                 $retArr = $ext_mapping[ $path ];
                 if (isset($retArr[2])) {
