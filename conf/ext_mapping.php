@@ -15,15 +15,15 @@
 		//--- Authentication extension
 			'/sign-in' => array('ext/authentication', 'SignIn'),
 			'/sign-out' => array('ext/authentication', 'SignOut'),
+		
+		//--- Add-to-any
+			'/add-to-any' => array('ext/addtoany', 'AddToAny'),
 
 		//--- Blog
 			'/blog' => array('ext/blog', 'Blog'),
 			'/blog-admin' => array('ext/blog', 'Blog', array('admin')),
 			'/blog-comment' => array('ext/blog', 'BlogComment'),
-				
-		//--- TPF Documentation
-			'/docs' => array('ext/thinphpdoc', 'TPFDoc'),
-			
+						
 		//--- Editor
 			'/page-editor' => array('ext/editor', 'Editor'),
 
@@ -34,6 +34,9 @@
 			'/recaptcha' => array('ext/recaptcha', 'ReCaptcha'),
 				
 		// --- Twitter
-			'/twitter' => array('ext/twitter', 'Twitter')
+			'/twitter' => array('ext/twitter', 'Twitter'),
+				
+		//--- TPF Documentation
+			'/docs' => array('ext/thinphpdoc', 'TPFDoc')		
 		//--- other extensions...
 	);

@@ -1,0 +1,33 @@
+Thin PHP Framework (TPF) 2011 http://thinphp.com
+
+Licensed under TPF License at http://bit.ly/TPFLicense
+Redistributions of files must retain the above copyright notice.
+
+@link          http://thinphp.com
+@package       app.ext.addtoany
+@license       TPF License http://bit.ly/TPFLicense
+================================================================
+
+Extension:	addtoany
+Description:	addtoany social bookmark bar
+Author:		addtoany.com
+Version:	0.1 - 06/01/2011
+License:	Unknown
+
+View classes:
+		None
+Images:
+
+CSS:
+		
+Javascripts:
+		js/page.js	(from addtoany)
+
+================================================================
+INSTALL
+
+================================================================
+USAGE:
+
+Use this code in your view (smarty):
+	{get_url url="/add-to-any" param="Bookmark Link Title"}

@@ -24,10 +24,10 @@ function minify($buffer) {
 	return $buffer;
 }
 
+$offset = 3600 * 24 * 7; // 7 days
 header ("content-type: text/javascript; charset: UTF-8");
 header ("cache-control: must-revalidate");
-$offset = 3600 * 24 * 7; // 7 days
-$expire = "Expires: " . gmdate ("D, d M Y H:i:s", time() + $offset) . " GMT"; 
+$expire = "Expires: " . gmdate ("D, d M Y H:i:s", time() + $offset) . " GMT";
 header ($expire);
 
 // read listfile & include each file in there.

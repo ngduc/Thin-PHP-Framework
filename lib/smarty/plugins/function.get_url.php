@@ -53,7 +53,7 @@ function getContent($opts, $sParam)
 		// load External URL		
     	$content = file_get_contents($url);
     	// Set to the default text if we didn't get anything
-    	if (!$content) $content = $opts['default'];    	
+    	if (!$content) $content = $opts['default'];
 		return $content;
 	}
 	else {

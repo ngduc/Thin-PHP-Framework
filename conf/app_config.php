@@ -26,7 +26,7 @@
 	
 	// Database Info - change here, then setup: run http://yourwebapp/tools/setup-db/index.php
 	$db_i = array(
-		'env' => 'env_test',
+		'env' => 'env_test',					// set which Environment (env) you want to run.
 		'env_test' => array(
 			'dbdriver' => DB_PDO_SQLITE,
 			'host'     => '',
@@ -55,8 +55,8 @@
 		'log_level'		=> LL_ERROR | LL_FATAL,
 		'log_to'		=> LG_FILE,
 		'log_file'		=> '/app/appdata/log/main.txt',
-		'log_max_file_size'	=> 512000, // = 500 KB = 500*1024 bytes
-		'log_max_backup_index' => 5,
+		'log_max_file_size'	=> 512000,	// = 500 KB = 500*1024 bytes
+		'log_max_backup_index' => 5,	// max number of log files to keep
 		'log_pattern'	=> '{time} {name} [{type_padleft}] - {msg}',
 		'log_time_format'	=> 'Y-m-d H:i:s.ms'
 	);

@@ -96,6 +96,20 @@ function parseUri($route)
     return null;
 }
 
+function getCurrentUrl()
+{
+	$pageURL = (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://";		
+	if ($_SERVER["SERVER_PORT"] != "80")
+	{
+	    $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+	} 
+	else 
+	{
+	    $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+	}
+	return $pageURL;
+}
+
 function removeFirst($ch, $s)
 {
     // remove the first character (if any). Example: '/dir/' => 'dir/'
