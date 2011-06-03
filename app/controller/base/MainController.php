@@ -24,9 +24,15 @@ class MainController extends BaseController
 		parent::__construct();
 		$this->log = Logger::getLogger(__CLASS__);
 		$this->log->info('Main Controller Log');
-
-		// get ControllerName and its Parameters from URI
-		list($this->_cPath, $this->_cName, $this->_cParams) = BaseController::parseRoute($route);
+		
+		if ($route == '/') {
+			$this->_cPath = 'controller';
+			$this->_cName = 'Home';
+			$this->_cParams = null;
+		} else {
+			// get ControllerName and its Parameters from URI
+			list($this->_cPath, $this->_cName, $this->_cParams) = BaseController::parseRoute($route);
+		}
 	}
 
 	public function handle($params)
@@ -35,7 +41,7 @@ class MainController extends BaseController
 		{
 			global $app_i;
 			$def = trim($app_i['default_controller']);
-			if ($def != '' && file_exists(BASE.$def)) {				
+			if ($def != '' && file_exists(BASE.$def)) {
 				require_once BASE.$def;
 				$ctr = new DefaultController();
 				$ctr->handle($this->_cParams);
@@ -58,7 +64,7 @@ class MainController extends BaseController
 			$ctr->handle($this->_cParams);
 		}
 		else {
-			die('Error: Controller not found!');
+			die('MainController: Error: Controller not found!');
 		}
 		$this->log->debug('handle() ended');
 	}

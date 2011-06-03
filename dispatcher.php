@@ -13,8 +13,7 @@
 
 define('BASE', dirname(__FILE__));
 require_once BASE.'/app/includes.php';
+if ( !isset($_GET['route']) ) exit('No direct script access allowed!');
 
-$route = $_GET['controller'];
-
-$c = new MainController( $route );
+$c = new MainController( $_GET['route'] );
 $c->handle(null);

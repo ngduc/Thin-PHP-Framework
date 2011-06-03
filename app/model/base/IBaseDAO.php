@@ -14,7 +14,7 @@ defined('BASE') or exit('Direct script access is not allowed!');
 
 interface IBaseDao
 {
-	public function getAll();
+	public function getAll($strWhere = '');
 
 	public function countAll();
 
@@ -27,7 +27,4 @@ interface IBaseDao
 	public function create($obj);
 	
 	public function update($obj, $arr);
-
-//	public function query($criteria);
-//	public function getByExample($obj);
 }

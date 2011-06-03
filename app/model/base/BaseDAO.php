@@ -54,11 +54,13 @@ class BaseDAO implements IBaseDao
 		}
 		return $stmt->errorInfo();
 	}
-	
-	public function getAll()
+
+	public function getAll($strWhere = '')
 	{
 		if ($this->dbh == null) return;
-		$sql = 'SELECT * FROM '.$this->table;		
+        if (isset($strWhere) && trim($strWhere) != '') $strWhere = ' WHERE '.$strWhere;
+
+		$sql = 'SELECT * FROM ' . $this->table . $strWhere;
 		$queryRes = $this->dbh->query($sql);
 		if ($queryRes != null) {
 			return $queryRes->fetchAll();
@@ -128,5 +130,21 @@ class BaseDAO implements IBaseDao
 		$stmt = $this->dbh->prepare($sql);
 		$stmt->execute($arr);
 	}
+
+    /**
+     * an useful function to execute INSERT INTO query
+     * by generating a full query, for example:
+     * INSERT INTO user(uid, email, password, createDT) VALUES(:uid, :email, :password, :createDT)
+     */
+    public function insertInto($commaSeparatedFieldNames, $paramArr)
+    {
+        $arr = explode(',', $commaSeparatedFieldNames);
+        $strValues = '';
+        for ($i = 0, $cnt = count($arr); $i < $cnt; $i++) {
+            $strValues .= ($i == 0 ? ':'.trim($arr[$i]) : ', :'.trim($arr[$i]));
+        }
+        $sql = "INSERT INTO ".$this->table."($commaSeparatedFieldNames) VALUES($strValues)";
+        return $this->execute($sql, $paramArr);
+    }
 }
 

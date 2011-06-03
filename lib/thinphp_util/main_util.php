@@ -148,6 +148,10 @@ function explodeGet($delim, $st, $idx)
 	return null;
 }
 
+function dbDateTime() {
+	return date( 'Y-m-d H:i:s' );
+}
+
 /**
  * Copy (and transform) array items from $sourceArr to $arr
  * Example: copyItems($_POST, $v, '*'); // copy all fields from submitted Form.

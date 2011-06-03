@@ -15,7 +15,7 @@ ErrorDocument 500 /app/view/500.html
 </Files>
 
 ### if just "/" => to Home Controller
-RewriteRule ^/?$ dispatcher.php?controller=home [L]
+# RewriteRule ^/?$ dispatcher.php?controller=home [L]
 
 ###
 # from /anything to /dispatcher.php?controller=/$1
@@ -23,7 +23,7 @@ RewriteRule ^/?$ dispatcher.php?controller=home [L]
 
 RewriteCond $1 !^(tool|web|files)
 RewriteCond %{REQUEST_URI} !((.*)\.(.*))$
-RewriteRule ^(.*)$ dispatcher.php?controller=/$1 [NC,L]
+RewriteRule ^(.*)$ dispatcher.php?route=/$1 [NC,L]
 
 ###
 # for relative paths

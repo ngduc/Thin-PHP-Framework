@@ -46,11 +46,11 @@ class Register extends BaseController
 		$dao = DAO::getDAO('UserDAO');
 		$newUser = new User(
 						array('firstName' => 'First', 'lastName' => 'LastName',
-							'username' => $v['username'], 'email' => $v['email'], 'password' => $v['password'])
-					);
-		$dbNow = date( 'Y-m-d H:i:s' );
-		$ret = $dao->execute("INSERT INTO user(firstName, lastName, username, email, password, createTime)
-					VALUES(:firstName, :lastName, :username, :email, :password, '$dbNow')", $newUser->getFields());
+							'username' => $v['username'], 'email' => $v['email'], 'password' => $v['password'],
+							'createTime' => dbDateTime()
+						));
+		$ret = $dao->insertInto('firstName, lastName, username, email, password, createTime', $newUser->getFields());
+
 		if ($ret[0] != '00000') $err = "<span class='msgErr'>ERROR: $ret[2]</span>";
 
 		$v = $this->smarty;
