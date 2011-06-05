@@ -15,7 +15,8 @@ Version:	0.1 - 04/01/2011
 License:	TPF License http://bit.ly/TPFLicense
 
 View classes:
-		default_view/signin/*.*
+		view/signin_form.html
+		view/signin_msg.html
 Images:
 		None
 CSS:
@@ -27,7 +28,7 @@ Javascripts:
 ================================================================
 INSTALL:
 
-- For OAuth, input your API information in the following files:
+- For OAuth, put your API information in the following files:
 	/app/ext/authentication/oauth/oauth_google.php
 	/app/ext/authentication/oauth/oauth_facebook.php
 	/app/ext/authentication/oauth/oauth_twitter.php
@@ -35,6 +36,10 @@ INSTALL:
 - For Google OAuth, you also need to generate RSA key from your server using 'openssl' command
 	http://code.google.com/apis/gdata/docs/auth/oauth.html#GeneratingKeyCert
   then upload generated key file to Google's ManageDomains page.
+
+- Note that the OAuth config in the Sample code will not work for you
+because it's not configured for your server. You need to register your server/webapp
+with OAuth providers/services.
 
 ================================================================
 USAGE:

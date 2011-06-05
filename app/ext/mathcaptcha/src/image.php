@@ -1,4 +1,6 @@
 <?php
+	require_once BASEEXT.'/mathcaptcha/util.php';
+
 	/**
 	 * PHP MATH CAPTCHA
 	 * Copyright (C) 2010  Constantin Boiangiu  (http://www.php-help.ro)
@@ -29,7 +31,7 @@
 		session id, delete session_start and make a require('init_file.php');
 	*/
 	session_start();
-	unset($_SESSION['mathcaptcha_security_number']);
+	unsetMathCaptchaAnswer();
 	
 	/*===============================================================
 		General captcha settings
@@ -69,7 +71,7 @@
 	/* 
 		save the operation result in session to make verifications
 	*/
-	$_SESSION['mathcaptcha_security_number'] = $session_var;
+	setMathCaptchaAnswer ( $session_var );
 	/*
 		start the captcha image
 	*/

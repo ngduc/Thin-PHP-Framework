@@ -119,7 +119,7 @@ abstract class BaseController
 		}
 		$params = null;
 				
-		// first, check if URI matched with Custom URI Mappings in 'conf/uri_mapping.php'
+		// first, check if URI matched with Custom URI Mappings in 'conf/app_mapping.php'
 		$mpArr = parseUri($route);
 		if ($mpArr != null)
 		{

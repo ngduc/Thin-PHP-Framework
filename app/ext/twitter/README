@@ -15,7 +15,7 @@ Version:	0.1 - 04/01/2011
 License:	Creative Commons Attribution-Non-Commercial 3.0 Unported License - http://j.mp/5YkCL
 
 View classes:
-		None
+		view/twitter.html
 Images:
 		css/jquery.twitter_loader.gif
 CSS:
@@ -24,7 +24,10 @@ Javascripts:
 		js/jquery/jquery.twitter.js
 
 ================================================================
-INSTALL
+INSTALL:
 
 ================================================================
 USAGE:
+
+To include a Twitter Box in your smarty view, use this:
+	{get_url url="/twitter" param="twitter_username"}

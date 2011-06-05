@@ -1,5 +1,6 @@
 <?php
 defined('BASE') or exit('Direct script access is not allowed!');
+require_once BASEEXT.'/mathcaptcha/util.php';
 
 class MathCaptcha extends BaseController
 {
@@ -8,7 +9,7 @@ class MathCaptcha extends BaseController
 		if( isset( $answer ) )
 		{
 			session_start();
-			if($answer != $_SESSION['mathcaptcha_security_number'])
+			if(getMathCaptchaAnswer() != $answer)
 			{
 				// $error = "OOOK! Here's what you must do: click Start -> Run and write calc.";
 				return false;
@@ -24,6 +25,6 @@ class MathCaptcha extends BaseController
 	
 	public function view()
 	{
-		require_once BASE.'/app/ext/mathcaptcha/src/image.php';
+		require_once BASEEXT.'/mathcaptcha/src/image.php';
 	}
 }

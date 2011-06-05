@@ -1,10 +1,11 @@
 <?php
 defined('BASE') or exit('Direct script access is not allowed!');
+require_once BASEEXT.'/authentication/util.php';
 
 class SignIn extends BaseController
 {
 	public function validate($retType)
-	{		
+	{
 		parent::validate($retType);
 		copyItems($_POST, $fv, 'username');
 
@@ -29,10 +30,10 @@ class SignIn extends BaseController
 		// #TODO: check Username & Password from DB
 		if ($fv['password'] == 'demo') {	// successfully signed in!					
 			$ret = session_start();
-			$_SESSION['user'] = $fv['username'];			
+			setLoggedInUsername( $fv['username'] );
 			header('Location: '.$_SERVER['HTTP_REFERER']);
 		}
-		else {			
+		else {	
 			$msg = '<font color="red">Invalid Username or Password!</font><p/> <a href="javascript:history.go(-1)">Go back</a>';
 
 			$v = $this->smarty;
@@ -51,8 +52,8 @@ class SignIn extends BaseController
 
 		$ret = session_start();
 
-		if (isset($_SESSION['user']) && strlen($_SESSION['user']) > 0) {
-			echo('Welcome! '.$_SESSION['user']);
+		if (getLoggedInUsername() != '') {
+			echo('Welcome! '.getLoggedInUsername());
 			echo('<p/><a href="/sign-out">Sign out</a>');
 		}
 		else {

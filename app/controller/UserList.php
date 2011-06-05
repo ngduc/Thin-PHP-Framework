@@ -1,7 +1,7 @@
 <?php
 defined('BASE') or exit('No direct script access allowed!');
 require_once BASE.'/app/model/User.php';
-require_once BASE . '/app/model/base/DAO.php';
+require_once BASE.'/app/model/base/DAO.php';
 
 class UserList extends BaseController
 {

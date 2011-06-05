@@ -11,6 +11,9 @@
  * @license       TPF License http://bit.ly/TPFLicense
  */
 
+	// URI Mapping for Extensions:
+	//		uri => path to Extension, ClassName
+
 	$ext_mapping = array(
 		//--- Authentication extension
 			'/sign-in' => array('ext/authentication', 'SignIn'),

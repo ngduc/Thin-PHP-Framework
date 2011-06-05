@@ -19,8 +19,9 @@
 	require_once BASE.'/app/constants.php';
 	
 	require_once BASE.'/conf/app_config.php';
-	require_once BASE.'/conf/ext_mapping.php';
-	require_once BASE.'/conf/uri_mapping.php';
+	require_once BASE.'/conf/app_mapping.php';
+	require_once BASE.'/conf/ext_config.php';
+	require_once BASE.'/conf/ext_mapping.php';	
 	require_once BASE.'/conf/lang.php';
 	
 	require_once BASE.'/lib/thinphp_util/includes.php';

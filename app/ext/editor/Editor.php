@@ -1,5 +1,6 @@
 <?php
 defined('BASE') or exit('Direct script access is not allowed!');
+require_once BASEEXT.'/authentication/util.php';
 
 class Editor extends BaseController
 {
@@ -24,7 +25,8 @@ class Editor extends BaseController
 		if ($this->isPosting()) return $this->processPost();
 		
 		session_start();		
-		if (isset($_SESSION['user']) && strlen($_SESSION['user']) > 0) {									
+		if (getLoggedInUsername() != '')
+		{
 			if (isset($this->params[0])) {
 				$viewToEdit = $this->params[0];
 				$viewPath = BASEVIEW.'/'.currentViewDir().'/'.$viewToEdit;
