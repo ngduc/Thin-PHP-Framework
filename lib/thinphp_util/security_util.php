@@ -32,7 +32,7 @@ function genUid($len, $charset='a-z0-9')
     if ($len < 3) $len = 3;
     if ($len > 128) $len = 128;			// prevent silliness, can remove
     while (strlen($uid) < $len) {
-        $uid = $uid . gen_uuid(22);		// append until length achieved
+        $uid = $uid . genUid(22);		// append until length achieved
     }
     return substr($uid, 0, $len);
 }

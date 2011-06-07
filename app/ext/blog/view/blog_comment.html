@@ -24,8 +24,7 @@ function validateComment() {
 		type: 'post',
 		url: '/blog-comment/validate',
 		dataType: 'json', data: $('#cmtForm').serialize(),
-		success: function (rets) {
-			//TPF.dump(rets[0]);
+		success: function (rets) {			
 			var countRets = TPF.countJSON(rets);
 			TPF.setFormError('#cmtForm', '', ''); // clear errors
 			if (countRets > 0)

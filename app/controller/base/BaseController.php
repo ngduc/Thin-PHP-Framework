@@ -67,7 +67,7 @@ abstract class BaseController
 	}
 	
 	public function isValidating()
-	{		
+	{
 		if (isset($this->params[0]) && trim($this->params[0])=='validate') return true;
 		return false;
 	}

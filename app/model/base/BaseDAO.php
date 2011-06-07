@@ -43,6 +43,10 @@ class BaseDAO implements IBaseDao
 	{
 		return $this->dbh;
 	}
+
+    public function lastInsertId() {
+        return $this->dbh->lastInsertId();
+    }
 	
 	public function execute($sql, $paramArr)
 	{		
@@ -55,12 +59,13 @@ class BaseDAO implements IBaseDao
 		return $stmt->errorInfo();
 	}
 
-	public function getAll($strWhere = '')
+	public function getAll($strWhere = '', $strOrderBy = '')
 	{
 		if ($this->dbh == null) return;
         if (isset($strWhere) && trim($strWhere) != '') $strWhere = ' WHERE '.$strWhere;
+        if (isset($strOrderBy) && trim($strOrderBy) != '') $strOrderBy = ' ORDER BY '.$strOrderBy;
 
-		$sql = 'SELECT * FROM ' . $this->table . $strWhere;
+		$sql = 'SELECT * FROM ' . $this->table . $strWhere . $strOrderBy;
 		$queryRes = $this->dbh->query($sql);
 		if ($queryRes != null) {
 			return $queryRes->fetchAll();
@@ -111,6 +116,14 @@ class BaseDAO implements IBaseDao
 		$stmt = $this->dbh->prepare($sql);
 		$stmt->execute(array(':id'=>$id));
 	}
+
+    public function removeByField($fieldName, $val)
+	{
+		if ($this->dbh == null) return;
+		$sql = 'DELETE FROM '.$this->table.' WHERE '.$fieldName.' = :val';
+		$stmt = $this->dbh->prepare($sql);
+		$stmt->execute(array(':val'=>$val));
+	}
 	
 	public function remove($obj)
 	{
@@ -134,7 +147,7 @@ class BaseDAO implements IBaseDao
     /**
      * an useful function to execute INSERT INTO query
      * by generating a full query, for example:
-     * INSERT INTO user(uid, email, password, createDT) VALUES(:uid, :email, :password, :createDT)
+     *   $dao->insertInto('uid, email, password, createDT', $newUser->getFields());
      */
     public function insertInto($commaSeparatedFieldNames, $paramArr)
     {

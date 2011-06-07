@@ -154,9 +154,9 @@ function dbDateTime() {
 
 /**
  * Copy (and transform) array items from $sourceArr to $arr
- * Example: copyItems($_POST, $v, '*'); // copy all fields from submitted Form.
+ * Example: copyArray($_POST, $v, '*'); // copy all fields from submitted Form.
  */
-function copyItems( $sourceArr, &$arr )
+function copyArray( $sourceArr, &$arr )
 {
 	$params = func_get_args(); // get function args
 

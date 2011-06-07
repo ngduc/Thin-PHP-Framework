@@ -7,7 +7,7 @@ class BlogComment extends BaseController
 	public function validate($retType)
 	{
 		parent::validate($retType);
-		copyItems($_POST, $fv, 'name', 'email', 'content');
+		copyArray($_POST, $fv, 'name', 'email', 'content');
 
 		if (trim($fv['name']) == '') {
 			$rets[] = array('msg' => 'Please enter your name!', 'field' => 'name');
@@ -31,7 +31,7 @@ class BlogComment extends BaseController
 	{		
 		parent::processPost();
 
-		copyItems($_POST, $fv, 'itemId', 'replyToId', 'name', 'email', 'content', 'parentCommentWeight');
+		copyArray($_POST, $fv, 'itemId', 'replyToId', 'name', 'email', 'content', 'parentCommentWeight');
 		$dao = DAO::getDAO('CommentDAO');
 
 		// #TODO: validate here...

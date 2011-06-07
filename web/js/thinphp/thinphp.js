@@ -7,7 +7,7 @@ var TPF = {
 	    for (var i in obj) {
 	        out += i + ": " + obj[i] + "\n";
 	    }
-	    alert(out);
+	    return out;
 	},
 	countJSON: function(jsonArr)
 	{

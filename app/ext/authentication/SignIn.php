@@ -7,7 +7,7 @@ class SignIn extends BaseController
 	public function validate($retType)
 	{
 		parent::validate($retType);
-		copyItems($_POST, $fv, 'username');
+		copyArray($_POST, $fv, 'username');
 
 		if (validateUsername($fv['username']) == false) {
 			$rets[] = array('msg' => '<br/>Invalid username!', 'field' => 'username');
@@ -26,7 +26,7 @@ class SignIn extends BaseController
 	{
 		parent::processPost();
 			
-		copyItems($_POST, $fv, 'username', 'password');
+		copyArray($_POST, $fv, 'username', 'password');
 		// #TODO: check Username & Password from DB
 		if ($fv['password'] == 'demo') {	// successfully signed in!					
 			$ret = session_start();

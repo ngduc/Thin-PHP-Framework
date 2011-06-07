@@ -14,17 +14,23 @@ defined('BASE') or exit('Direct script access is not allowed!');
 
 interface IBaseDao
 {
-	public function getAll($strWhere = '');
+	public function getAll($strWhere = '', $strOrderBy = '');
 
 	public function countAll();
 
 	public function getById($id);
 	
+	public function getByField($fieldName, $val);
+	
 	public function removeById($id);
 	
 	public function remove($obj);
 	
+	public function removeByField($fieldName, $val);
+	
 	public function create($obj);
 	
 	public function update($obj, $arr);
+	
+	public function insertInto($commaSeparatedFieldNames, $paramArr);
 }

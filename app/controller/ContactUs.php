@@ -8,7 +8,7 @@ class ContactUs extends BaseController
 	{
 		parent::validate($retType);
 
-		copyItems($_POST, $fv, 'name', 'email', 'msg');
+		copyArray($_POST, $fv, 'name', 'email', 'msg');
 
 		if (trim($fv['name']) == '') {
 			$rets[] = array('msg' => 'Please enter your name!', 'field' => 'name');
@@ -37,7 +37,7 @@ class ContactUs extends BaseController
 		parent::processPost();
 		
 		// #TODO: User submitted data. Save it to DB, email, etc.		
-		copyItems($_POST, $fv, 'ftoken', 'name', 'email', 'optin|checkbox', 'msg');
+		copyArray($_POST, $fv, 'ftoken', 'name', 'email', 'optin|checkbox', 'msg');
 
 		session_start();
 		if($fv['ftoken'] != $_SESSION['ftoken']) die('Error: invalid form token! Do not submit your form twice.');

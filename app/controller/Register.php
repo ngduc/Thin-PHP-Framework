@@ -9,7 +9,7 @@ class Register extends BaseController
 	{
 		parent::validate($retType);
 
-		copyItems($_POST, $v, '*');
+		copyArray($_POST, $v, '*');
 
 		if (trim($v['username']) == '') {
 			$rets[] = array('msg' => 'Please enter your username!', 'field' => 'username');
@@ -41,7 +41,7 @@ class Register extends BaseController
 		parent::processPost();
 		
 		// #TODO: User submitted data. Save it to DB, email, etc.
-		copyItems($_POST, $v, '*');
+		copyArray($_POST, $v, '*');
 
 		$dao = DAO::getDAO('UserDAO');
 		$newUser = new User(
