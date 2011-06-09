@@ -23,6 +23,7 @@ class BaseDAO implements IBaseDao
 	protected $dbh;
 	protected $table;
 	protected $lastSql;
+    protected $lastError;
 	
 	/**
 	 * Constructor to create a DAO for a specific table
@@ -38,6 +39,11 @@ class BaseDAO implements IBaseDao
 	{
 		return $this->lastSql;
 	}
+
+    public function getLastError()
+	{
+		return $this->$lastError;
+	}
 	
 	public function getDbHandler()
 	{
@@ -47,16 +53,19 @@ class BaseDAO implements IBaseDao
     public function lastInsertId() {
         return $this->dbh->lastInsertId();
     }
-	
-	public function execute($sql, $paramArr)
-	{		
+
+	public function prepareExecute($sql, $paramArr)
+	{
 		if ($this->dbh == null) return;
-		$stmt = $this->dbh->prepare($sql);		
+        $this->lastSql = $sql;
+        
+		$stmt = $this->dbh->prepare($sql);
 		if ($stmt != null) {
 			$stmt->execute($paramArr);
-			//$stmt->debugDumpParams();			
+            $this->lastError = $stmt->errorInfo();
+			//$stmt->debugDumpParams();
 		}
-		return $stmt->errorInfo();
+		return $stmt;
 	}
 
 	public function getAll($strWhere = '', $strOrderBy = '')
@@ -66,9 +75,10 @@ class BaseDAO implements IBaseDao
         if (isset($strOrderBy) && trim($strOrderBy) != '') $strOrderBy = ' ORDER BY '.$strOrderBy;
 
 		$sql = 'SELECT * FROM ' . $this->table . $strWhere . $strOrderBy;
-		$queryRes = $this->dbh->query($sql);
-		if ($queryRes != null) {
-			return $queryRes->fetchAll();
+
+        $stmt = $this->prepareExecute($sql, null );
+        if ($stmt && $stmt->rowCount() > 0) {
+			return $stmt->fetchAll();
 		}
 		return null;
 	}
@@ -77,9 +87,10 @@ class BaseDAO implements IBaseDao
 	{
 		if ($this->dbh == null) return;
 		$sql = 'SELECT COUNT(*) FROM '.$this->table;
-		$queryRes = $this->dbh->query($sql);
-		if ($queryRes != null) {
-			return $queryRes->fetchColumn();
+
+		$stmt = $this->prepareExecute($sql, null );
+		if ($stmt && $stmt->rowCount() > 0) {
+            return $stmt->fetchColumn();
 		}
 		return 0;
 	}
@@ -88,41 +99,62 @@ class BaseDAO implements IBaseDao
 	{		
 		if ($this->dbh == null) return;
 		$sql = 'SELECT * FROM '.$this->table.' WHERE '.$this->table.'Id = :id';
-		$stmt = $this->dbh->prepare($sql);
-		$stmt->execute(array(':id'=>$id));		
-		$res = $stmt->fetchAll();		
-		if ($res != null && count($res) >0) {
-			return $res[0];
-		}
-		return null;
+
+        $stmt = $this->prepareExecute($sql, array(':id'=>$id) );
+        if ($stmt && $stmt->rowCount() > 0) {
+            $res = $stmt->fetchAll();
+            if ($res != null && count($res) >0) {
+                return $res[0];
+            }
+        }
+        return null;
 	}
 
+    /**
+     * get rows have $fieldName = $val
+     * @return row(s) or null (if not found)
+     */
     public function getByField($fieldName, $val)
 	{
 		if ($this->dbh == null) return;
 		$sql = 'SELECT * FROM '.$this->table.' WHERE '.$fieldName.' = :val';
-		$stmt = $this->dbh->prepare($sql);
-		$stmt->execute(array(':val'=>$val));
-		$res = $stmt->fetchAll();
-		if ($res != null && count($res) >0) {
-			return $res[0];
-		}
+
+		$stmt = $this->prepareExecute($sql, array(':val'=>$val) );
+        if ($stmt && $stmt->rowCount() > 0) {
+            $res = $stmt->fetchAll();
+            if ($res != null && count($res) >0) {
+                return $res;
+            }
+        }
 		return null;
 	}
+
+    /**
+     * get the first row have $fieldName = $val
+     * @return one row or null (if not found)
+     */
+    public function getFirstByField($fieldName, $val)
+	{
+        $res = $this->getByField($fieldName, $val);
+        if ($res != null && count($res) >0) {
+            return $res[0];
+        }
+        return null;
+    }
 			
 	public function removeById($id)
 	{
 		$sql = 'DELETE FROM '.$this->table.' WHERE '.$this->table.'Id = :id';
-		$stmt = $this->dbh->prepare($sql);
-		$stmt->execute(array(':id'=>$id));
+        $stmt = $this->prepareExecute($sql, array(':id'=>$id) );
+        return $this->lastError;
 	}
 
     public function removeByField($fieldName, $val)
 	{
 		if ($this->dbh == null) return;
 		$sql = 'DELETE FROM '.$this->table.' WHERE '.$fieldName.' = :val';
-		$stmt = $this->dbh->prepare($sql);
-		$stmt->execute(array(':val'=>$val));
+        $stmt = $this->prepareExecute($sql, array(':val'=>$val) );
+        return $this->lastError;
 	}
 	
 	public function remove($obj)
@@ -137,27 +169,53 @@ class BaseDAO implements IBaseDao
 		return;
 	}
 	
-	public function update($updateClause, $arr)
+	public function update($updateClause, $paramArr)
 	{
 		$sql = 'UPDATE '.$this->table.' SET '.$updateClause;
-		$stmt = $this->dbh->prepare($sql);
-		$stmt->execute($arr);
+		$stmt = $this->prepareExecute($sql, $paramArr);
+        return $this->lastError;
 	}
+
+    /**
+     * an useful function to execute UPDATE-SET query
+     * by generating a full query, for example:
+     *   $err = $dao->updateSet('parentId, level WHERE uid = :uid', $paramArr );
+     * array $paramArr is a Key => Value array, has the same number of parameters in the string.
+     */
+    public function updateSet($strInput, $paramArr)
+    {
+        $pos = strpos($strInput, 'WHERE ');
+        if ($pos > 0) {
+            $strWhere = substr($strInput, $pos); // keep WHERE clause
+            $strInput = str_replace($strWhere, '', $strInput); // remove WHERE clause
+        }
+
+        $arr = explode(',', $strInput);
+        $str = ''; // build VALUES(...)
+        for ($i = 0, $cnt = count($arr); $i < $cnt; $i++) {
+            $field = trim($arr[$i]);
+            $str .= ($i == 0 ? "$field = :$field" : ", $field = :$field" );
+        }
+        $sql = "UPDATE ".$this->table." SET $str $strWhere";
+        $stmt = $this->prepareExecute($sql, $paramArr);
+        return $this->lastError;
+    }
 
     /**
      * an useful function to execute INSERT INTO query
      * by generating a full query, for example:
      *   $dao->insertInto('uid, email, password, createDT', $newUser->getFields());
      */
-    public function insertInto($commaSeparatedFieldNames, $paramArr)
+    public function insertInto($strInput, $paramArr)
     {
-        $arr = explode(',', $commaSeparatedFieldNames);
-        $strValues = '';
+        $arr = explode(',', $strInput);
+        $str = ''; // build VALUES(...)
         for ($i = 0, $cnt = count($arr); $i < $cnt; $i++) {
-            $strValues .= ($i == 0 ? ':'.trim($arr[$i]) : ', :'.trim($arr[$i]));
+            $field = trim($arr[$i]);
+            $str .= ($i == 0 ? ":$field" : ", :$field");
         }
-        $sql = "INSERT INTO ".$this->table."($commaSeparatedFieldNames) VALUES($strValues)";
-        return $this->execute($sql, $paramArr);
+        $sql = "INSERT INTO ".$this->table."($strInput) VALUES($str)";
+        $stmt = $this->prepareExecute($sql, $paramArr);
+        return $this->lastError;
     }
 }
-

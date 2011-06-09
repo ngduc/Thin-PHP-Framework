@@ -20,16 +20,15 @@ class UserList extends BaseController
 			$randNum = mt_rand(0, 99999);
 			$newUser = new User(
 							array('firstName' => 'First', 'lastName' => 'LastName',
-							'username' => "test$randNum", 'email' => "test$randNum@example.com")
+							'username' => "test$randNum", 'email' => "test$randNum@example.com",
+							'createTime' => dbDateTime())
 						);
 			// #TODO: implement UserDao.create($newUser) instead.
-			if ($dao->countAll() > 100) { // Demo mode: clean up if too many users
+			if ($dao->countAll() > 30) { // Demo mode: clean up if too many users
                     $dao->execute("DELETE FROM user");
                     $dao->execute("vacuum");
             }
-			$dbNow = date( 'Y-m-d H:i:s' );
-			$dao->execute("INSERT INTO user(firstName, lastName, username, email, createTime)
-						VALUES(:firstName, :lastName, :username, :email, '$dbNow')", $newUser->getFields());
+			$dao->insertInto("firstName, lastName, username, email, createTime", $newUser->getFields());
 		}
 		
 		$users = $dao->getAll();

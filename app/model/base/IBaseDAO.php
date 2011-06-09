@@ -21,6 +21,8 @@ interface IBaseDao
 	public function getById($id);
 	
 	public function getByField($fieldName, $val);
+    
+    public function getFirstByField($fieldName, $val);
 	
 	public function removeById($id);
 	
