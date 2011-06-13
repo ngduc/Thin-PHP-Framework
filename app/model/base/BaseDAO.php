@@ -42,7 +42,7 @@ class BaseDAO implements IBaseDao
 
     public function getLastError()
 	{
-		return $this->$lastError;
+		return $this->lastError;
 	}
 	
 	public function getDbHandler()
@@ -60,6 +60,7 @@ class BaseDAO implements IBaseDao
         $this->lastSql = $sql;
         
 		$stmt = $this->dbh->prepare($sql);
+        $this->lastError = $stmt->errorInfo();
 		if ($stmt != null) {
 			$stmt->execute($paramArr);
             $this->lastError = $stmt->errorInfo();
@@ -68,6 +69,10 @@ class BaseDAO implements IBaseDao
 		return $stmt;
 	}
 
+    /**
+     * get all rows with condition.
+     * $users = $this->getAll('enabled = 1', 'userId DESC');
+     */
 	public function getAll($strWhere = '', $strOrderBy = '')
 	{
 		if ($this->dbh == null) return;
@@ -112,6 +117,7 @@ class BaseDAO implements IBaseDao
 
     /**
      * get rows have $fieldName = $val
+     * example: $userList = $dao->getByField('userType', 1);
      * @return row(s) or null (if not found)
      */
     public function getByField($fieldName, $val)
@@ -131,6 +137,7 @@ class BaseDAO implements IBaseDao
 
     /**
      * get the first row have $fieldName = $val
+     * example: $loggedUser = $dao->getFirstByField('userId', $userId);
      * @return one row or null (if not found)
      */
     public function getFirstByField($fieldName, $val)

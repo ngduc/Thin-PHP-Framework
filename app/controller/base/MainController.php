@@ -37,14 +37,15 @@ class MainController extends BaseController
 
 	public function handle($params)
 	{
-		if ($this->_cName == null) // above parseRoute() failed => run Default Controller (if specified):
+		if ($this->_cName == null)
 		{
+            // above parseRoute() failed => run Default Controller (if specified)
 			global $app_i;
 			$def = trim($app_i['default_controller']);
 			if ($def != '' && file_exists(BASE.$def)) {
 				require_once BASE.$def;
 				$ctr = new DefaultController();
-				$ctr->handle($this->_cParams);
+				$ctr->handle(null);
 				$this->log->debug('Invalid URI. DefaultController called.');
 				return;
 			}
