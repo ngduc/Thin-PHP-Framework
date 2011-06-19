@@ -187,9 +187,13 @@ function copyArray( $sourceArr, &$arr )
 	}
 }
 
-function outputJson($sjason)
+function outputJson($var)
 {
 	header("Content-type: application/json");
 	header('Cache-Control: no-cache, must-revalidate');
-	echo json_encode($sjason);
+    header("Content-Encoding: gzip");
+    // output json using gzip
+    ob_start("ob_gzhandler");
+    echo json_encode($var);
+    ob_end_flush();
 }

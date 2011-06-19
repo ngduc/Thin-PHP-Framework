@@ -58,8 +58,8 @@ function generateDomainObjects($ret){
 			
 			$camelFieldName = $fieldName;
 			$camelFieldName[0] = strtoupper($fieldName[0]);
-			$getsetMethods .= "\tpublic function get$camelFieldName() {\n\t\treturn \$this->".$fieldName.";\n\t}\n";
-			$getsetMethods .= "\tpublic function set$camelFieldName($".$fieldName.") {\n\t\t\$this->".$fieldName." = $".$fieldName.";\n\t}\n\n";
+			$getsetMethods .= "\tpublic function get$camelFieldName() {\n\t\treturn \$this->$fieldName;\n\t}\n";
+			$getsetMethods .= "\tpublic function set$camelFieldName($".$fieldName.") {\n\t\t\$this->fields['$fieldName'] = $".$fieldName.";\n\t\t\$this->$fieldName = $".$fieldName.";\n\t}\n\n";
 			$toStrFields .= ".':'.\$this->".$fieldName;
 		}
 		$toStrFields .= ";";
