@@ -43,7 +43,7 @@ abstract class BaseController
 		$v->assign('lang', $lang[$viewDir]);
 
 		if ( !isLocalhost() && file_exists(BASEVIEW.'/'.$viewDir.'/tracking_code.html')) {
-			$v->assign('inc_tracking_code', 'file:/'.BASEVIEW.'/'.$viewDir.'/tracking_code.html'); // abs path so Extensions find it too.
+			$v->assign('inc_tracking_code', 'file:'.BASEVIEW.'/'.$viewDir.'/tracking_code.html'); // abs path so Extensions find it too.
 		} else {
 			$v->assign('inc_tracking_code', 'file:'.BASEVIEW.'/blank.html');
 		}

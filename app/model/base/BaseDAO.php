@@ -60,8 +60,9 @@ class BaseDAO implements IBaseDao
         $this->lastSql = $sql;
         
 		$stmt = $this->dbh->prepare($sql);
-        $this->lastError = $stmt->errorInfo();
 		if ($stmt != null) {
+            $this->lastError = $stmt->errorInfo();
+
 			$stmt->execute($paramArr);
             $this->lastError = $stmt->errorInfo();
 			//$stmt->debugDumpParams();

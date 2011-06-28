@@ -35,7 +35,10 @@ INSTALL:
 
 - For Google OAuth, you also need to generate RSA key from your server using 'openssl' command
 	http://code.google.com/apis/gdata/docs/auth/oauth.html#GeneratingKeyCert
-  then upload generated key file to Google's ManageDomains page.
+  then upload generated key file to Google's ManageDomains page:
+	https://www.google.com/accounts/ManageDomains
+  and fill in "Target URL path prefix"
+	http://yourdomain.com/app/ext/authentication/src/oauth_google.php
 
 - Note that the OAuth config in the Sample code will not work for you
 because it's not configured for your server. You need to register your server/webapp

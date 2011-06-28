@@ -5,7 +5,8 @@
  * @author: http://phpdao.com
  * @date: 27.11.2007
  */
-require_once dirname(__FILE__)."/../../../../conf/app_config.php";
+define('BASE', dirname(__FILE__)."/../../../..");
+require_once BASE."/conf/app_config.php";
 
 class ConnectionFactory
 {
