@@ -49,6 +49,12 @@
 		'port'		=> '11211'
 	);
 	
+	// MongoDB settings
+    $mongodb_i = array(
+        'host'      => 'localhost',
+        'dbname'    => 'thinphp'
+    );
+	
 	// Log Info
 	$log_i = array(
 		'enabled'		=> 1,

@@ -22,13 +22,18 @@ class DBPdoMysql
 			$connStr = 'mysql:host='.$dbinfo['host'].';dbname='.$dbinfo['dbname'];
 			$this->_dbh = new PDO($connStr,
 							$dbinfo['username'], $dbinfo['password'],
-							array(PDO::ATTR_PERSISTENT => true)); // to reuse PDO conn
-			$this->_dbh->exec("SET CHARACTER SET utf8"); // must be set for UTF8			
+							array(
+                                PDO::ATTR_PERSISTENT => true // to reuse PDO conn
+                                ,PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
+                            )
+                        );
+            //PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
+			//$this->_dbh->exec("SET CHARACTER SET utf8"); // must be set for UTF8 => this doesn't work on BuyVM Offload MySQL, Unicode turn to "?" chars
 		}
 		catch(PDOException $e)
 		{
 			die('DBPdoMysql: '.$e->getMessage());
-		}		
+		}
 	}
 	
 	public function getDBHandler() {

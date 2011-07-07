@@ -12,8 +12,6 @@
  */
 defined('BASE') or exit('Direct script access is not allowed!');
 
-require_once BASE.'/app/model/UserDAO.php';
-
 /**
  * DAOFactory (shortname: DAO). Update all your DAO classes here.
  */
@@ -25,31 +23,27 @@ abstract class DAO
 	/**
 	 * Get a DAO handler.
 	 * Example: $dao = getDAO('UserDAO');
+	 * Example: $dao = getDAO('admin/LogDAO');
 	 * @return DAO handler
 	 */
-	public static function getDAO($daoClass)
+	public static function getDAO($dao)
 	{
-		if ( !isset(self::$_DAO["$daoClass"]) )
-		{			
-			$daoPath = BASE."/app/model/$daoClass.php";			
-			if (file_exists($daoPath)) {				
-				require_once BASE."/app/model/$daoClass.php";
-				self::$_DAO["$daoClass"] = new $daoClass();
-				return self::$_DAO["$daoClass"];
+        $className = $dao;
+        $p = strpos($dao, '/');
+        if ($p !== false) $className = substr($dao, $p+1); // get filename (classname) only.
+
+		if ( !isset(self::$_DAO[ $className ]) )
+		{
+			$daoPath = BASE."/app/model/$dao.php";
+			if (file_exists($daoPath)) {
+				require_once BASE."/app/model/$dao.php";
+                
+				self::$_DAO[ $className ] = new $className();
+				return self::$_DAO[ $className ];
 			} else {
 				return null;
 			}
 		}
-		return self::$_DAO["$daoClass"];
+		return self::$_DAO[ $dao ];
 	}
-		
-//	public static function getUserDAO()
-//	{
-//		if ( !isset(self::$_userDAO) )
-//		{
-//			self::$_userDAO = new UserDAO();
-//			return self::$_userDAO;
-//		}
-//		return self::$_userDAO;
-//	}
 }
