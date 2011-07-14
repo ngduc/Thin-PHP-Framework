@@ -19,14 +19,21 @@ class MongoDAO
 	protected $dbh;
     protected $colh;
 	protected $collectionName;
+	protected $dateTimeField; // used for sorting, getFirst...
 	
-	public function __construct($collectionName)
+	public function __construct($collectionName, $dateTimeField)
 	{
 		$this->collectionName = $collectionName;
+		$this->dateTimeField = ($dateTimeField != null ? $dateTimeField : null);
         
 		$this->dbh = MongoDBFactory::getDBHandler();
         $this->colh = $this->dbh->$collectionName;
     }
+    
+    public function collection()
+	{
+		return $this->colh;
+	}
 
     public function find($query, $fields)
     {
@@ -41,6 +48,23 @@ class MongoDAO
 		// find everything in the collection
 		return $this->colh->find();
 	}
+	
+	/**
+     * get the first row have $fieldName = $val
+     * requirement: $this->dateTimeField
+     * example: $user = $dao->getFirstByField('userId', $userId);
+     * @return one row or null (if not found)
+     */
+    public function getFirstByField($fieldName, $val)
+    {
+        $cur = $this->find( array($fieldName => $val) )->sort( array($this->dateTimeField => -1) )->limit(1);
+        if ($cur != null && count($cur) == 1) return $cur->getNext();
+        return null;
+    }
+    
+    public function getFirstById($id) {
+    	return $this->getFirstByField( $collectionName.'Id' );
+    }
 
     public function countAll()
 	{
@@ -52,8 +76,16 @@ class MongoDAO
     {
         return $this->colh->findOne( array('_id' => new MongoId($mongoId)) );
     }
+    
+    public function removeByField($fieldName, $val, $options)
+    {
+        if (isset($options)) {
+            return $this->colh->remove( array($fieldName => $val, $options) );
+        }
+        return $this->colh->remove( array($fieldName => $val) );
+    }
 
-    public function removeById($mongoId, $options)
+    public function removeByMongoId($mongoId, $options)
     {
         if (isset($options)) {
             return $this->colh->remove( array('_id' => new MongoId($mongoId)), $options );
@@ -64,5 +96,17 @@ class MongoDAO
     public function insert($doc)
     {
         $this->colh->insert($doc);
+    }
+    
+    /**
+     * update a Document with updated fields $arr (keep other fields), safe = true, multiple = false
+     * example: $mdao->safeUpdateDoc( array('name','newname'), array('uid'=>$uid) );
+     * @return one row or null (if not found)
+     */
+    public function safeUpdateDoc($arr, $arrCond)
+    {
+    	return $this->colh->update( $arrCond,
+    		array('$set' => $arr),
+    		array('safe' => true, 'multiple' => false));
     }
 }
