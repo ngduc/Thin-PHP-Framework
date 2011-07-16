@@ -29,18 +29,56 @@ class MongoDAO
 		$this->dbh = MongoDBFactory::getDBHandler();
         $this->colh = $this->dbh->$collectionName;
     }
-    
+
+    public function getDbHandler()
+	{
+		return $this->dbh;
+	}
+
     public function collection()
 	{
 		return $this->colh;
 	}
 
+    public function mongoEval($code, $args)
+    {
+        return $this->dbh->command(array('$eval' => $code, args => $args));
+    }
+
+    /*
+     * get next value of $counterName
+     * requirement: collection 'counter', initialized with: db.counter.insert({_id: "nodeId", c: 100});
+     * example: nextCounter('nodeId')
+     */
+    public function nextCounter($counterName)
+    {
+        // source: http://bit.ly/qBEmoK
+        // source: http://bit.ly/7w317K
+        // mongo: ret = db.counter.findAndModify({query:{_id:$counterName}, update:{$inc : {c:1}}, "new":true, upsert:true});
+        $ret = $this->dbh->command(array('findandmodify' => 'counter',
+                    'query' => array('_id'=>$counterName),
+                    'update'=> array('$inc'=>array('c'=>1)),
+                    'new'=>true, 'upsert'=>true ));
+        if ($ret != null && $ret['ok'] != null && $ret['ok'] == 1) {
+            return $ret['value']['c'];
+        }
+        return -1; // error
+    }
+
+    /*
+     * find rows with condition ($query), $fields is optional.
+     * example: $users = $mdao->find(array('sex'=>$sex));
+     */
     public function find($query, $fields)
     {
-        if (isset($fields)) {
-            return $this->colh->find($query, $fields);
+        if (isset($query)) {
+            if (isset($fields)) {
+                return $this->colh->find($query, $fields);
+            }
+            return $this->colh->find($query);
+        } else {
+            return $this->colh->find();
         }
-        return $this->colh->find($query);
     }
 
 	public function getAll()

@@ -124,8 +124,11 @@ function explodeGet($delim, $st, $idx)
 	return null;
 }
 
-function dbDateTime() {
-	return date( 'Y-m-d H:i:s' );
+function dbNow() {
+    return date('Y-m-d H:i:s');
+}
+function dbDateTime() {     // deprecated
+	return dbNow();
 }
 
 /**

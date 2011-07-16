@@ -44,6 +44,6 @@ abstract class DAO
 				return null;
 			}
 		}
-		return self::$_DAO[ $dao ];
+		return self::$_DAO[ $className ];
 	}
 }
