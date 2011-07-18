@@ -52,7 +52,8 @@
 	// MongoDB settings
     $mongodb_i = array(
         'host'      => 'localhost',
-        'dbname'    => 'thinphp'
+        'dbname'    => 'thinphp',
+        'replicaSet'	=> ''
     );
 	
 	// Log Info

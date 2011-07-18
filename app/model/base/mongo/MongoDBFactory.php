@@ -29,7 +29,12 @@ abstract class MongoDBFactory
 
 			$ret = null;
 			try {
-				$ret = new Mongo( $mongodb_i['host'] );
+                $replicaSet = trim($mongodb_i['replicaSet']);
+                if (strlen($replicaSet) > 0) {
+                    $ret = new Mongo('mongodb://'.$mongodb_i['host'], array("replicaSet" => $replicaSet) );
+                } else {
+                    $ret = new Mongo('mongodb://'.$mongodb_i['host'] );
+                }
 				$ret = $ret->$dbname; // select a database
 			}
 			catch(Exception $e)
