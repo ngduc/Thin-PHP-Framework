@@ -1,6 +1,8 @@
 <?php
 defined('BASE') or exit('Direct script access is not allowed!');
 require_once BASEEXT.'/authentication/util.php';
+require_once BASE.'/app/model/User.php';
+require_once BASE.'/app/model/base/DAO.php';
 
 class SignIn extends BaseController
 {
@@ -27,14 +29,18 @@ class SignIn extends BaseController
 		parent::processPost();
 			
 		copyArray($_POST, $fv, 'username', 'password');
+    $userDao = DAO::getDAO('UserDAO');
+    $user = $userDao->getFirstByField('username', $fv['username']);
+
 		// #TODO: check Username & Password from DB
-		if ($fv['password'] == 'demo') {	// successfully signed in!					
+		if (md5($fv['password']) == $user['password']) {	// successfully signed in!
 			$ret = session_start();
 			setLoggedInUsername( $fv['username'] );
 			header('Location: '.$_SERVER['HTTP_REFERER']);
 		}
 		else {	
-			$msg = '<font color="red">Invalid Username or Password!</font><p/> <a href="javascript:history.go(-1)">Go back</a>';
+			$msg = '<font color="red">Invalid Username or Password!</font><p/> <a href="'
+        . $_SERVER['HTTP_REFERER'] . '">Go back</a>';
 
 			$v = $this->smarty;
 			$v->assign('title', 'Contact Us');

@@ -46,7 +46,7 @@ class Register extends BaseController
 		$dao = DAO::getDAO('UserDAO');
 		$newUser = new User(
 						array('firstName' => 'First', 'lastName' => 'LastName',
-							'username' => $v['username'], 'email' => $v['email'], 'password' => $v['password'],
+							'username' => $v['username'], 'email' => $v['email'], 'password' => md5($v['password']),
 							'createTime' => dbDateTime()
 						));
 		$ret = $dao->insertInto('firstName, lastName, username, email, password, createTime', $newUser->getFields());
