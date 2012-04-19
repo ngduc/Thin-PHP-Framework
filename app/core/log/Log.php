@@ -34,7 +34,7 @@ class Log
 	}
 	
 	function __destruct() {
-		fclose($this->_fh); // Close when php script ends
+		if ($this->_fh != null) fclose($this->_fh); // Close when php script ends
 	}
 
 	private function openLogFile()
@@ -58,11 +58,13 @@ class Log
 				@unlink($fpath); // no roll
 			}
 		}
-		$this->_fh = fopen($fpath, 'a') or exit("Can't open log file!");		
+		//$this->_fh = fopen($fpath, 'a') or exit("Can't open log file!"); // only fopen file on the 1st writeLogFile().
 	}
 	
   	private function writeLogFile($type, $msg)
   	{
+        if ($this->_fh == null) $this->_fh = fopen(BASE.$this->_filePath, 'a'); // only fopen file on the 1st writeLogFile().
+
   		// #TODO: optimize this
   		$df = Logger::$settings['log_time_format'];  		
   		if (strpos($df, 'ms') !== false) {

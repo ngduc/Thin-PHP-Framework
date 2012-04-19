@@ -150,6 +150,26 @@ class BaseDAO implements IBaseDao
         return null;
     }
 			
+    /**
+     * get rows satisfied condition $cond
+     * example: $disabledUsers = $dao->getWhere('disabled = 1');
+     * @return row(s) or null (if not found)
+     */
+    public function getWhere($cond)
+	{
+		if ($this->dbh == null) return;
+		$sql = 'SELECT * FROM '.$this->table.' WHERE '.$cond;
+
+		$stmt = $this->prepareExecute($sql, null );
+        if ($stmt && $stmt->rowCount() > 0) {
+            $res = $stmt->fetchAll();
+            if ($res != null && count($res) >0) {
+                return $res;
+            }
+        }
+		return null;
+	}
+			
 	public function removeById($id)
 	{
 		$sql = 'DELETE FROM '.$this->table.' WHERE '.$this->table.'Id = :id';
@@ -162,6 +182,14 @@ class BaseDAO implements IBaseDao
 		if ($this->dbh == null) return;
 		$sql = 'DELETE FROM '.$this->table.' WHERE '.$fieldName.' = :val';
         $stmt = $this->prepareExecute($sql, array(':val'=>$val) );
+        return $this->lastError;
+	}
+	
+    public function removeWhere($cond)
+	{
+		if ($this->dbh == null) return;
+		$sql = 'DELETE FROM '.$this->table.' WHERE '.$cond;
+        $stmt = $this->prepareExecute($sql, null );
         return $this->lastError;
 	}
 	
@@ -223,6 +251,24 @@ class BaseDAO implements IBaseDao
             $str .= ($i == 0 ? ":$field" : ", :$field");
         }
         $sql = "INSERT INTO ".$this->table."($strInput) VALUES($str)";
+        $stmt = $this->prepareExecute($sql, $paramArr);
+        return $this->lastError;
+    }
+
+    public function insertUpdate($strInput, $paramArr)
+    {
+        $arr = explode(',', $strInput);
+        $stValues = ''; // build VALUES(...)
+        for ($i = 0, $cnt = count($arr); $i < $cnt; $i++) {
+            $field = trim($arr[$i]);
+            $stValues .= ($i == 0 ? ":$field" : ", :$field");
+        }
+        $stUpdate = ''; // build VALUES(...)
+        for ($i = 0, $cnt = count($arr); $i < $cnt; $i++) {
+            $field = trim($arr[$i]);
+            $stUpdate .= ($i == 0 ? "$field = :$field" : ", $field = :$field" );
+        }
+        $sql = "INSERT INTO ".$this->table."($strInput) VALUES($stValues) ON DUPLICATE KEY UPDATE $stUpdate";
         $stmt = $this->prepareExecute($sql, $paramArr);
         return $this->lastError;
     }

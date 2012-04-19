@@ -23,6 +23,14 @@ function isDemoMode()
 	return false;
 }
 
+// start session with check to avoid E_NOTICE when session already started.
+function startSession() {
+    if(!isset($_SESSION)) {
+        return session_start();
+    }
+    return FALSE; // session started before.
+}
+
 function formatControllerName($name)
 {
 	$name[0] = strtoupper($name[0]); 		// uppercase the first char
@@ -124,11 +132,24 @@ function explodeGet($delim, $st, $idx)
 	return null;
 }
 
+function dbDateTime() {     // deprecated
+	return dbNow();
+}
 function dbNow() {
     return date('Y-m-d H:i:s');
 }
-function dbDateTime() {     // deprecated
-	return dbNow();
+function toMySqlDT($strDateTime) {
+    return date('Y-m-d H:i:s', strtotime($strDateTime));
+}
+function copyFile($file1, $file2) {
+    $fileContent = file_get_contents($file1);
+    if ( !file_exists($file1) ) return false;
+    
+    $desFile = fopen($file2, "w");
+    fwrite($desFile, $fileContent);
+    fclose($desFile);
+    $ret = ($fileContent === FALSE ? false : true);
+    return $ret;
 }
 
 /**
@@ -184,7 +205,11 @@ function copyArray( $sourceArr, &$arr )
 				}
 			}
 			else {
-				$arr[$k1] = $sourceArr[$k2];
+                if (isset($sourceArr[$k2])) {
+                    $arr[$k1] = $sourceArr[$k2];
+                } else {
+                    $arr[$k1] = null;
+                }
 			}
 		}
 	}
@@ -215,11 +240,31 @@ function dateDiff($d1, $d2){
 
 function outputJson($var)
 {
+    header('Content-type: application/json');
+    header('Cache-Control: no-cache, must-revalidate');
+
+    if (substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip')) {
+        // if client supports Accept-encoding: gzip
+        header('Content-Encoding: gzip');
+        ini_set('zlib.output_compression','On');
+        ob_start('ob_gzhandler'); // output json using gzip
+        echo json_encode($var);
+        ob_end_flush();
+    } else {
+        // client doesn't support gzip (for example: nodejs superagent module)
+        echo json_encode($var);
+    }
+}
+
+// $callbackFuncName must match with what in JS $.ajax
+// for example: ...jsonp: false, jsonpCallback: 'jsonpCallback',... ( $callbackFuncName = 'jsonpCallback' )
+function outputJsonp($var, $callbackFuncName)
+{
 	header("Content-type: application/json");
 	header('Cache-Control: no-cache, must-revalidate');
     header("Content-Encoding: gzip");
     // output json using gzip
     ob_start("ob_gzhandler");
-    echo json_encode($var);
+    echo $callbackFuncName.'('.json_encode($var).')';
     ob_end_flush();
 }

@@ -19,6 +19,18 @@ function rtrim(st) {
 	return st.replace(/\s+$/,"");
 }
 
+// example: formatEngDate(new Date(), true) => Tue 12/20/2011
+function formatEngDate(dt, padZeroes, showDayOfWeek) {    // Date dt
+    var dow = '';
+    if (showDayOfWeek) {
+        var dowArr = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        dow = dowArr[dt.getDay()]+' ';
+    }
+    var mm = dt.getMonth()+1; if (padZeroes && mm < 10) mm = '0'+mm;
+    var dd = dt.getDate(); if (padZeroes && dd < 10) dd = '0'+dd;
+    return dow+mm+'/'+dd+'/'+dt.getFullYear();
+}
+
 // dump Array/Hashes/Objects/JSON
 function dump(arr,level) {
 	var dumped_text = "";
@@ -44,4 +56,15 @@ function dump(arr,level) {
 		dumped_text = "===>"+arr+"<===("+typeof(arr)+")";
 	}
 	return dumped_text;
+}
+
+// get current Website URL without params, hash, etc.
+// return: URL without "/" - example: https://mydomain.com
+function getWebsiteURL()
+{
+    var url = window.location.toString()+'/'; // example: http://mydomain.com/params/etc/
+    var idx1 = url.indexOf('/');
+    var idx2 = url.indexOf('/', idx1+3); // find the 3rd forward-slash
+    url = url.substr(0, idx2);
+    return url; // without "/" => http://mydomain.com
 }

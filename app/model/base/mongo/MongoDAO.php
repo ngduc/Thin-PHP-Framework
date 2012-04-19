@@ -21,7 +21,7 @@ class MongoDAO
 	protected $collectionName;
 	protected $dateTimeField; // used for sorting, getFirst...
 	
-	public function __construct($collectionName, $dateTimeField)
+	public function __construct($collectionName, $dateTimeField = null)
 	{
 		$this->collectionName = $collectionName;
 		$this->dateTimeField = ($dateTimeField != null ? $dateTimeField : null);
@@ -69,7 +69,7 @@ class MongoDAO
      * find rows with condition ($query), $fields is optional.
      * example: $users = $mdao->find(array('sex'=>$sex));
      */
-    public function find($query, $fields)
+    public function find($query = null, $fields = null)
     {
         if (isset($query)) {
             if (isset($fields)) {
@@ -115,6 +115,15 @@ class MongoDAO
         return $this->colh->findOne( array('_id' => new MongoId($mongoId)) );
     }
     
+    /**
+     * remove one Document with condition $arrCond, safe = true
+     * example: $mdao->safeRemoveDoc( array('username'=>'user1', 'banned'=>1) );
+     */
+    public function safeRemoveDoc($arrCond)
+    {
+        return $this->colh->remove( $arrCond, array('safe'=>true) );
+    }
+    
     public function removeByField($fieldName, $val, $options)
     {
         if (isset($options)) {
@@ -134,10 +143,11 @@ class MongoDAO
     public function insert($doc)
     {
         $this->colh->insert($doc);
+        //$this->colh->insert($doc, array('safe'=>true)); // safe = ensure data is inserted. (the program will wait for the database response)
     }
     
     /**
-     * update a Document with updated fields $arr (keep other fields), safe = true, multiple = false
+     * update one Document with updated fields $arr (keep other fields), safe = true, multiple = false
      * example: $mdao->safeUpdateDoc( array('name','newname'), array('uid'=>$uid) );
      * @return one row or null (if not found)
      */

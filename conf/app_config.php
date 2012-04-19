@@ -67,3 +67,7 @@
 		'log_pattern'	=> '{time} {name} [{type_padleft}] - {msg}',
 		'log_time_format'	=> 'Y-m-d H:i:s.ms'
 	);
+
+	// ---------------------------------------- YOURAPP CONFIGS GO HERE! --- //	
+	// require_once BASE.'/conf/yourapp_config.php';
+	// require_once BASE.'/conf/yourapp_utils.php';

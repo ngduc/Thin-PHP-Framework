@@ -1,6 +1,11 @@
 	
 // namespace: TPF
 var TPF = {
+    debug: false,
+    log: function(msg)
+    {
+        if (TPF.debug) console.log(msg);
+    },
 	dump: function(obj)
 	{
 	    var out = '';

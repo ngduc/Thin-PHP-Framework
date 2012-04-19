@@ -18,7 +18,7 @@ function genFormToken()
  * Example: genUid(8);
  * @author gord - http://j.mp/4NmRr
  */
-function genUid($len, $charset='a-z0-9')
+function genUid($len, $charset='A-Za-z0-9')
 {
 	global $app_i;
     $hex = md5($app_i['md5salt'] . uniqid('', true));

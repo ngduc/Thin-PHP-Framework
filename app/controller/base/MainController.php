@@ -39,7 +39,7 @@ class MainController extends BaseController
 	{
 		if ($this->_cName == null)
 		{
-            // above parseRoute() failed => run Default Controller (if specified)
+            // above parseRoute() failed (controller not found) => run Default Controller (if specified)
 			global $app_i;
 			$def = trim($app_i['default_controller']);
 			if ($def != '' && file_exists(BASE.$def)) {
