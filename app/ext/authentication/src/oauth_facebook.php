@@ -5,7 +5,7 @@ $oauth = new OAuthFacebook(
 	array(
 		'id' => 'API_ID',
 		'secret' => 'API_SECRET',
-		'callback' => 'http://demo.thinphp.com/app/ext/authentication/oauth/oauth_facebook.php?step=callback',
+		'callback' => 'http://demo.thinphp.com/app/ext/authentication/src/oauth_facebook.php?step=callback',
 		'scope' => 'user_about_me,email'
 	)
 );

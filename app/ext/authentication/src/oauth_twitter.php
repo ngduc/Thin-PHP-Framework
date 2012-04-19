@@ -5,7 +5,7 @@ $oauth = new OAuthTwitter(
 	array(
 		'id' => 'API_ID',
 		'secret' => 'API_KEY',
-		'callback' => 'http://demo.thinphp.com/app/ext/authentication/oauth/oauth_twitter.php?step=callback',
+		'callback' => 'http://demo.thinphp.com/app/ext/authentication/src/oauth_twitter.php?step=callback',
 	)
 );
 

@@ -45,7 +45,7 @@ $oauth = new OAuthGoogle(
 		'secret' => false,
 		'private_key' => $private_key,
 		'public_key' => $public_key,
-		'callback' => 'http://demo.thinphp.com/app/ext/authentication/oauth/oauth_google.php?step=callback',
+		'callback' => 'http://demo.thinphp.com/app/ext/authentication/src/oauth_google.php?step=callback',
 		'scope' => OAuthGoogle::scopes('contacts'),
 	)
 );
