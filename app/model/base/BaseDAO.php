@@ -1,12 +1,6 @@
 <?php
 /**
- * Thin PHP Framework (TPF) 2011 http://thinphp.com
- *
- * Licensed under TPF License at http://bit.ly/TPFLicense
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright 2011, Thin PHP Framework Team
- * @link          http://thinphp.com
+ * Thin PHP Framework (TPF) 2011-2012 http://thinphp.com
  * @package       app.model.base
  * @license       TPF License http://bit.ly/TPFLicense
  */
@@ -240,7 +234,8 @@ class BaseDAO implements IBaseDao
     /**
      * an useful function to execute INSERT INTO query
      * by generating a full query, for example:
-     *   $dao->insertInto('uid, email, password, createDT', $newUser->getFields());
+     *   $dao->insertInto('uid, email, password, createDT', $paramArr);
+     *   note that $paramArr must have the same number of fields & same order.
      */
     public function insertInto($strInput, $paramArr)
     {

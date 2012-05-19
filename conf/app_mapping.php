@@ -1,16 +1,13 @@
 <?php
-/** 
- * Thin PHP Framework (TPF) 2011 http://thinphp.com
- *
- * Licensed under TPF License at http://bit.ly/TPFLicense
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright 2011, Thin PHP Framework Team
- * @link          http://thinphp.com
+/**
+ * Thin PHP Framework (TPF) 2011-2012 http://thinphp.com
  * @package       app.conf
  * @license       TPF License http://bit.ly/TPFLicense
  */
 
+	// Note: URI is automatically mapped to the Controller with the same name. (/news => News.php)
+	// Mapping is only needed when you want to map an URI to a different Controller.
+	
 	// Custom URI Mapping - start with a '/' & no ending '/'
 	// 		URI => controllerPath (relative from /app/), controllerName, [parameters]
 	// 		Example:
