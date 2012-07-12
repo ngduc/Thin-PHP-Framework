@@ -1,6 +1,8 @@
 <?php
 require('class_oauthgoogle.php');
 
+// --- PASTE YOUR KEYS HERE --- //
+
 $private_key = <<<EOF
 -----BEGIN RSA PRIVATE KEY-----
 MIICXAIBAAKBgQCxwlbRW6aox6/vJMBNx5rlGIglqkquqW6sY1hS5YWbnY02KZr1
@@ -59,4 +61,3 @@ function process($oauth)
 }
 
 require('oauth_inc.php');
-?>
