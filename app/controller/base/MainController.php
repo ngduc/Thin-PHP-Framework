@@ -25,6 +25,12 @@ class MainController extends BaseController
 			$this->_cParams = null;
 		} else {
 			// get ControllerName and its Parameters from URI
+            $questionMark = strpos($_SERVER['REQUEST_URI'], '?');
+            if ($questionMark !== false){
+                $urlQueryStr = '/'.substr($_SERVER['REQUEST_URI'], strpos($_SERVER['REQUEST_URI'], '?')+1);
+                $urlQueryStr = str_replace('&', '/', $urlQueryStr);
+                $route = $route . $urlQueryStr;
+            }
 			list($this->_cPath, $this->_cName, $this->_cParams) = BaseController::parseRoute($route);
 		}
 	}

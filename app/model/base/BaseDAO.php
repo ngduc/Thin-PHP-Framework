@@ -234,8 +234,7 @@ class BaseDAO implements IBaseDao
     /**
      * an useful function to execute INSERT INTO query
      * by generating a full query, for example:
-     *   $dao->insertInto('uid, email, password, createDT', $paramArr);
-     *   note that $paramArr must have the same number of fields & same order.
+     *   $dao->insertInto('uid, email, password, createDT', $newUser->getFields());
      */
     public function insertInto($strInput, $paramArr)
     {

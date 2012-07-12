@@ -19,6 +19,35 @@ function rtrim(st) {
 	return st.replace(/\s+$/,"");
 }
 
+// require: jQuery
+function ajaxPost(url, data, successCback){
+    $.ajax({
+        async	: false,
+        type	: 'post',
+        url		: url,
+        dataType: 'json', data: data,
+        success: successCback
+    });
+}
+
+function postToValidate(form, url){
+    var isOK = false;
+    var formId = '#'+form.id;
+    ajaxPost(url, $(formId).serialize(),
+        function (errors) {
+            if (TPF.countJSON(errors) > 0) {
+                TPF.setFormError(formId, '', ''); // clear
+                for (var i = 0; i < TPF.countJSON(errors); i++) {
+                    TPF.setFormError(formId, 'form', '<b style="color: red">'+errors[i]['msg']+'</b>');
+                    break;
+                }
+                TPF.focusField(formId, errors[0]['focus']); // focus 1st error field
+            }
+            else isOK = true;
+        });
+    return isOK;
+}
+
 // example: formatEngDate(new Date(), true) => Tue 12/20/2011
 function formatEngDate(dt, padZeroes, showDayOfWeek) {    // Date dt
     var dow = '';
@@ -67,4 +96,31 @@ function getWebsiteURL()
     var idx2 = url.indexOf('/', idx1+3); // find the 3rd forward-slash
     url = url.substr(0, idx2);
     return url; // without "/" => http://mydomain.com
+}
+// Google Analytics Helper Functions
+// require: _gaq, jQuery
+// param: val: must be a number
+function _gaTrack(cat, action, label, val){
+    if (typeof _gaq !== 'undefined'){
+        if (typeof val !== 'undefined'){
+            _gaq.push(['_trackEvent', cat, action, label, val]);
+        } else {
+            _gaq.push(['_trackEvent', cat, action, label]);
+        }
+    }
+}
+// track clicks (same page ajax links) with "data-ckt" attribute (which data-ckt="elementId")
+// to track outbound href links, "data-ckt" must start with an underscore "_"
+function _gaClickTracker(cat, action){
+    $('*[data-ckt]').each(function(idx, el){
+        $(el).click(function(){
+            var label = $(el).data('ckt');
+            _gaTrack(cat, action, label);
+            if (label.indexOf('_') == 0){
+                // see: http://support.google.com/googleanalytics/bin/answer.py?hl=en&answer=55527
+                setTimeout('document.location = "' + $(el).attr('href') + '"', 100);
+                return false;
+            }
+        })
+    });
 }

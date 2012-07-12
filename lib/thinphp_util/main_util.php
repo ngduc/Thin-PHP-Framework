@@ -155,6 +155,7 @@ function copyFile($file1, $file2) {
 /**
  * Copy (and transform) array items from $sourceArr to $arr
  * Example: copyArray($_POST, $v, '*'); // copy all fields from submitted Form.
+ * Example: copyArray($_POST, $v, 'field1', 'field2'...); // copy some fields.
  */
 function copyArray( $sourceArr, &$arr )
 {
@@ -246,7 +247,7 @@ function outputJson($var)
     if (substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip')) {
         // if client supports Accept-encoding: gzip
         header('Content-Encoding: gzip');
-        ini_set('zlib.output_compression','On');
+        ini_set('zlib.output_compression','Off'); // don't turn On, or get Conflict Warning (php log file) with ob_gzhandler
         ob_start('ob_gzhandler'); // output json using gzip
         echo json_encode($var);
         ob_end_flush();

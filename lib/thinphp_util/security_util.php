@@ -7,18 +7,27 @@ function isFlooding($lastRequestTime)
 	return false;
 }
 
-function genFormToken()
-{
+function genFormToken($tokenName = ''){
 	global $app_i;
-	return md5(uniqid(rand()).$app_i['md5salt']); 
+    startSession();
+	$token = md5(uniqid(rand()).$app_i['md5salt']);
+    if (strlen($tokenName) > 0) $_SESSION[$tokenName] = $token;
+    return $token;
+}
+function checkFormToken($tokenName, $formTokenValue){
+    startSession();
+    if ($formTokenValue != $_SESSION[$tokenName]){
+        exit('ERROR: invalid form token! Do not submit your form twice.');
+    }
+    unset($_SESSION[$tokenName]);
 }
 
 /**
- * Generate random unique id
+ * Generate random unique id. Minimum length: 3
  * Example: genUid(8);
  * @author gord - http://j.mp/4NmRr
  */
-function genUid($len, $charset='A-Za-z0-9')
+function genUid($len, $charset='0-9a-zA-Z')
 {
 	global $app_i;
     $hex = md5($app_i['md5salt'] . uniqid('', true));
