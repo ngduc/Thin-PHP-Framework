@@ -3,8 +3,8 @@ require('class_oauthtwitter.php');
 
 $oauth = new OAuthTwitter(
 	array(
-		'id' => 'API_ID',
-		'secret' => 'API_KEY',
+		'id' => 'YOUR_API_ID',
+		'secret' => 'YOUR_API_KEY',
 		'callback' => 'http://demo.thinphp.com/app/ext/authentication/src/oauth_twitter.php?step=callback',
 	)
 );
@@ -17,4 +17,3 @@ function process($oauth)
 }
 
 require('oauth_inc.php');
-?>
