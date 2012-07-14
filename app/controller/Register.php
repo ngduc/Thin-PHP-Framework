@@ -7,18 +7,12 @@ class Register extends BaseController
 {
 	public function validate($retType)
 	{
-		parent::validate($retType);
 		copyArray($_POST, $v, '*');
+		$rets = parent::validate($retType, $v);
 
-		if (trim($v['username']) == '') {
-			$rets[] = array('msg' => 'Please enter your username!', 'field' => 'username', 'focus' => 'username');
-		}
 		if (filter_var($v['email'], FILTER_VALIDATE_EMAIL) === FALSE) {
     		$rets[] = array('msg' => 'Invalid email address!', 'field' => 'email', 'focus' => 'email');
         }
-        if ($v['password'] == '') {
-			$rets[] = array('msg' => 'Please enter your password!', 'field' => 'password', 'focus' => 'password');
-		}
 		if (strlen($v['password']) < 3) {
 			$rets[] = array('msg' => 'Password must have at least 3 chars!', 'field' => 'password', 'focus' => 'password');
 		}
@@ -32,10 +26,9 @@ class Register extends BaseController
 	
 	public function processPost()
 	{
-		parent::processPost();
-		
 		// #TODO: User submitted data. Save it to DB, email, etc.
-		copyArray($_POST, $v, '*');
+		copyArray($_POST, $v, '*');		
+		parent::processPost($v);
 
 		$dao = DAO::getDAO('UserDAO');
 		$newUser = new User(
@@ -62,7 +55,7 @@ class Register extends BaseController
 		// show Register Form
 		$v = $this->smarty;
 		$v->assign('title', 'Register');
-		$v->assign('inc_content', v('register.html'));
+		$v->assign('inc_content', v('register.html'));		
 
 		$this->display($v, v('index.html'));
 	}

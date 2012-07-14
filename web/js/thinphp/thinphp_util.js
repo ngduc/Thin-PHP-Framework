@@ -38,6 +38,7 @@ function postToValidate(form, url){
             if (TPF.countJSON(errors) > 0) {
                 TPF.setFormError(formId, '', ''); // clear
                 for (var i = 0; i < TPF.countJSON(errors); i++) {                	
+                	if (TPF.hasFormError(formId, errors[i]['field'])) continue;
                     TPF.setFormError(formId, errors[i]['field'], '<b style="color: red">'+errors[i]['msg']+'</b>');                    
                 }
                 if (errors[0]['focus']) TPF.focusField(formId, errors[0]['focus']); // focus 1st error field

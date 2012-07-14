@@ -23,25 +23,18 @@ class ContactUs extends BaseController
         	$rets[] = array('msg' => 'The reCAPTCHA wasn\'t entered correctly!', 'field' => 'recaptcha');
         }
 
-		if (isset($rets)) {
-	        if (isset($retType) && $retType == RT_JSON) {
-	        	return outputJson($rets);
-	        } else {
-	        	return $rets;
-	        }
-	    }
+		if (isset($retType) && $retType == RT_JSON && isset($rets)) return outputJson($rets);
+        return $rets;
 	}
 	
 	public function processPost()
 	{
 		parent::processPost();
-		
-		// #TODO: User submitted data. Save it to DB, email, etc.		
-		copyArray($_POST, $fv, 'ftoken', 'name', 'email', 'optin|checkbox', 'msg');
-
 		session_start();
-		if($fv['ftoken'] != $_SESSION['ftoken']) die('Error: invalid form token! Do not submit your form twice.');
-		unset($_SESSION['ftoken']);
+		// #TODO: User submitted data. Save it to DB, email, etc.
+		copyArray($_POST, $fv, 'ftoken', 'name', 'email', 'optin|checkbox', 'msg');
+		
+		checkFormToken('ftoken_contact_us', $fv['ftoken']);		
 
 		$v = $this->smarty;
 		$v->assign('title', 'Thank you!');
@@ -49,7 +42,7 @@ class ContactUs extends BaseController
 				'name' => sanitizeString($fv['name']),
 				'email' => sanitizeEmail($fv['email']),
 				'optin' => $fv['optin']
-			));
+		));
 		$v->assign('inc_content', v('contact_us_done.html'));
 		$this->display($v, v('index.html'));
 	}
@@ -57,16 +50,13 @@ class ContactUs extends BaseController
 	public function view()
 	{
 		if ($this->isValidating()) return $this->validate(RT_JSON);
-		if ($this->isPosting()) return $this->processPost();
-		
-		// show Contact Us Form
+		if ($this->isPosting()) return $this->processPost();		
 		session_start();
-		$_SESSION['ftoken'] = genFormToken();
 		
 		$v = $this->smarty;
 		$v->assign('title', 'Contact Us');
 		$v->assign('inc_content', v('contact_us.html'));
-		$v->assign('ftoken', $_SESSION['ftoken']);
+		$v->assign('ftoken', genFormToken('ftoken_contact_us'));
 		$this->display($v, v('index.html'));
 	}
 }

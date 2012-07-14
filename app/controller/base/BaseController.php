@@ -56,12 +56,12 @@ abstract class BaseController
 		}
 		
 		// call Controller
-		$this->params = $params;		
+		$this->params = $params;
 		$this->view();
 	}
 	
 	public function isValidating()
-	{
+	{		
 		if (isset($this->params[0]) && trim($this->params[0])=='validate') return true;
 		return false;
 	}
@@ -82,15 +82,37 @@ abstract class BaseController
 
 	// ================================ TO BE IMPLEMENTED IN EXTENDING CLASS //
 	
-	public function validate($retType)
+	public function validate($retType, $formData=null)
 	{
 		SysCache::adjustLastRequestTime();
+        return $this->checkRequireFields($formData);
 	}
+
+    public function checkRequireFields($formData)
+    {
+        $requireFields = $formData['require'];
+        if (strlen($requireFields) > 0){
+            $arr = explode(',', $requireFields);
+            for($i=0; $i < count($arr); $i++){
+                $reqField = $arr[$i];
+                $reqFieldName = $reqField;
+                if (strpos($reqField, '|') >0){
+                    $tmp = explode('|', $reqField);
+                    $reqField = $tmp[0];
+                    $reqFieldName = $tmp[1];
+                }
+                if (trim($formData[ $reqField ]) == '') {
+                    $rets[] = array('msg' => "Please enter $reqFieldName", 'field' => $reqField, 'focus' => $reqField);
+                }
+            }
+        }
+        return $rets;
+    }
 	
-	public function processPost()
+	public function processPost($formData=null)
 	{
 		// validate again before processing
-		$rets = $this->validate(RT_NONE);
+		$rets = $this->validate(RT_NONE, $formData);
 		if (isset($rets) && $rets != null) die('Error: invalid data! ');
 	}
 	

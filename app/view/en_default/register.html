@@ -8,20 +8,21 @@
 <p><b>This demonstrates how Controller, Form & Validation work.</b><br/>Feel free to input anything and submit the form for testing.</p>
 
 <form id="rform" name="rform" action="/register" method="post" onsubmit="return postToValidate(this, '/register/validate')">
-<div class="dataForm">
-	<span>Username</span>
-		<input name="username" type="text"/><span class="fmsg"></span>
-	<span>Email</span>	
-		<input name="email" type="text"/><span class="fmsg"></span>
-	<span>Password</span>	
-		<input name="password" type="password"/><span class="fmsg"></span>
-	<span>Confirm Password</span>
-		<input name="cpassword" type="password"/><span class="fmsg"></span>
-	
-	<input id="registerSubmit" name="registerSubmit" type="submit" value="Submit"><span></span>
-</div>
+	<input type="hidden" name="require" value="username,email,password,cpassword|Confirm Password">
+	<div class="dataForm">
+		<span>Username</span>
+			<input name="username" id="username" type="text"/><span class="fmsg"></span>
+		<span>Email</span>	
+			<input name="email" id="email" type="text"/><span class="fmsg"></span>
+		<span>Password</span>	
+			<input name="password" id="password" type="password"/><span class="fmsg"></span>
+		<span>Confirm Password</span>
+			<input name="cpassword" id="cpassword" type="password"/><span class="fmsg"></span>
+		
+		<input id="registerSubmit" name="registerSubmit" type="submit" value="Submit"><span></span>
+	</div>
 </form>
-or click here to see <a href="/user-list">Registered Users</a>
+or click here to see <a href="/user-list">User List</a>
 
 <script type="text/javascript">
 	TPF.focusField('#rform', 'username');

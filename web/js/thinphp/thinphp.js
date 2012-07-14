@@ -94,8 +94,14 @@ var TPF = {
 			$(formId+' :input ~ span.fmsg').hide();
 			return;
 		}
-		$(formId+' :input[name='+fieldName+'] ~ span.fmsg').html('&nbsp;'+errMsg+'&nbsp;');
-		$(formId+' :input[name='+fieldName+'] ~ span.fmsg').fadeIn('slow');
+		$(formId+' :input[name='+fieldName+'] ~ span.fmsg').first().html('&nbsp;'+errMsg+'&nbsp;');
+		$(formId+' :input[name='+fieldName+'] ~ span.fmsg').first().fadeIn('slow');
+	},
+	hasFormError: function(formId, fieldName) // check if a field already had error?
+	{
+		if (fieldName === undefined) return false;
+		if ($(formId+' :input[name='+fieldName+'] ~ span.fmsg').first().html().length > 0) return true;
+		return false;
 	},
 	focusField: function(formId, f) {
 		setTimeout("TPF.focusFieldHelper('"+formId+"', '"+f+"')", 200);	
