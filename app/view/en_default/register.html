@@ -1,48 +1,28 @@
-				<h2>Register</h2>
-				<p><b>This demonstrates how Controller & Form work.</b><br/>Feel free to input anything and submit the form for testing.</p>
-<script type="text/javascript">
-function validateRegister(form) {	
-	// make ajax call to validate() function in the Controller
-	var isOK = false;
-	var formId = '#' + form.id;
-	$.ajax({
-		async	: false,
-		type	: 'post',
-		url		: '/register/validate',
-		dataType: 'json', data: $(formId).serialize(),
-		success: function (rets) {
-			var countRets = TPF.countJSON(rets);
-			if (countRets > 0) {
-				TPF.setFormError(formId, '', ''); // clear errors
-				for (var i = 0; i < countRets; i++) {
-					var err = rets[i];
-					TPF.setFormError(formId, err['field'], err['msg']); // set err Msg to <span class="fmsg">
-					if (i == 0) TPF.focusField(formId, err['field']); // focus the first error field
-				}
-			}
-			else {
-				isOK = true;
-			}
-		}
-	});
-	return isOK;
+<style>
+#rform input[type=text], #rform input[type=password]{
+	width: 200px;
 }
-</script>
-<form id="rform" name="rform" action="/register" method="post" onsubmit="return validateRegister(this)">
+</style>
 
+<h2>User Registration</h2>
+<p><b>This demonstrates how Controller, Form & Validation work.</b><br/>Feel free to input anything and submit the form for testing.</p>
+
+<form id="rform" name="rform" action="/register" method="post" onsubmit="return postToValidate(this, '/register/validate')">
 <div class="dataForm">
 	<span>Username</span>
-	<input name="username" type="text" style="width: 150px" /><span class="fmsg"></span>
+		<input name="username" type="text"/><span class="fmsg"></span>
 	<span>Email</span>	
-	<input name="email" type="text" /><span class="fmsg"></span>
+		<input name="email" type="text"/><span class="fmsg"></span>
 	<span>Password</span>	
-	<input name="password" type="password" style="width: 150px" /><span class="fmsg"></span>
+		<input name="password" type="password"/><span class="fmsg"></span>
 	<span>Confirm Password</span>
-	<input name="cpassword" type="password" style="width: 150px" /><span class="fmsg"></span>
+		<input name="cpassword" type="password"/><span class="fmsg"></span>
 	
 	<input id="registerSubmit" name="registerSubmit" type="submit" value="Submit"><span></span>
 </div>
 </form>
+or click here to see <a href="/user-list">Registered Users</a>
+
 <script type="text/javascript">
 	TPF.focusField('#rform', 'username');
 </script>

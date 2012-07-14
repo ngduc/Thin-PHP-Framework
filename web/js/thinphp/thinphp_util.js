@@ -32,16 +32,15 @@ function ajaxPost(url, data, successCback){
 
 function postToValidate(form, url){
     var isOK = false;
-    var formId = '#'+form.id;
+    var formId = '#'+form.id;    
     ajaxPost(url, $(formId).serialize(),
-        function (errors) {
+        function (errors) {        	
             if (TPF.countJSON(errors) > 0) {
                 TPF.setFormError(formId, '', ''); // clear
-                for (var i = 0; i < TPF.countJSON(errors); i++) {
-                    TPF.setFormError(formId, 'form', '<b style="color: red">'+errors[i]['msg']+'</b>');
-                    break;
+                for (var i = 0; i < TPF.countJSON(errors); i++) {                	
+                    TPF.setFormError(formId, errors[i]['field'], '<b style="color: red">'+errors[i]['msg']+'</b>');                    
                 }
-                TPF.focusField(formId, errors[0]['focus']); // focus 1st error field
+                if (errors[0]['focus']) TPF.focusField(formId, errors[0]['focus']); // focus 1st error field
             }
             else isOK = true;
         });
