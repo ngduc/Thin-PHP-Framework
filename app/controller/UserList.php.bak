@@ -28,7 +28,7 @@ class UserList extends BaseController
                     $dao->execute("DELETE FROM user");
                     $dao->execute("vacuum");
             }
-			$err = $dao->insertInto("firstName, lastName, username, email, createTime", $newUser->getFields());			
+			$dao->insertInto("firstName, lastName, username, email, createTime", $newUser->getFields());
 		}
 		
 		$users = $dao->getAll();

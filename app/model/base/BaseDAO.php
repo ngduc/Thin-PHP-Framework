@@ -77,7 +77,7 @@ class BaseDAO implements IBaseDao
 		$sql = 'SELECT * FROM ' . $this->table . $strWhere . $strOrderBy;
 
         $stmt = $this->prepareExecute($sql, null );
-        if ($stmt && $stmt->rowCount() > 0) {
+        if ($stmt) {
 			return $stmt->fetchAll();
 		}
 		return null;

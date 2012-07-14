@@ -25,6 +25,7 @@ function setLoggedInUsername($username) {
  */
 function logoutUser() {
 	global $ext_i;
+	var_dump($ext_i);die();
 	$ssv = $ext_i['ext_auth_login_username_session'];	
-	unset($_SESSION[$ssv]);
+	if (isset($_SESSION[$ssv]) unset($_SESSION[$ssv]);
 }
