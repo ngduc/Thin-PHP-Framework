@@ -41,7 +41,7 @@ class BlogComment extends BaseController
 			
 			$dbNow = date( 'Y-m-d H:i:s' );
 			$newComment = new Comment(
-								array('itemId' => $fv['itemId'],
+								array('type' => 1, 'itemId' => $fv['itemId'],
 										'replyToId' => $fv['replyToId'],
 										'authorName' => $fv['name'],
 										'authorEmail' => $fv['email'],
@@ -49,8 +49,7 @@ class BlogComment extends BaseController
 										'weight' => '0',
 										'createTime' => $dbNow)
 								);
-			$dao->execute("INSERT INTO comment(type, itemId, replyToId, weight, authorName, authorEmail, content, createTime)
-						VALUES(1, :itemId, :replyToId, :weight, :authorName, :authorEmail, :content, :createTime)", $newComment->getFields());
+			$err = $dao->insertInto("type, itemId, replyToId, weight, authorName, authorEmail, content, createTime", $newComment->getFields());		
 			
 			// update new Comment's Weight
 			$weight = 0;			
