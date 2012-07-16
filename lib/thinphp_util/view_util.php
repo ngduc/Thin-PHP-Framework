@@ -55,14 +55,14 @@ function t($textKey)
 	return '';
 }
 
-function v($smartyView)
+function v($viewFile)
 {
 	global $app_i;	
 	if (isset($_COOKIE['cke_view']) && $_COOKIE['cke_view'] !='')
 	{
 		$cke_view = $_COOKIE['cke_view'];
-		$newSmartyView = $cke_view.'/'.$smartyView;
-		if (file_exists(BASEVIEW.'/'.$newSmartyView)) return $newSmartyView;
+		$newPath = $cke_view.'/'.$viewFile;
+		if (file_exists(BASEVIEW.'/'.$newPath)) return $newPath;
 	}
-	return $app_i['default_view'].'/'.$smartyView;
+	return $app_i['default_view'].'/'.$viewFile;
 }

@@ -20,7 +20,7 @@ Thin PHP Framework is suitable for web developers who want a robust framework to
 
 - Data-access layer: PDO (Mysql, SQLite...)
 - MongoDB
-- View layer (Template engine): Smarty - you can easily change to use your favorite engine
+- View layer (Template engine): support Smarty, however, you can use any Template Engine
 - Caching: APC, Memcache
 - Apache, nginx
 - jQuery

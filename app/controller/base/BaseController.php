@@ -15,13 +15,15 @@ abstract class BaseController
 
 	function __construct()
 	{
-		$this->smarty = new Smarty();
+		if (class_exists('Smarty')){
+			$this->smarty = new Smarty();
 
-		// configure Smarty with Relative Paths (from '/dispatcher.php')		
-		$this->smarty->setTemplateDir('app/view');
-		$this->smarty->setConfigDir  ('app/conf/smarty_config');
-		$this->smarty->setCacheDir   ('app/appdata/smarty_cache'); // writable
-		$this->smarty->setCompileDir ('app/appdata/smarty_compiled'); // writable
+			// configure Smarty with Relative Paths (from '/dispatcher.php')		
+			$this->smarty->setTemplateDir('app/view');
+			$this->smarty->setConfigDir  ('app/conf/smarty_config');
+			$this->smarty->setCacheDir   ('app/appdata/smarty_cache'); // writable
+			$this->smarty->setCompileDir ('app/appdata/smarty_compiled'); // writable
+		}
 	}
 	
 	// ================================ PRIVATE //
@@ -74,7 +76,7 @@ abstract class BaseController
 	
 	public function display($v, $viewfile)
 	{
-		$this->processSmartyView($v);
+		if (class_exists('Smarty')) $this->processSmartyView($v);
 
 		// customize your view here...
 		$v->display($viewfile);
