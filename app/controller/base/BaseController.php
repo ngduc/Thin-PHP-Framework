@@ -74,12 +74,36 @@ abstract class BaseController
 		return false;
 	}
 	
-	public function display($v, $viewfile)
+	public function processTemplate($filePath, $replaceArr = array(), $vars = array(), $include_globals = true)
 	{
-		if (class_exists('Smarty')) $this->processSmartyView($v);
-
-		// customize your view here...
-		$v->display($viewfile);
+		$ret = '';
+		extract($vars);
+		if ($include_globals) extract($GLOBALS, EXTR_SKIP);
+		
+		ob_start();
+		require(BASEVIEW.'/'.$filePath);
+		$ret = ob_get_contents();
+		ob_end_clean();
+		
+		foreach ($replaceArr as $key => $val) {
+			$incPath = BASEVIEW.'/'.$val;
+			ob_start();
+			require($incPath);
+			$inc = ob_get_contents();
+			ob_end_clean();
+			$ret = str_replace($key, $inc, $ret);
+		}
+		return $ret;
+	}
+	
+	public function display($v, $viewfile='')
+	{	
+		if (class_exists('Smarty')){
+			$this->processSmartyView($v);			
+			$v->display($viewfile);
+		} else {
+			echo $v;
+		}
 	}
 
 	// ================================ TO BE IMPLEMENTED IN EXTENDING CLASS //
