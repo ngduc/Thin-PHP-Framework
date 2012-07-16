@@ -44,29 +44,25 @@ Please visit the website for more information and documentation:
 
 http://thinphp.com
 
-http://demo.thinphp.com
+This source code is deployed live as a demo at: http://demo.thinphp.com
 
-System Requirements
--------------------
-Thin PHP Framework requires PHP 5.2 or later. PHP 5.4+ is recommended.
+Download
+--------
+System Requirements: TPF requires PHP 5.2 or later. PHP 5.4+ is recommended.
+
+http://thinphp.com/download
 
 Documentation:
 --------------
 http://thinphp.com/docs
 
 Change Log:
------------
+
 http://bit.ly/thinphp-change-log
 
 License
 -------
 http://bit.ly/TPFLicense
-
-Install
--------
-http://thinphp.com/docs
-
-This source code is deployed live as a demo at: http://demo.thinphp.com
 
 Contact Us
 ----------
