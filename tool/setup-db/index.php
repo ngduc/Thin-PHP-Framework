@@ -14,8 +14,8 @@
 	$dbh = connect_DB() or die('Cannot connect to DB!');
 	
 	$dbdriver = '';
-	if ($dbenv[dbdriver] == 1) $dbdriver = 'SQLITE';
-	if ($dbenv[dbdriver] == 2) $dbdriver = 'MYSQL';
+	if ($dbenv['dbdriver'] == 1) $dbdriver = 'SQLITE';
+	if ($dbenv['dbdriver'] == 2) $dbdriver = 'MYSQL';
 	
 	$html=<<<HTML
 		<div id="info">
